@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+	<!-- 引入外部文件 -->
+	<properties resource="db.properties" />
+	<context id="DB2Tables" targetRuntime="MyBatis3">
+		<!-- suppressAllComments设置为true时，生成得到文件不会加注释 -->
+		<commentGenerator>
+			<property name="suppressAllComments" value="true" />
+		</commentGenerator>
+		<!-- 配置数据库连接信息 -->
+		<jdbcConnection 
+			driverClass="${jdbc.driverClass}"
+			connectionURL="${jdbc.jdbcUrl}"
+			userId="${jdbc.user}"
+			password="${jdbc.password}">
+		</jdbcConnection>
+
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+
+		<!-- 指定JavaBean生产位置 -->
+		<javaModelGenerator targetPackage="com.OoJou.pojo"
+			targetProject=".\src\main\java">
+			<property name="enableSubPackages" value="true" />
+			<property name="trimStrings" value="true" />
+		</javaModelGenerator>
+
+		<!-- 指定sql映射文件的生成位置,应该都是些.xml文件 -->
+		<sqlMapGenerator targetPackage="mapper" targetProject=".\src\main\resources">
+			<property name="enableSubPackages" value="true" />
+		</sqlMapGenerator>
+
+		<!-- 指定mapper(原dao)接口生成位置，mapper接口dao生成位置.java文件 -->
+		<javaClientGenerator type="XMLMAPPER"
+			targetPackage="com.OoJou.dao" targetProject=".\src\main\java">
+			<property name="enableSubPackages" value="true" />
+		</javaClientGenerator>
+
+		<!-- table指定每个表的生产策略 -->
+		<!-- 用户表user 分类表category 产品表product 购物车cart 购物车明细cart_item 
+		支付信息pay_info 订单表order 订单明细表order_item 收货地址shipping
+		 -->
+		<!-- tableName是表名，domainObjectName指定类名即bean的名称，enablexxxxx是与Example类相关的配置 -->
+   		<table tableName="ddoa_user" domainObjectName="User" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+        <table tableName="ddoa_task" domainObjectName="Task" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+        	<columnOverride column ="task_details" jdbcType="VARCHAR"> </columnOverride>
+        </table>
+        <table tableName="ddoa_notice" domainObjectName="Notice" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+        	<columnOverride column ="notice_details" jdbcType="VARCHAR"> </columnOverride>
+        </table>
+        <table tableName="ddoa_department" domainObjectName="Department" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+        <table tableName="ddoa_dictionary" domainObjectName="Dictionary" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+        <table tableName="ddoa_file" domainObjectName="File" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+			<columnOverride column ="file_source" jdbcType="VARCHAR"> </columnOverride>  
+			<columnOverride column ="file_image" jdbcType="VARCHAR"> </columnOverride>      
+        </table>
+	</context>
+</generatorConfiguration>
