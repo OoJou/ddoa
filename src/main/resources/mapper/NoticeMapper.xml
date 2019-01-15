@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.OoJou.dao.NoticeMapper">
+  <resultMap id="BaseResultMap" type="com.OoJou.pojo.Notice">
+    <id column="notice_id" jdbcType="INTEGER" property="noticeId" />
+    <result column="notice_title" jdbcType="VARCHAR" property="noticeTitle" />
+    <result column="notice_pubilsher" jdbcType="VARCHAR" property="noticePubilsher" />
+    <result column="notice_details" jdbcType="VARCHAR" property="noticeDetails" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    notice_id, notice_title, notice_pubilsher, notice_details, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ddoa_notice
+    where notice_id = #{noticeId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ddoa_notice
+    where notice_id = #{noticeId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.OoJou.pojo.Notice">
+    insert into ddoa_notice (notice_id, notice_title, notice_pubilsher, 
+      notice_details, create_time, update_time
+      )
+    values (#{noticeId,jdbcType=INTEGER}, #{noticeTitle,jdbcType=VARCHAR}, #{noticePubilsher,jdbcType=VARCHAR}, 
+      #{noticeDetails,jdbcType=VARCHAR}, now(), now()
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.OoJou.pojo.Notice">
+    insert into ddoa_notice
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="noticeId != null">
+        notice_id,
+      </if>
+      <if test="noticeTitle != null">
+        notice_title,
+      </if>
+      <if test="noticePubilsher != null">
+        notice_pubilsher,
+      </if>
+      <if test="noticeDetails != null">
+        notice_details,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="noticeId != null">
+        #{noticeId,jdbcType=INTEGER},
+      </if>
+      <if test="noticeTitle != null">
+        #{noticeTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="noticePubilsher != null">
+        #{noticePubilsher,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeDetails != null">
+        #{noticeDetails,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        now(),
+      </if>
+      <if test="updateTime != null">
+        now(),
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.OoJou.pojo.Notice">
+    update ddoa_notice
+    <set>
+      <if test="noticeTitle != null">
+        notice_title = #{noticeTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="noticePubilsher != null">
+        notice_pubilsher = #{noticePubilsher,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeDetails != null">
+        notice_details = #{noticeDetails,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = now(),
+      </if>
+    </set>
+    where notice_id = #{noticeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.OoJou.pojo.Notice">
+    update ddoa_notice
+    set notice_title = #{noticeTitle,jdbcType=VARCHAR},
+      notice_pubilsher = #{noticePubilsher,jdbcType=VARCHAR},
+      notice_details = #{noticeDetails,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = now()
+    where notice_id = #{noticeId,jdbcType=INTEGER}
+  </update>
+</mapper>

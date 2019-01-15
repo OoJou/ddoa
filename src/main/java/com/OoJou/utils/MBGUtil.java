@@ -9,6 +9,7 @@ import org.mybatis.generator.config.Configuration;
 import org.mybatis.generator.config.xml.ConfigurationParser;
 import org.mybatis.generator.internal.DefaultShellCallback;
 
+
 public class MBGUtil {
 	/*
 	 * 逆向工程生成工具

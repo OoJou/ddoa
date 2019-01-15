@@ -1,0 +1,80 @@
+<?xml version="1.0" ?>
+<configuration scan="true" scanPeriod="60 seconds"
+	debug="false">
+	<!--定义日志文件的存储地址 勿在 LogBack 的配置中使用相对路径 -->
+	<property name="LOG_HOME" value="/ddoa/log" />
+
+	<!-- 控制台输出 -->
+	<appender name="console"
+		class="ch.qos.logback.core.ConsoleAppender">
+		<!--格式化输出 -->
+		<encoder>
+			<!--%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 -->
+			<!-- %d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n -->
+			<pattern>[%d{HH:mm:ss.SSS}][%p][%c{40}][%t] %m%n</pattern>
+		</encoder>
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>DEBUG</level>
+		</filter>
+	</appender>
+
+
+	<!-- 回滚 -->
+	<appender name="ddoafile"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!--日志文件输出的文件名 -->
+			<fileNamePattern>${LOG_HOME}/ddoa.log.%d{yyyy-MM-dd}.log
+			</fileNamePattern>
+			<!--日志文件保留天数 -->
+			<maxHistory>10</maxHistory>
+		</rollingPolicy>
+		<!--格式化输出 -->
+		<encoder>
+			<pattern>[%d{HH:mm:ss.SSS}][%p][%c{40}][%t] %m%n</pattern>
+		</encoder>
+		<!--日志文件最大的大小 -->
+		<triggeringPolicy
+			class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+			<MaxFileSize>10MB</MaxFileSize>
+		</triggeringPolicy>
+	</appender>
+
+
+	<appender name="error"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_HOME}/error.log.%d{yyyy-MM-dd}.log
+			</fileNamePattern>
+			<maxHistory>10</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<pattern>[%d{HH:mm:ss.SSS}][%p][%c{40}][%t] %m%n</pattern>
+		</encoder>
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>ERROR</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+	</appender>
+
+
+	<!-- 定义日志输出级别 -->
+	<logger name="com.OoJou" additivity="false" level="INFO">
+		<appender-ref ref="ddoafile" />
+		<appender-ref ref="console" />
+	</logger>
+
+
+	<!-- mybatis log 日志 -->
+	<logger name="com.OoJou.dao" level="DEBUG" />
+
+
+	<root level="DEBUG">
+		<appender-ref ref="console" />
+		<appender-ref ref="error" />
+	</root>
+
+</configuration>

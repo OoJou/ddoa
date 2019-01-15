@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.OoJou.dao.TaskMapper">
+  <resultMap id="BaseResultMap" type="com.OoJou.pojo.Task">
+    <id column="task_id" jdbcType="INTEGER" property="taskId" />
+    <result column="task_title" jdbcType="VARCHAR" property="taskTitle" />
+    <result column="task_details" jdbcType="VARCHAR" property="taskDetails" />
+    <result column="task_status" jdbcType="INTEGER" property="taskStatus" />
+    <result column="task_requester" jdbcType="VARCHAR" property="taskRequester" />
+    <result column="task_responder" jdbcType="VARCHAR" property="taskResponder" />
+    <result column="task_start_time" jdbcType="TIMESTAMP" property="taskStartTime" />
+    <result column="task_end_time" jdbcType="TIMESTAMP" property="taskEndTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    task_id, task_title, task_details, task_status, task_requester, task_responder, task_start_time, 
+    task_end_time, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ddoa_task
+    where task_id = #{taskId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ddoa_task
+    where task_id = #{taskId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.OoJou.pojo.Task">
+    insert into ddoa_task (task_id, task_title, task_details, 
+      task_status, task_requester, task_responder, 
+      task_start_time, task_end_time, create_time, 
+      update_time)
+    values (#{taskId,jdbcType=INTEGER}, #{taskTitle,jdbcType=VARCHAR}, #{taskDetails,jdbcType=VARCHAR}, 
+      #{taskStatus,jdbcType=INTEGER}, #{taskRequester,jdbcType=VARCHAR}, #{taskResponder,jdbcType=VARCHAR}, 
+      now(), #{taskEndTime,jdbcType=TIMESTAMP}, now(), 
+      now())
+  </insert>
+  <insert id="insertSelective" parameterType="com.OoJou.pojo.Task">
+    insert into ddoa_task
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="taskId != null">
+        task_id,
+      </if>
+      <if test="taskTitle != null">
+        task_title,
+      </if>
+      <if test="taskDetails != null">
+        task_details,
+      </if>
+      <if test="taskStatus != null">
+        task_status,
+      </if>
+      <if test="taskRequester != null">
+        task_requester,
+      </if>
+      <if test="taskResponder != null">
+        task_responder,
+      </if>
+      <if test="taskStartTime != null">
+        task_start_time,
+      </if>
+      <if test="taskEndTime != null">
+        task_end_time,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="taskId != null">
+        #{taskId,jdbcType=INTEGER},
+      </if>
+      <if test="taskTitle != null">
+        #{taskTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="taskDetails != null">
+        #{taskDetails,jdbcType=VARCHAR},
+      </if>
+      <if test="taskStatus != null">
+        #{taskStatus,jdbcType=INTEGER},
+      </if>
+      <if test="taskRequester != null">
+        #{taskRequester,jdbcType=VARCHAR},
+      </if>
+      <if test="taskResponder != null">
+        #{taskResponder,jdbcType=VARCHAR},
+      </if>
+      <if test="taskStartTime != null">
+        now(),
+      </if>
+      <if test="taskEndTime != null">
+        #{taskEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        now(),
+      </if>
+      <if test="updateTime != null">
+        now(),
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.OoJou.pojo.Task">
+    update ddoa_task
+    <set>
+      <if test="taskTitle != null">
+        task_title = #{taskTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="taskDetails != null">
+        task_details = #{taskDetails,jdbcType=VARCHAR},
+      </if>
+      <if test="taskStatus != null">
+        task_status = #{taskStatus,jdbcType=INTEGER},
+      </if>
+      <if test="taskRequester != null">
+        task_requester = #{taskRequester,jdbcType=VARCHAR},
+      </if>
+      <if test="taskResponder != null">
+        task_responder = #{taskResponder,jdbcType=VARCHAR},
+      </if>
+      <if test="taskStartTime != null">
+        task_start_time = #{taskStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="taskEndTime != null">
+        task_end_time = #{taskEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = now(),
+      </if>
+    </set>
+    where task_id = #{taskId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.OoJou.pojo.Task">
+    update ddoa_task
+    set task_title = #{taskTitle,jdbcType=VARCHAR},
+      task_details = #{taskDetails,jdbcType=VARCHAR},
+      task_status = #{taskStatus,jdbcType=INTEGER},
+      task_requester = #{taskRequester,jdbcType=VARCHAR},
+      task_responder = #{taskResponder,jdbcType=VARCHAR},
+      task_start_time = #{taskStartTime,jdbcType=TIMESTAMP},
+      task_end_time = #{taskEndTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = now()
+    where task_id = #{taskId,jdbcType=INTEGER}
+  </update>
+</mapper>
