@@ -6,5 +6,5 @@ ddoa</br>
   │─ .gitignore //配置git提交忽略项</br>
   │─ mbg.xml //逆向工程的配置文件</br>
   │─ mvnw //Maven warpper</br>
-  |— mvnw.cmd //Maven warpper</br>
+  │─ mvnw.cmd //Maven warpper</br>
   └─ README.MD //git说明</br>
