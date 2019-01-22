@@ -1,0 +1,181 @@
+* {
+    padding: 0;
+    margin: 0;
+    font-family: PingFangSC-Medium;
+    -webkit-tap-highlight-color: rgba(255,255,255,0);
+    tap-highlight-color: hsla(0,0%,100%,0);
+}
+a{
+    text-decoration: none;
+    color: #00a1d6;
+}
+
+div{
+    display: block;
+}
+li{
+    display: list-item;
+    text-align: -webkit-match-parent;
+}
+ol,li{
+    list-style: none;
+}
+
+
+.color-coral{
+    background-color: lightcoral;
+}
+.color-blue{
+    background-color: lightblue;
+}
+.color-salmon{
+    background-color: lightsalmon;
+}
+.color-green{
+    background-color: lightgreen;
+}
+.text{
+    margin: 6px 0;
+    font-size: 12px;
+    height: 20px;
+    line-height: 20px;
+}
+
+/*
+   这个clearfix用于清楚浮动效果，十分常用
+*/
+.clearfix:after{
+    display: block;
+    content: "";
+    clear: both;
+}
+
+.item input{
+    width: 388px;
+    border: 1px solid #ddd;
+    color: #aaa;
+    font-size: 14px;
+    padding: 10px;
+    height: 18px;
+    vertical-align: middle;
+    border-radius: 4px;
+}
+.item p{
+    font-size: 20px;
+    font-weight: 700;
+    color: #ea6f5a;
+    margin-bottom: 50px;
+}
+
+.tips{
+    color: #f66495;
+    float: left;
+}
+
+/*不使用button，使用样式设置a标签。
+cursor设置为pointer(鼠标选择时显示手指图标)*/
+.btn-middle {
+    color: #555;
+    display: inline-block;
+    height: 36px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    width: 150px;
+    line-height: 38px;
+    font-size: 16px;
+    text-align: center;
+    cursor: pointer;
+    transition: all .3s;
+}
+
+.btn-login {
+    border: 1px solid #0381aa;
+    color: #fff;
+    background-color: #00a7de;
+}
+
+.btn-reg {
+    margin-left: 70px;
+}
+
+.btn-login:hover{
+    background-color: #00a1d0;
+}
+.btn-reg:hover{
+    background-color:#cccccc;
+}
+
+#container{
+    height: 450px;
+}
+
+.sign {
+    height: 100%;
+    min-height: 750px;
+    text-align: center;
+    font-size: 14px;
+    background-color: #f1f1f1;
+    background-image: url("../images/img-login.jpg");
+    /*background-size: 100%;*/
+    background-size: cover;
+}
+
+.title{
+    height: 100px;
+}
+.title p{
+    font-size: 28px;
+    color: white;
+    padding-top: 30px;
+}
+
+.login-form{
+    width: 400px;
+    margin: 20px auto 0 auto;
+    padding: 25px 50px 30px;
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 0 8px rgba(0,0,0,.1);
+    vertical-align: middle;
+    display: inline-block;
+}
+.forger{
+    font-size: 16px;
+    font-weight: 400;
+    margin-left: 220px;
+    margin-bottom: 40px;
+    cursor: pointer;
+    color: #999999;
+}
+.forger:hover{
+    color: #0f0f0f;
+}
+
+/**
+以下已去掉
+ */
+.login-header{
+    height: 50px;
+}
+.login-footer{
+    height: 50px;
+}
+.login-nav{
+    height: 100%;
+    width: 45%;
+    float: left;
+}
+header{
+    height: 100px;
+}
+footer{
+    height: 50px;
+}
+nav{
+    height: 100%;
+    width: 45%;
+    float: left;
+}
+article{
+    height: 100%;
+}

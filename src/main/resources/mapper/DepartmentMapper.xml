@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.OoJou.dao.DepartmentMapper">
+  <resultMap id="BaseResultMap" type="com.OoJou.pojo.Department">
+    <id column="department_id" jdbcType="INTEGER" property="departmentId" />
+    <result column="department_name" jdbcType="VARCHAR" property="departmentName" />
+    <result column="manager_id" jdbcType="INTEGER" property="managerId" />
+    <result column="manager_name" jdbcType="VARCHAR" property="managerName" />
+    <result column="department_create_time" jdbcType="TIMESTAMP" property="departmentCreateTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    department_id, department_name, manager_id, manager_name, department_create_time, 
+    create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ddoa_department
+    where department_id = #{departmentId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ddoa_department
+    where department_id = #{departmentId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.OoJou.pojo.Department">
+    insert into ddoa_department (department_id, department_name, manager_id, 
+      manager_name, department_create_time, create_time, 
+      update_time)
+    values (#{departmentId,jdbcType=INTEGER}, #{departmentName,jdbcType=VARCHAR}, #{managerId,jdbcType=INTEGER}, 
+      #{managerName,jdbcType=VARCHAR}, now(), now(), 
+      now())
+  </insert>
+  <insert id="insertSelective" parameterType="com.OoJou.pojo.Department">
+    insert into ddoa_department
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="departmentId != null">
+        department_id,
+      </if>
+      <if test="departmentName != null">
+        department_name,
+      </if>
+      <if test="managerId != null">
+        manager_id,
+      </if>
+      <if test="managerName != null">
+        manager_name,
+      </if>
+      <if test="departmentCreateTime != null">
+        department_create_time,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="departmentId != null">
+        #{departmentId,jdbcType=INTEGER},
+      </if>
+      <if test="departmentName != null">
+        #{departmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="managerId != null">
+        #{managerId,jdbcType=INTEGER},
+      </if>
+      <if test="managerName != null">
+        #{managerName,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentCreateTime != null">
+        now(),
+      </if>
+      <if test="createTime != null">
+        now(),
+      </if>
+      <if test="updateTime != null">
+        now(),
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.OoJou.pojo.Department">
+    update ddoa_department
+    <set>
+      <if test="departmentName != null">
+        department_name = #{departmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="managerId != null">
+        manager_id = #{managerId,jdbcType=INTEGER},
+      </if>
+      <if test="managerName != null">
+        manager_name = #{managerName,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentCreateTime != null">
+        department_create_time = #{departmentCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = now(),
+      </if>
+    </set>
+    where department_id = #{departmentId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.OoJou.pojo.Department">
+    update ddoa_department
+    set department_name = #{departmentName,jdbcType=VARCHAR},
+      manager_id = #{managerId,jdbcType=INTEGER},
+      manager_name = #{managerName,jdbcType=VARCHAR},
+      department_create_time = #{departmentCreateTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = now()
+    where department_id = #{departmentId,jdbcType=INTEGER}
+  </update>
+</mapper>

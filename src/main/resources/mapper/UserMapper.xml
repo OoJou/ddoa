@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.OoJou.dao.UserMapper">
+  <resultMap id="BaseResultMap" type="com.OoJou.pojo.User">
+    <id column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="user_level" jdbcType="INTEGER" property="userLevel" />
+    <result column="user_email" jdbcType="VARCHAR" property="userEmail" />
+    <result column="user_phone" jdbcType="VARCHAR" property="userPhone" />
+    <result column="user_password" jdbcType="VARCHAR" property="userPassword" />
+    <result column="user_department_id" jdbcType="INTEGER" property="userDepartmentId" />
+    <result column="user_leader_id" jdbcType="INTEGER" property="userLeaderId" />
+    <result column="work_start_time" jdbcType="TIMESTAMP" property="workStartTime" />
+    <result column="work_end_time" jdbcType="TIMESTAMP" property="workEndTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="user_question" jdbcType="VARCHAR" property="userQuestion" />
+    <result column="user_answer" jdbcType="VARCHAR" property="userAnswer" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    user_id, user_name, user_level, user_email, user_phone, user_password, user_department_id, 
+    user_leader_id, work_start_time, work_end_time, create_time, update_time, user_question, 
+    user_answer
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ddoa_user
+    where user_id = #{userId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ddoa_user
+    where user_id = #{userId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.OoJou.pojo.User">
+    insert into ddoa_user (user_id, user_name, user_level, 
+      user_email, user_phone, user_password, 
+      user_department_id, user_leader_id, work_start_time, 
+      work_end_time, create_time, update_time, 
+      user_question, user_answer)
+    values (#{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{userLevel,jdbcType=INTEGER}, 
+      #{userEmail,jdbcType=VARCHAR}, #{userPhone,jdbcType=VARCHAR}, #{userPassword,jdbcType=VARCHAR}, 
+      #{userDepartmentId,jdbcType=INTEGER}, #{userLeaderId,jdbcType=INTEGER}, #{workStartTime,jdbcType=TIMESTAMP}, 
+      #{workEndTime,jdbcType=TIMESTAMP}, now(), now(), 
+      #{userQuestion,jdbcType=VARCHAR}, #{userAnswer,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.OoJou.pojo.User">
+    insert into ddoa_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="userLevel != null">
+        user_level,
+      </if>
+      <if test="userEmail != null">
+        user_email,
+      </if>
+      <if test="userPhone != null">
+        user_phone,
+      </if>
+      <if test="userPassword != null">
+        user_password,
+      </if>
+      <if test="userDepartmentId != null">
+        user_department_id,
+      </if>
+      <if test="userLeaderId != null">
+        user_leader_id,
+      </if>
+      <if test="workStartTime != null">
+        work_start_time,
+      </if>
+      <if test="workEndTime != null">
+        work_end_time,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="userQuestion != null">
+        user_question,
+      </if>
+      <if test="userAnswer != null">
+        user_answer,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userLevel != null">
+        #{userLevel,jdbcType=INTEGER},
+      </if>
+      <if test="userEmail != null">
+        #{userEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="userPhone != null">
+        #{userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="userPassword != null">
+        #{userPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="userDepartmentId != null">
+        #{userDepartmentId,jdbcType=INTEGER},
+      </if>
+      <if test="userLeaderId != null">
+        #{userLeaderId,jdbcType=INTEGER},
+      </if>
+      <if test="workStartTime != null">
+        #{workStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="workEndTime != null">
+        #{workEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        now(),
+      </if>
+      <if test="updateTime != null">
+        now(),
+      </if>
+      <if test="userQuestion != null">
+        #{userQuestion,jdbcType=VARCHAR},
+      </if>
+      <if test="userAnswer != null">
+        #{userAnswer,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.OoJou.pojo.User">
+    update ddoa_user
+    <set>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userLevel != null">
+        user_level = #{userLevel,jdbcType=INTEGER},
+      </if>
+      <if test="userEmail != null">
+        user_email = #{userEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="userPhone != null">
+        user_phone = #{userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="userPassword != null">
+        user_password = #{userPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="userDepartmentId != null">
+        user_department_id = #{userDepartmentId,jdbcType=INTEGER},
+      </if>
+      <if test="userLeaderId != null">
+        user_leader_id = #{userLeaderId,jdbcType=INTEGER},
+      </if>
+      <if test="workStartTime != null">
+        work_start_time = #{workStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="workEndTime != null">
+        work_end_time = #{workEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = now(),
+      </if>
+      <if test="userQuestion != null">
+        user_question = #{userQuestion,jdbcType=VARCHAR},
+      </if>
+      <if test="userAnswer != null">
+        user_answer = #{userAnswer,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.OoJou.pojo.User">
+    update ddoa_user
+    set user_name = #{userName,jdbcType=VARCHAR},
+      user_level = #{userLevel,jdbcType=INTEGER},
+      user_email = #{userEmail,jdbcType=VARCHAR},
+      user_phone = #{userPhone,jdbcType=VARCHAR},
+      user_password = #{userPassword,jdbcType=VARCHAR},
+      user_department_id = #{userDepartmentId,jdbcType=INTEGER},
+      user_leader_id = #{userLeaderId,jdbcType=INTEGER},
+      work_start_time = #{workStartTime,jdbcType=TIMESTAMP},
+      work_end_time = #{workEndTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = now(),
+      user_question = #{userQuestion,jdbcType=VARCHAR},
+      user_answer = #{userAnswer,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+  <!-- 以下自定义查询 -->
+  <select id="checkUsername" resultType="int" parameterType="string">
+  	select count(1) from ddoa_user
+  	where user_name = #{userName}
+  </select>
+   <select id="checkEmail" resultType="int" parameterType="string">
+  	select count(1) from ddoa_user
+  	where user_email = #{userEmail}
+  </select>
+  <select id="selectLogin" resultMap="BaseResultMap" parameterType="map">
+  	select 
+  	<include refid="Base_Column_List" /> 	
+  	from ddoa_user
+  	where user_name=#{userName}
+  	and user_password=#{userPassword}
+  </select>
+  
+   <select id="selectQuestionByUsername" resultType="string" parameterType="string">
+    select user_question
+    from ddoa_user
+    where user_name = #{userName}
+  </select>
+  <select id="checkAnswer" resultType="int" parameterType="map">
+    SELECT count(1)
+    from ddoa_user
+    where user_name=#{userName}
+    and user_question = #{userQuestion}
+    and user_answer = #{userAnswer}
+  </select>
+  <update id="updatePasswordByUsername" parameterType="map">
+    update ddoa_user
+    SET user_password = #{passwordNew},update_time = now()
+    where user_name = #{userName}
+  </update>
+  <select id="checkPassword" resultType="int" parameterType="map">
+    SELECT
+    count(1)
+    from ddoa_user
+    where user_password = #{userPassword}
+    and user_id = #{userId}
+  </select>
+  <select id="checkEmailByUserId" resultType="int" parameterType="map">
+    select count(1) from ddoa_user
+    where user_email = #{userEmail}
+    and user_id != #{userId}
+  </select>
+
+</mapper>

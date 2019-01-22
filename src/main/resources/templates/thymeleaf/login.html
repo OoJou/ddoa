@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>登录 - 多多OA</title>
+    <link rel="icon" href="../static/images/favicon.ico">
+    <link rel="stylesheet" href="../static/css/login.css"/>
+    <script src="../static/jquery-3.3.1/jquery-3.3.1.js"></script>
+    <script src="../static/jquery-cookies-1.4.1/jquery.cookie.js"></script>
+    <script src="../static/js/login.js"></script>
+</head>
+<body>
+<!--<script type="text/javascript">alert($)</script>-->
+<script type="text/javascript">
+</script>
+<div class="sign">
+    <header class="title"><p>欢迎使用多多OA</p></header>
+    <div id="container">
+        <div class="login-form">
+            <div>
+                <ul>
+                    <li class="item">
+                        <p>登录</p>
+                    </li>
+                    <li class="item">
+                        <input type="text" maxlength="10" value placeholder="用户名" id="login-username"
+                               name="login[username]" autocomplete="on">
+                        <div class="text clearfix">
+                            <p class="tips"></p>
+                        </div>
+                    </li>
+
+                    <li class="item">
+                        <input type="password" maxlength="12" value placeholder="密码" id="login-password">
+                        <div class="text clearfix">
+                            <!--无作用，仅标志-->
+                            <p class="tips"></p>
+                        </div>
+                    </li>
+                    <li>
+                        <input type="checkbox" value="true" checked="checked" id="remember">
+                        <span>记住我</span>
+                        <a class="forger clearfix" href="forget_first">忘记密码？</a>
+                    </li>
+                    <li class="item">
+                        <a class="btn-middle btn-login" id="login">登录</a>
+                        <a class="btn-middle btn-reg"  href="register.html" id="register">注册</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
