@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>多多OA</title>
+    <link rel="icon" href="static/images/favicon.ico"/>
+    <script src="../static/jquery-3.3.1/jquery-3.3.1.js"></script>
+    <script src="../static/jquery-cookies-1.4.1/jquery.cookie.js"></script>
+    <link rel="stylesheet" href="../static/layui/css/layui.css"/>
+    <link rel="stylesheet" href="../static/layui/css/admin.css"/>
+    <script src="../static/layui/layui.js"></script>
+    <script src="../static/js/index-use.js"></script>
+    <script src="../static/js/index.js"></script>
+</head>
+<body class="layui-layout-body">
+<!--容器-->
+<div class="layui-layout layui-layout-admin">
+    <!--顶部栏-->
+    <div class="layui-header custom-header">
+
+        <ul class="layui-nav layui-layout-left">
+            <li class="layui-nav-item slide-sidebar" lay-unselect>
+                <a href="javascript:;" class="icon-font"><i class="ai ai-menufold"></i></a>
+            </li>
+        </ul>
+
+        <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item">
+                <a href="javascript:;">OoJou</a>
+                <dl class="layui-nav-child">
+                    <dd><a href="">帮助中心</a></dd>
+                    <dd><a href="login.html">退出</a></dd>
+                </dl>
+            </li>
+        </ul>
+    </div>
+    <!--左侧导航-->
+    <div class="layui-side custom-admin ">
+        <div class="layui-side-scroll">
+
+            <div class="custom-logo">
+                <img src="static/images/logo.png" alt=""/>
+                <h1>多多办公管理系统</h1>
+            </div>
+            <ul id="Nav" class="layui-nav layui-nav-tree"  lay-filter="test">
+                <li class="layui-nav-item">
+                    <a href="">
+                        <i class="layui-icon">&#xe609;</i>
+                        <em>主页</em>
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="show">展示台</a></dd>
+                        <dd><a href="views/file">文件共享</a></dd>
+                        <dd><a href="notice">公告</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a class="" href="javascript:;">
+                        <i class="layui-icon">&#xe609;</i>
+                        <em>个人办公</em>
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="task_deal">待办任务</a></dd>
+                        <dd><a href="task_completed">已完成任务</a></dd>
+                        <dd><a href="task_request">指派任务</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="">
+                        <i class="layui-icon">&#xe609;</i>
+                        <em>账户</em>
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="user_info">账号信息</a></dd>
+                        <dd><a href="user_pass">修改密码</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="">
+                        <i class="layui-icon">&#xe609;</i>
+                        <em>后台管理</em>
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="views/manage_user">账号信息管理</a></dd>
+                        <dd><a href="views/manage_file">文件信息管理</a></dd>
+                        <dd><a href="views/manage_task">任务信息管理</a></dd>
+                        <dd><a href="views/manage_notice">公告信息管理</a></dd>
+                        <dd><a href="views/manage_department">部门信息管理</a></dd>
+                        <dd><a href="views/manage_dictionary">字典管理</a></dd>
+                    </dl>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!--内容区-->
+    <div class="layui-body">
+        <div class="layui-tab app-container" lay-allowClose="true" lay-filter="tabs">
+            <ul id="appTabs" class="layui-tab-title custom-tab"></ul>
+            <div id="appTabPage" class="layui-tab-content"></div>
+        </div>
+    </div>
+    <!--页面底部信息-->
+    <div class="layui-footer">
+        <p>© 2019 by OoJou</a></p>
+    </div>
+
+    <div class="mobile-mask"></div>
+</div>
+</body>
+</html>

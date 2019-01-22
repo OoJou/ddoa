@@ -22,18 +22,14 @@ public class UserController {
 	@Autowired
 	private IUserService iUserService;
 
-    @RequestMapping("/login")
-    public ModelAndView login() {
-    	ModelAndView mv = new ModelAndView("login");
-    	return mv;
-    }
-	
-	/**
+    
+    /**
 	 * 用户注册
 	 * 
 	 * @param user
 	 * @return
 	 */
+    
 	@RequestMapping(value = "register.do", method = RequestMethod.POST)
 	public ServerResponse<String> register(User user) {
 		return iUserService.register(user);

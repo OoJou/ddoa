@@ -1,0 +1,150 @@
+* {
+    padding: 0;
+    margin: 0;
+    font-family: PingFangSC-Medium;
+    -webkit-tap-highlight-color: rgba(255,255,255,0);
+    tap-highlight-color: hsla(0,0%,100%,0);
+}
+a{
+    text-decoration: none;
+    color: #00a1d6;
+}
+
+div{
+    display: block;
+}
+li{
+    display: list-item;
+    text-align: -webkit-match-parent;
+}
+ol,li{
+    list-style: none;
+}
+.color-coral{
+    background-color: lightcoral;
+}
+.color-blue{
+    background-color: lightblue;
+}
+.color-salmon{
+    background-color: lightsalmon;
+}
+.color-green{
+    background-color: lightgreen;
+}
+.sign {
+    height: 100%;
+    min-height: 750px;
+    text-align: center;
+    font-size: 14px;
+    background-color: #f1f1f1;
+    background-image: url("../images/img-login.jpg");
+    background-size: cover;
+}
+.title{
+    height: 100px;
+}
+.title p{
+    font-size: 28px;
+    color: white;
+    padding-top: 30px;
+}
+#container{
+    height: 450px;
+}
+.forger-answer-form{
+    width: 400px;
+    margin: 20px auto 0 auto;
+    padding: 25px 50px 30px;
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 0 8px rgba(0,0,0,.1);
+    vertical-align: middle;
+    display: inline-block;
+}
+.item input{
+    width: 388px;
+    border: 1px solid #ddd;
+    color: #aaa;
+    font-size: 14px;
+    padding: 10px;
+    height: 18px;
+    vertical-align: middle;
+    border-radius: 4px;
+}
+.item p{
+    font-size: 20px;
+    font-weight: 700;
+    color: #ea6f5a;
+    margin-bottom: 50px;
+}
+.question p{
+    font-size: 18px;
+    font-weight: 500;
+    color: #0f0f0f;
+    margin-left:5px;
+    text-align: left;
+}
+.alert p{
+    font-size: 10px;
+    font-weight: 500;
+    color: #c9302c;
+    margin-left:5px;
+    text-align: left;
+}
+.text{
+    margin: 6px 0;
+    font-size: 12px;
+    height: 20px;
+    line-height: 20px;
+}
+.tips{
+    color: #f66495;
+    float: left;
+}
+.clearfix:after{
+    display: block;
+    content: "";
+    clear: both;
+}
+.btn-big {
+    color: #555;
+    display: inline-block;
+    height: 36px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    width: 350px;
+    line-height: 38px;
+    font-size: 16px;
+    text-align: center;
+    cursor: pointer;
+    transition: all .3s;
+}
+
+.btn-next {
+    border: 1px solid #0381aa;
+    color: #fff;
+    background-color: #00a7de;
+}
+
+.tologin{
+    font-size: 16px;
+    font-weight: 400;
+    margin-bottom: 40px;
+    cursor: pointer;
+    color: #999999;
+}
+.tologin:hover{
+    color: #0f0f0f;
+}
+.toprev{
+    font-size: 16px;
+    font-weight: 400;
+    margin-bottom: 40px;
+    margin-right: 50px;
+    cursor: pointer;
+    color: #999999;
+}
+.toprev:hover{
+    color: #0f0f0f;
+}
