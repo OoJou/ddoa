@@ -88,7 +88,7 @@ public class UserServiceImpl implements IUserService {
 		}
 		String question = userMapper.selectQuestionByUsername(username);
 		if (StringUtils.isNotBlank(question)) {
-			return ServerResponse.createBySuccess(question);
+			return ServerResponse.createBySuccess("用户："+username,question);
 		}
 		return ServerResponse.createByErrorMsg("找回密码的问题是空的");
 	}
@@ -100,7 +100,7 @@ public class UserServiceImpl implements IUserService {
 			String forgetToken = UUID.randomUUID().toString();
 			// 自定义TokenCache内存块,里面设置了内存块的存活时间,这用于设置回答问题正确后,修改密码的有效时间.
 			TokenCache.setKey(TokenCache.TOKEN_PREFIX + username, forgetToken);
-			return ServerResponse.createBySuccess(forgetToken);
+			return ServerResponse.createBySuccess("请在12个小时内重置密码",forgetToken);
 		}
 		return ServerResponse.createByErrorMsg("问题的答案错误");
 	}

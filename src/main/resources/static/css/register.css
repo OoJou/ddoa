@@ -118,6 +118,7 @@ ol,li{
 }
 
 .btn-reg:hover{
+    color: #fff;
     background-color: #00a1d0;
 }
 

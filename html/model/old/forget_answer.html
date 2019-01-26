@@ -6,9 +6,9 @@
     <title>忘记密码 - 多多OA</title>
     <link rel="icon" href="static/images/favicon.ico">
     <link rel="stylesheet" href="static/css/forget.css"/>
-    <script src="static/jquery-3.3.1/jquery-3.3.1.js"></script>
-    <script src="static/jquery-cookies-1.4.1/jquery.cookie.js"></script>
-    <script src="static/js/forget.js"></script>
+    <script src="../../static/jquery-3.3.1/jquery-3.3.1.js"></script>
+    <script src="../../static/jquery-cookies-1.4.1/jquery.cookie.js"></script>
+    <script src="forget_answer.js"></script>
 </head>
 <body>
 <div class="sign">
@@ -16,17 +16,20 @@
     <div class="forger-answer-form">
         <div>
             <ul>
-                <li class="item"><p>第一步:请输入你的账号名</p></li>
+                <li class="item"><p>第二步:请输入问题的答案</p></li>
+                <li hidden="hidden"></li>
+                <li class="question"><p>问题：xxx（后面添加）</p></li>
                 <li class="item">
-                    <input type="text" value placeholder="你的账号名" id="forget-username">
+                    <input type="text" value placeholder="你的答案" id="forget-answer">
                     <div class="text clearfix"></div>
                 </li>
                 <li class="item">
-                    <a class="btn-big btn-next" href="forget_answer.html">下一步</a>
+                    <a class="btn-big btn-next" id="second-next">下一步</a>
                     <div class="text clearfix"></div>
                 </li>
                 <li class="item">
-                    <a class="tologin clearfix" href="login.html">返回登录注册</a>
+                    <a class="toprev" href="forget_first.html">上一步</a>
+                    <a class="tologin clearfix" href="../../login.html">返回登录注册</a>
                 </li>
             </ul>
         </div>

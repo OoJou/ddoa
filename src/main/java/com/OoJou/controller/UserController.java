@@ -34,7 +34,7 @@ public class UserController {
 	public ServerResponse<String> register(User user) {
 		return iUserService.register(user);
 	}
-
+	//下面的check是username还是email注册不用了，前端已写死为username注册
 	@RequestMapping(value = "check_valid.do", method = RequestMethod.POST)
 	public ServerResponse<String> checkValid(String str, String type) {
 		return iUserService.checkValid(str, type);

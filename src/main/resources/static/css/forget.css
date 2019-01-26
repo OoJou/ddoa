@@ -120,22 +120,14 @@ ol,li{
     cursor: pointer;
     transition: all .3s;
 }
-
 .btn-next {
     border: 1px solid #0381aa;
     color: #fff;
     background-color: #00a7de;
 }
-
-.tologin{
-    font-size: 16px;
-    font-weight: 400;
-    margin-bottom: 40px;
-    cursor: pointer;
-    color: #999999;
-}
-.tologin:hover{
-    color: #0f0f0f;
+.btn-next:hover{
+    color: #fff;
+    background-color: #00a1d0;
 }
 .toprev{
     font-size: 16px;
@@ -147,4 +139,22 @@ ol,li{
 }
 .toprev:hover{
     color: #0f0f0f;
+}
+.tologin{
+    font-size: 16px;
+    font-weight: 400;
+    margin-bottom: 40px;
+    cursor: pointer;
+    color: #999999;
+}
+.tologin:hover{
+    color: #0f0f0f;
+}
+.success-tip p{
+    font-size: 28px;
+    font-weight: 200;
+    color: #9d9d9d;
+}
+.success-tip a{
+    cursor: pointer;
 }

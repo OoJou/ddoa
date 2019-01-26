@@ -72,6 +72,14 @@ ol,li{
     float: left;
 }
 
+.alert p{
+    font-size: 10px;
+    font-weight: 500;
+    color: #c9302c;
+    margin-left:5px;
+    text-align: left;
+}
+
 /*不使用button，使用样式设置a标签。
 cursor设置为pointer(鼠标选择时显示手指图标)*/
 .btn-middle {
