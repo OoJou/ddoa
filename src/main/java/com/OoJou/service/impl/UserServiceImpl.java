@@ -1,5 +1,7 @@
 package com.OoJou.service.impl;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import org.apache.commons.lang3.StringUtils;
@@ -10,13 +12,19 @@ import com.OoJou.common.Const;
 import com.OoJou.common.ServerResponse;
 import com.OoJou.common.TokenCache;
 import com.OoJou.dao.UserMapper;
+import com.OoJou.pojo.Task;
 import com.OoJou.pojo.User;
 import com.OoJou.service.IUserService;
 import com.OoJou.utils.MD5Util;
+import com.OoJou.vo.TaskListVo;
+import com.OoJou.vo.UserListVo;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 
-@Service("iUserService")
+@Service("iUserService")//名字对应于controller中要注入的对象名。
 public class UserServiceImpl implements IUserService {
-
+	
+	
 	@Autowired
 	private UserMapper userMapper;
 
@@ -188,7 +196,7 @@ public class UserServiceImpl implements IUserService {
 	 * @param user
 	 * @return
 	 */
-	public ServerResponse checkAdminRole(User user) {
+	public ServerResponse<String> checkAdminRole(User user) {
 		if (user != null && user.getUserLevel().intValue() == Const.Role.ROLE_ZONGJINGLI
 				|| user.getUserLevel().intValue() == Const.Role.ROLE_BUMENJINGLI
 				|| user.getUserLevel().intValue() == Const.Role.ROLE_XINGZHENGRENYUAN) {
@@ -196,5 +204,106 @@ public class UserServiceImpl implements IUserService {
 		}
 		return ServerResponse.createByError();
 	}
+	
+	//后面可以用这个方法加上部门信息，就不用写sql的内连接了
+	//好处是方便，不好的地方是for循环和set频繁，效率不高
+	private UserListVo assembleTaskListVo(User user) {
+		UserListVo userListVo = new UserListVo();
+		userListVo.setUserId(user.getUserId());
+		userListVo.setUserName(user.getUserName());
+		userListVo.setUserLevel(user.getUserLevel());
+		userListVo.setUserEmail(user.getUserEmail());
+		userListVo.setUserPhone(user.getUserPhone());
+		userListVo.setUserPassword(user.getUserPassword());
+		userListVo.setCreateTime(user.getCreateTime());
+		userListVo.setUpdateTime(user.getUpdateTime());
+		return userListVo;
+	}
+	
+	public ServerResponse<PageInfo> getAllUser(int pageNum,int pageSize) {
+		PageHelper.startPage(pageNum,pageSize);
+		List<User> userList=userMapper.selectAllUser();//pojo
+		
+		List<UserListVo> userListVoList=new ArrayList<UserListVo>();//vo
+		for(User userItem : userList) {
+			UserListVo userListVo = assembleTaskListVo(userItem);
+			userListVoList.add(userListVo);
+		}
+		PageInfo pageResult=new PageInfo(userList);
+		pageResult.setList(userListVoList);
+//		if (userList.size()==0) {
+//			return ServerResponse.createByErrorMsg("查无数据");
+//		}
+		return ServerResponse.createBySuccess("查询成功", pageResult);
+	}
+
+	public ServerResponse<User> createUser(User user) {
+		// 新写valid处理信息的校验
+		ServerResponse validResponse = this.checkValid(user.getUserName(), Const.USERNAME);
+		if (!validResponse.isSuccess()) {
+			return validResponse;
+		}
+		validResponse = this.checkValid(user.getUserEmail(), Const.EMAIL);
+		if (!validResponse.isSuccess()) {
+			return validResponse;
+		}
+		user.setUserLevel(Const.Role.ROLE_YUANGONG);//创建时统一设置为员工
+		// MD5加密
+		user.setUserPassword(MD5Util.MD5EncodeUtf8(user.getUserPassword()));
+		// 生成insert是有返回值的，给开发者作判断，等于0时表示插入失败
+		int resultCount = userMapper.insert(user);
+		if (resultCount == 0) {
+			return ServerResponse.createByErrorMsg("创建失败");
+		}
+		user.setUserPassword(StringUtils.EMPTY);//后面可以不返回user，这里方便测试，但返回时一定要置空
+		return ServerResponse.createBySuccess("创建成功",user);
+	}
+	
+	public ServerResponse<User> getUserDetails(int userId) {
+		User user=userMapper.selectByPrimaryKey(userId);
+		if (user==null) {
+			return ServerResponse.createByErrorMsg("用户不存在");
+		}
+		user.setUserPassword(StringUtils.EMPTY);
+		return ServerResponse.createBySuccess("获取用户信息成功", user);
+	}
+	
+	public ServerResponse<User> setRole(int roleId,int userId) {
+		if (roleId!=Const.Role.ROLE_YUANGONG
+				&&roleId!=Const.Role.ROLE_XINGZHENGRENYUAN
+				&&roleId!=Const.Role.ROLE_BUMENZHUGUAN
+				&&roleId!=Const.Role.ROLE_BUMENJINGLI
+				&&roleId!=Const.Role.ROLE_ZONGJINGLI) {
+			return ServerResponse.createByErrorMsg("无此角色");
+		}
+		User user=userMapper.selectByPrimaryKey(userId);
+		user.setUserLevel(roleId);
+		int resultCount=userMapper.updateByPrimaryKeySelective(user);
+		if(resultCount==0) {
+			return ServerResponse.createByErrorMsg("修改失败");
+		}
+		user.setUserPassword(StringUtils.EMPTY);
+		return ServerResponse.createBySuccess("修改成功", user);
+	}
+
+	public ServerResponse<User> updateUser(User user) {
+		// MD5加密
+		user.setUserPassword(MD5Util.MD5EncodeUtf8(user.getUserPassword()));
+		int resultCount=userMapper.updateByPrimaryKeySelective(user);
+		if(resultCount==0) {
+			return ServerResponse.createByErrorMsg("修改失败");
+		}
+		user.setUserPassword(StringUtils.EMPTY);
+		return ServerResponse.createBySuccess("修改成功", user);
+	}
+
+	public ServerResponse<String> deleteUser(int userId) {
+		int resultCount=userMapper.deleteByPrimaryKey(userId);
+		if(resultCount==0) {
+			return ServerResponse.createByErrorMsg("删除失败");
+		}
+		return ServerResponse.createBySuccessMsg("删除成功");
+	}
+
 
 }

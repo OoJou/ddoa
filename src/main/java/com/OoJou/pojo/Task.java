@@ -15,6 +15,10 @@ public class Task {
 
     private String taskResponder;
 
+    private String taskOldResponder;
+
+    private String taskMessage;
+
     private Date taskStartTime;
 
     private Date taskEndTime;
@@ -69,6 +73,22 @@ public class Task {
 
     public void setTaskResponder(String taskResponder) {
         this.taskResponder = taskResponder == null ? null : taskResponder.trim();
+    }
+
+    public String getTaskOldResponder() {
+        return taskOldResponder;
+    }
+
+    public void setTaskOldResponder(String taskOldResponder) {
+        this.taskOldResponder = taskOldResponder == null ? null : taskOldResponder.trim();
+    }
+
+    public String getTaskMessage() {
+        return taskMessage;
+    }
+
+    public void setTaskMessage(String taskMessage) {
+        this.taskMessage = taskMessage == null ? null : taskMessage.trim();
     }
 
     public Date getTaskStartTime() {

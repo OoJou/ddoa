@@ -145,4 +145,9 @@ public class HomeController {
     	ModelAndView mv = new ModelAndView("views/user_pass");
     	return mv;
     }
+    
+    /**
+     * index的首页三个栏目显示
+     */
+    
 }

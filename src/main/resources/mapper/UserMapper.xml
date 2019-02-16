@@ -197,6 +197,8 @@
       user_answer = #{userAnswer,jdbcType=VARCHAR}
     where user_id = #{userId,jdbcType=INTEGER}
   </update>
+  
+  
   <!-- 以下自定义查询 -->
   <select id="checkUsername" resultType="int" parameterType="string">
   	select count(1) from ddoa_user
@@ -243,5 +245,10 @@
     where user_email = #{userEmail}
     and user_id != #{userId}
   </select>
-
+  <select id="selectAllUser" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+	from ddoa_user
+	ORDER BY user_id ASC
+  </select>
 </mapper>

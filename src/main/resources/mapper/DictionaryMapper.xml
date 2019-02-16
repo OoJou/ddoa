@@ -79,4 +79,12 @@
       update_time = now()
     where key = #{key,jdbcType=INTEGER}
   </update>
+  
+  
+  <!-- 以下新增 -->
+  <select id="selectAllDictionary" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ddoa_dictionary
+  </select>
 </mapper>

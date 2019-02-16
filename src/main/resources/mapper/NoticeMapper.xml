@@ -103,4 +103,12 @@
       update_time = now()
     where notice_id = #{noticeId,jdbcType=INTEGER}
   </update>
+  
+  
+  <!-- 以下新增 -->
+  <select id="selectAllNotice" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ddoa_notice
+  </select>
 </mapper>
