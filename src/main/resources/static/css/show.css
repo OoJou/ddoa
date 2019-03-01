@@ -7,7 +7,7 @@
 }
 a{
     text-decoration: none;
-    color: #00a1d6;
+    cursor: pointer;
 }
 
 div{
@@ -109,13 +109,13 @@ ol,li{
     width: 4px;
     height: 16px;
     margin-top: 18px;
-    background-color: #009688;
+    background-color: #177ce3!important; /*#009688;*/
     border-radius: 4px;
 }
 .user_info_text{
     float: left;
     margin: 5px 0 0 5px;
-    color: #009688;
+    color: #177ce3!important; /*#009688;*/
     font-size: 14px;
     cursor: default;
 }
@@ -134,9 +134,6 @@ ol,li{
 .layui-content{
     padding: 16px;
 }
-
-
-
 
 
 
@@ -197,4 +194,15 @@ ol,li{
 .chart-card .field span:last-child{
     margin-left: 8px;
     color: rgba(0,0,0,.85);
+}
+
+.download-btn{
+    width: 260px;
+    height: 40px;
+    font-size: 23px;
+}
+
+.file-img{
+    width: 240px;
+    height: 240px;
 }

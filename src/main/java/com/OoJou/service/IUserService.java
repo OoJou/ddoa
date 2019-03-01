@@ -26,4 +26,7 @@ public interface IUserService {
 	ServerResponse<User> setRole(int roleId,int userId);
 	ServerResponse<User> updateUser(User user);
 	ServerResponse<String> deleteUser(int userId);
+	
+	//任务查询用
+	ServerResponse<PageInfo> getAllResponder(int pageNum,int pageSize);
 }

@@ -31,7 +31,6 @@ public class UserController {
 	 * @param user
 	 * @return
 	 */
-    
 	@RequestMapping(value = "register.do", method = RequestMethod.POST)
 	public ServerResponse<String> register(User user) {
 		return iUserService.register(user);
@@ -243,5 +242,6 @@ public class UserController {
 		}
 		return iUserService.setRole(roleId, userId);
 	}
+	
 	
 }

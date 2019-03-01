@@ -15,7 +15,8 @@ public class Const {
 	//任务状态
 	public interface TaskStatus{
 		int STATUS_YIGUANBI=20001;
-		int STATUS_CHULIZHONG=20002;
-		int STATUS_DAICHULI=20003;
+		int STATUS_YICHULI=20002;
+		int STATUS_CHULIZHONG=20003;
+		int STATUS_DAICHULI=20004;
 	}
 }

@@ -1,6 +1,7 @@
 package com.OoJou.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -147,7 +148,17 @@ public class HomeController {
     }
     
     /**
-     * index的首页三个栏目显示
+     * 详情页
      */
+    @RequestMapping("/views/task_deal_details")
+    public ModelAndView views_task_deal_details() {
+    	ModelAndView mv = new ModelAndView("views/task_deal_details");
+    	return mv;
+    }
+    @RequestMapping("/views/task_complete_details")
+    public ModelAndView views_task_complete_details() {
+    	ModelAndView mv = new ModelAndView("views/task_complete_details");
+    	return mv;
+    }
     
 }

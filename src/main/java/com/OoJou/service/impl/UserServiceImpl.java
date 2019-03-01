@@ -16,6 +16,7 @@ import com.OoJou.pojo.Task;
 import com.OoJou.pojo.User;
 import com.OoJou.service.IUserService;
 import com.OoJou.utils.MD5Util;
+import com.OoJou.vo.ResponderListVo;
 import com.OoJou.vo.TaskListVo;
 import com.OoJou.vo.UserListVo;
 import com.github.pagehelper.PageHelper;
@@ -207,7 +208,7 @@ public class UserServiceImpl implements IUserService {
 	
 	//后面可以用这个方法加上部门信息，就不用写sql的内连接了
 	//好处是方便，不好的地方是for循环和set频繁，效率不高
-	private UserListVo assembleTaskListVo(User user) {
+	private UserListVo assembleUserListVo(User user) {
 		UserListVo userListVo = new UserListVo();
 		userListVo.setUserId(user.getUserId());
 		userListVo.setUserName(user.getUserName());
@@ -226,7 +227,7 @@ public class UserServiceImpl implements IUserService {
 		
 		List<UserListVo> userListVoList=new ArrayList<UserListVo>();//vo
 		for(User userItem : userList) {
-			UserListVo userListVo = assembleTaskListVo(userItem);
+			UserListVo userListVo = assembleUserListVo(userItem);
 			userListVoList.add(userListVo);
 		}
 		PageInfo pageResult=new PageInfo(userList);
@@ -303,6 +304,30 @@ public class UserServiceImpl implements IUserService {
 			return ServerResponse.createByErrorMsg("删除失败");
 		}
 		return ServerResponse.createBySuccessMsg("删除成功");
+	}
+
+	//为了查询全部处理人设置的vo类
+	private UserListVo assembleResponderListVo(User user) {
+		UserListVo ResponderListVo = new UserListVo();
+		ResponderListVo.setUserId(user.getUserId());
+		ResponderListVo.setUserName(user.getUserName());
+		ResponderListVo.setCreateTime(user.getCreateTime());
+		ResponderListVo.setUpdateTime(user.getUpdateTime());
+		return ResponderListVo;
+	}
+	
+	public ServerResponse<PageInfo> getAllResponder(int pageNum, int pageSize) {
+		PageHelper.startPage(pageNum,pageSize);
+		List<User> userList=userMapper.selectAllUser();//pojo
+		
+		List<UserListVo> ResponderListVoList=new ArrayList<UserListVo>();//vo
+		for(User userItem : userList) {
+			UserListVo userListVo = assembleResponderListVo(userItem);
+			ResponderListVoList.add(userListVo);
+		}
+		PageInfo pageResult=new PageInfo(userList);
+		pageResult.setList(ResponderListVoList);
+		return ServerResponse.createBySuccess("查询成功", pageResult);
 	}
 
 

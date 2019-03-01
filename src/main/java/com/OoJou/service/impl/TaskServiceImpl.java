@@ -60,12 +60,14 @@ public class TaskServiceImpl implements ITaskService {
 		}
 		//前端拼接好的留言，与处理人类似处理，但又有些不同
 		//messageCount==0，当前的留言有改变。留言没有历史字段，直接用>>拼接
-		int messageCount=taskMapper.checkMessageIsNew(task.getTaskId(), task.getTaskMessage());
-		System.out.println(messageCount);
-		if(messageCount==0) {
-			task.setTaskMessage(oldtask.getTaskMessage()+task.getTaskMessage()+"#");
-		}else {
-			task.setTaskMessage(oldtask.getTaskMessage());
+		if (task.getTaskMessage()!=null) {
+			int messageCount=taskMapper.checkMessageIsNew(task.getTaskId(), task.getTaskMessage());
+			System.out.println(messageCount);
+			if(messageCount==0) {
+				task.setTaskMessage(oldtask.getTaskMessage()+task.getTaskMessage()+"#");
+			}else {
+				task.setTaskMessage(oldtask.getTaskMessage());
+			}
 		}
 		
 		//开始更新数据

@@ -24,4 +24,5 @@ public interface ITaskService {
 	//管理页方法，新增和修改在前面，功能一直不再重复
 	ServerResponse<PageInfo> getAllTask(int pageNum,int pageSize);
 	ServerResponse<String> deleteTask(int taskId);
+	
 }

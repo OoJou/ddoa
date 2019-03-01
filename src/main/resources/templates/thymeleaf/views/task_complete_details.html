@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../../static/jquery-3.3.1/jquery-3.3.1.js"></script>
+    <script src="../../static/jquery-cookies-1.4.1/jquery.cookie.js"></script>
+    <link rel="stylesheet" href="../../static/layui/css/layui.css">
+    <link rel="stylesheet" href="../../static/css/show.css"/>
+    <link rel="stylesheet" href="../../static/css/details.css"/>
+    <script src="../../static/layui/layui.js"></script>
+    <script src="../../static/js/index-use.js"></script>
+    <script src="../../static/js/task-complete-details.js"></script>
+</head>
+<body class="layui-view-body">
+<div class="layui-content" id="show">
+    <!--任务区-->
+    <div class="sign">
+        <div class="header color-white">
+            <button id="back-btn" class="layui-btn layui-btn-normal"><i class="layui-icon">&#xe603;</i>返回</button>
+        </div>
+        <div class="article">
+            <!--任务内容（表单形式）-->
+            <div class="layui-row layui-col-space3">
+                <div class="layui-col-md12">
+                    <div class="layui-card">
+                        <div class="layui-card-header">
+                            <span class="user_info_icon"></span>
+                            <span class="user_info_text">任务内容</span>
+                        </div>
+                        <div class="layui-card-body">
+                            <div class="detail-item">
+                                <label class="layui-form-label">任务标题:</label>
+                                <div class="layui-input-block">
+                                    <input id="task-title" type="text" name="title" lay-verify="title"
+                                           autocomplete="off" placeholder="请输入" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="detail-item">
+                                <label class="layui-form-label">任务内容:</label>
+                                <div class="layui-input-block">
+                                    <textarea id="task-body" name="desc" placeholder="请输入内容"
+                                              class="layui-textarea"></textarea>
+                                </div>
+                            </div>
+                            <div class="detail-item">
+                                <label class="layui-form-label">处理人:</label>
+                                <div class="layui-input-inline">
+                                    <select id="task-responder-select" name="responder" style="width: 200px">
+                                        <option value="1">北京</option>
+                                        <option value="2">上海</option>
+                                        <option value="3">杭州</option>
+                                        <option value="1">北京</option>
+                                        <option value="2">上海</option>
+                                        <option value="3">杭州</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="detail-item">
+                                <label class="layui-form-label">任务状态:</label>
+                                <div class="layui-input-inline">
+                                    <select id="task-status-select" name="status" style="width: 200px">
+                                        <option value="1">待处理</option>
+                                        <option value="2">处理中</option>
+                                        <option value="3">已处理</option>
+                                        <option value="4">已关闭</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="detail-item">
+                                <label class="layui-form-label">发起人:</label>
+                                <div class="layui-input-inline">
+                                    <p id="task-requester" class="user_depart_info">xxxxx</p>
+                                </div>
+                            </div>
+                            <div class="detail-item">
+                                <label class="layui-form-label">创建时间:</label>
+                                <div class="layui-input-inline">
+                                    <p id="task-time" class="user_depart_info">xxxxx</p>
+                                </div>
+                            </div>
+                            <div class="detail-item" style="height: 30px">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--回复-->
+            <div class="layui-row layui-col-space3">
+                <div class="layui-col-md12">
+                    <div class="layui-card">
+                        <div class="layui-card-header">
+                            <span class="user_info_icon"></span>
+                            <span class="user_info_text">回复</span>
+                        </div>
+                        <div id="answer-body" class="layui-card-body">
+                            <div class="layui-card" style="margin-bottom: 4px">
+                                <div class="layui-card-body">
+                                    卡片式面板面板通常用于非白色背景色的主体内<br>
+                                    从而映衬出边框投影
+                                </div>
+                                <div class="answer-info">回复人 -- 2019年2月28日15:22:33</div>
+                            </div>
+                            <div class="layui-card" style="margin-bottom: 4px">
+                                <div class="layui-card-body">
+                                    卡片式面板面板通常用于非白色背景色的主体内<br>
+                                    从而映衬出边框投影
+                                </div>
+                                <div class="answer-info">回复人 -- 2019年2月28日15:22:33</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--时间线-->
+    <div class="nav">
+        <ul class="layui-timeline">
+            <li style="height: 50px">
+                <div class="layui-text">
+                    <h3>任务状态</h3>
+                    <p>
+
+                    </p>
+                </div>
+            </li>
+            <li class="layui-timeline-item">
+                <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+                <div class="layui-timeline-content layui-text">
+                    <h3 class="layui-timeline-title">创建</h3>
+                    <p>
+
+                    </p>
+                </div>
+            </li>
+            <li class="layui-timeline-item" id="daichuli">
+                <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+                <div class="layui-timeline-content layui-text">
+                    <h3 class="layui-timeline-title">待处理</h3>
+                    <p>
+
+                    </p>
+                </div>
+            </li>
+            <li class="layui-timeline-item" id="chulizhong">
+                <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+                <div class="layui-timeline-content layui-text">
+                    <h3 class="layui-timeline-title">处理中</h3>
+                    <p></p>
+                </div>
+            </li>
+            <li class="layui-timeline-item" id="yichuli">
+                <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+                <div class="layui-timeline-content layui-text">
+                    <h3 class="layui-timeline-title">已处理</h3>
+                    <p></p>
+                </div>
+            </li>
+            <li class="layui-timeline-item" id="yiguanbi">
+                <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+                <div class="layui-timeline-content layui-text">
+                    <h3 class="layui-timeline-title">已关闭</h3>
+                    <p></p>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <!--top定位图标-->
+    <ul class="layui-fixbar">
+        <li class="layui-icon" lay-type="bar1"></li>
+        <li class="layui-icon layui-fixbar-top" lay-type="top" style="display: list-item;"></li>
+    </ul>
+</div>
+</body>
+</html>

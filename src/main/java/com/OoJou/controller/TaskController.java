@@ -1,5 +1,7 @@
 package com.OoJou.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -100,6 +102,21 @@ public class TaskController {
 			return ServerResponse.createByErrorMsg("用户未登录，无法获取任务详情");
 		}
 		return iTaskService.getTaskDetails(taskId);
+	}
+	
+	/**
+	 * 获取除自己外的用户名
+	 */
+	@RequestMapping(value="get_all_responder.do")
+	public ServerResponse<PageInfo> getAllResponder(
+			@RequestParam(value="pageNum",defaultValue="1")int pageNum
+			,@RequestParam(value="pageSize",defaultValue="5")int pageSize
+			,HttpSession session){
+		User user=(User)session.getAttribute(Const.CURRENT_USER);
+		if(user==null) {
+			return ServerResponse.createByErrorMsg("用户未登录，无法获取任务详情");
+		}
+		return iUserService.getAllResponder(pageNum, pageSize);
 	}
 	
 	/**
