@@ -44,7 +44,7 @@ public class TaskController {
 	
 	
 	/**
-	 * “待处理任务”列表，历史处理人为自己的任务
+	 * “已处理任务”列表，历史处理人为自己的任务，当前处理人不为自己的
 	 */
 	@RequestMapping(value="get_task_of_user.do")
 	public ServerResponse<PageInfo> getTaskOfUser(
@@ -55,7 +55,7 @@ public class TaskController {
 		if(user==null) {
 			return ServerResponse.createByErrorMsg("用户未登录，无法获取当前任务列表");
 		}
-		String username=user.getUserName();
+		String username=user.getUserName();//强制使用当前用户对象的userName
 		return iTaskService.getTaskOfUser(username, pageNum, pageSize);
 	}
 	
@@ -71,7 +71,7 @@ public class TaskController {
 		if(user==null) {
 			return ServerResponse.createByErrorMsg("用户未登录，无法获取当前任务列表");
 		}
-		String username=user.getUserName();
+		String username=user.getUserName();//强制使用当前用户对象的userName
 		return iTaskService.getTaskOfUserCreate(username, pageNum, pageSize);
 	}
 	
@@ -88,8 +88,24 @@ public class TaskController {
 		if(user==null) {
 			return ServerResponse.createByErrorMsg("用户未登录，无法获取当前任务列表");
 		}
-		String username=user.getUserName();
+		String username=user.getUserName();//强制使用当前用户对象的userName，即自己只能查自己的
 		return iTaskService.getTaskOfUserClose(username, pageNum, pageSize);
+	}
+	
+	/**
+	 * “待处理任务”列表，当前处理人为自己的
+	 */
+	@RequestMapping(value="get_task_of_user_now.do")
+	public ServerResponse<PageInfo> getTaskOfUserNow(
+			@RequestParam(value="pageNum",defaultValue="1")int pageNum
+			,@RequestParam(value="pageSize",defaultValue="5")int pageSize
+			,HttpSession session) {
+		User user=(User)session.getAttribute(Const.CURRENT_USER);
+		if(user==null) {
+			return ServerResponse.createByErrorMsg("用户未登录，无法获取当前任务列表");
+		}
+		String username=user.getUserName();//使用当前用户对象的userName
+		return iTaskService.getTaskOfUserNow(username, pageNum, pageSize);
 	}
 	
 	/**
@@ -129,9 +145,9 @@ public class TaskController {
 			return ServerResponse.createByErrorMsg("用户未登录，无法处理任务");
 		}
 		//前端或controller控制，已关闭的任务不能更改，除非管理
-		if(task.getTaskStatus().intValue()==20001 
-				&& user.getUserLevel().intValue()==Const.Role.ROLE_YUANGONG
-				|| user.getUserLevel().intValue()==Const.Role.ROLE_BUMENZHUGUAN) {
+		if(task.getTaskStatus().intValue()==Const.TaskStatus.STATUS_YIGUANBI 
+				&&( user.getUserLevel().intValue()==Const.Role.ROLE_YUANGONG
+				|| user.getUserLevel().intValue()==Const.Role.ROLE_BUMENZHUGUAN)) {
 			return ServerResponse.createByErrorMsg("无权限修改任务状态");
 		}
 		return iTaskService.handleTask(task);
@@ -144,6 +160,8 @@ public class TaskController {
 	public ServerResponse<PageInfo> getAllTask(
 			@RequestParam(value="pageNum",defaultValue="1")int pageNum
 			,@RequestParam(value="pageSize",defaultValue="5")int pageSize
+			,String sortType
+			,Task task
 			,HttpSession session){
 		User user=(User)session.getAttribute(Const.CURRENT_USER);
 		if(user==null) {
@@ -153,7 +171,7 @@ public class TaskController {
 				&& user.getUserLevel().intValue()==Const.Role.ROLE_BUMENZHUGUAN) {
 			return ServerResponse.createByErrorMsg("无权限操作");
 		}
-		return iTaskService.getAllTask(pageNum, pageSize);
+		return iTaskService.getAllTask(pageNum, pageSize,sortType,task);
 	}
 	
 	/**
@@ -165,10 +183,9 @@ public class TaskController {
 		if(user==null) {
 			return ServerResponse.createByErrorMsg("用户未登录，无法处理任务");
 		}
-		if(user.getUserLevel().intValue()==Const.Role.ROLE_YUANGONG
-				&& user.getUserLevel().intValue()==Const.Role.ROLE_BUMENZHUGUAN) {
-			return ServerResponse.createByErrorMsg("无权限操作");
-		}
+		if(!iUserService.checkAdminRole(user).isSuccess()){
+	        return ServerResponse.createByErrorMsg("无权限操作");
+	    }
 		return iTaskService.deleteTask(taskId);
 	}
 }

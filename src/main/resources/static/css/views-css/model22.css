@@ -1,0 +1,58 @@
+* {
+    padding: 0;
+    margin: 0;
+    font-family: PingFangSC-Medium;
+    -webkit-tap-highlight-color: rgba(255,255,255,0);
+    tap-highlight-color: hsla(0,0%,100%,0);
+}
+a{
+    text-decoration: none;
+    color: #00a1d6;
+}
+
+div{
+    display: block;
+}
+li{
+    display: list-item;
+    text-align: -webkit-match-parent;
+}
+ol,li{
+    list-style: none;
+}
+
+
+.color-coral{
+    background-color: lightcoral;
+}
+.color-blue{
+    background-color: lightblue;
+}
+.color-salmon{
+    background-color: lightsalmon;
+}
+.color-green{
+    background-color: lightgreen;
+}
+.text{
+    margin: 6px 0;
+    font-size: 12px;
+    height: 20px;
+    line-height: 20px;
+}
+.sign {
+    width: 80%;
+    height: 1000px;
+    float: left;
+}
+.header{
+    height: 100px;
+}
+.article{
+    height: 100%;
+}
+.nav{
+    height:400px;
+    width: 20%;
+    float: right;
+}

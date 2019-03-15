@@ -16,11 +16,13 @@
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="user_question" jdbcType="VARCHAR" property="userQuestion" />
     <result column="user_answer" jdbcType="VARCHAR" property="userAnswer" />
+    <result column="user_department_name" jdbcType="VARCHAR" property="userDepartmentName" />
+    <result column="user_leader_name" jdbcType="VARCHAR" property="userLeaderName" />
   </resultMap>
   <sql id="Base_Column_List">
     user_id, user_name, user_level, user_email, user_phone, user_password, user_department_id, 
     user_leader_id, work_start_time, work_end_time, create_time, update_time, user_question, 
-    user_answer
+    user_answer, user_department_name, user_leader_name
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -37,12 +39,14 @@
       user_email, user_phone, user_password, 
       user_department_id, user_leader_id, work_start_time, 
       work_end_time, create_time, update_time, 
-      user_question, user_answer)
+      user_question, user_answer, user_department_name, 
+      user_leader_name)
     values (#{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{userLevel,jdbcType=INTEGER}, 
       #{userEmail,jdbcType=VARCHAR}, #{userPhone,jdbcType=VARCHAR}, #{userPassword,jdbcType=VARCHAR}, 
       #{userDepartmentId,jdbcType=INTEGER}, #{userLeaderId,jdbcType=INTEGER}, #{workStartTime,jdbcType=TIMESTAMP}, 
       #{workEndTime,jdbcType=TIMESTAMP}, now(), now(), 
-      #{userQuestion,jdbcType=VARCHAR}, #{userAnswer,jdbcType=VARCHAR})
+      #{userQuestion,jdbcType=VARCHAR}, #{userAnswer,jdbcType=VARCHAR}, #{userDepartmentName,jdbcType=VARCHAR}, 
+      #{userLeaderName,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.OoJou.pojo.User">
     insert into ddoa_user
@@ -89,6 +93,12 @@
       <if test="userAnswer != null">
         user_answer,
       </if>
+      <if test="userDepartmentName != null">
+        user_department_name,
+      </if>
+      <if test="userLeaderName != null">
+        user_leader_name,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="userId != null">
@@ -132,6 +142,12 @@
       </if>
       <if test="userAnswer != null">
         #{userAnswer,jdbcType=VARCHAR},
+      </if>
+      <if test="userDepartmentName != null">
+        #{userDepartmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="userLeaderName != null">
+        #{userLeaderName,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -177,6 +193,12 @@
       <if test="userAnswer != null">
         user_answer = #{userAnswer,jdbcType=VARCHAR},
       </if>
+      <if test="userDepartmentName != null">
+        user_department_name = #{userDepartmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="userLeaderName != null">
+        user_leader_name = #{userLeaderName,jdbcType=VARCHAR},
+      </if>
     </set>
     where user_id = #{userId,jdbcType=INTEGER}
   </update>
@@ -194,7 +216,9 @@
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = now(),
       user_question = #{userQuestion,jdbcType=VARCHAR},
-      user_answer = #{userAnswer,jdbcType=VARCHAR}
+      user_answer = #{userAnswer,jdbcType=VARCHAR},
+      user_department_name = #{userDepartmentName,jdbcType=VARCHAR},
+      user_leader_name = #{userLeaderName,jdbcType=VARCHAR}
     where user_id = #{userId,jdbcType=INTEGER}
   </update>
   
@@ -204,9 +228,13 @@
   	select count(1) from ddoa_user
   	where user_name = #{userName}
   </select>
-   <select id="checkEmail" resultType="int" parameterType="string">
+  <select id="checkEmail" resultType="int" parameterType="string">
   	select count(1) from ddoa_user
   	where user_email = #{userEmail}
+  </select>
+     <select id="checkPhone" resultType="int" parameterType="string">
+  	select count(1) from ddoa_user
+  	where user_phone = #{userPhone}
   </select>
   <select id="selectLogin" resultMap="BaseResultMap" parameterType="map">
   	select 
@@ -240,9 +268,19 @@
     where user_password = #{userPassword}
     and user_id = #{userId}
   </select>
+   <select id="checkUserNameByUserId" resultType="int" parameterType="map">
+    select count(1) from ddoa_user
+    where user_name = #{userName}
+    and user_id != #{userId}
+  </select>
   <select id="checkEmailByUserId" resultType="int" parameterType="map">
     select count(1) from ddoa_user
     where user_email = #{userEmail}
+    and user_id != #{userId}
+  </select>
+  <select id="checkPhoneByUserId" resultType="int" parameterType="map">
+    select count(1) from ddoa_user
+    where user_phone = #{userPhone}
     and user_id != #{userId}
   </select>
   <select id="selectAllUser" resultMap="BaseResultMap">
@@ -250,5 +288,39 @@
     <include refid="Base_Column_List" />
 	from ddoa_user
 	ORDER BY user_id ASC
+  </select>
+  <select id="selectAllUserByDESC" resultMap="BaseResultMap" parameterType="com.OoJou.pojo.User">
+    select 
+    <include refid="Base_Column_List" />
+	from ddoa_user	
+	<where>
+		<if test="userName != null">
+	        user_name LIKE concat('%',#{userName},'%')
+	    </if>
+	    <if test="userName != null and userPhone != null">
+	        AND
+	    </if>
+	    <if test="userPhone != null">
+	        user_phone LIKE concat('%',#{userPhone},'%')
+	    </if>
+	</where>
+	ORDER BY create_time DESC
+  </select>
+  <select id="selectAllUserByASC" resultMap="BaseResultMap" parameterType="com.OoJou.pojo.User">
+    select 
+    <include refid="Base_Column_List" />
+	from ddoa_user
+	<where>
+		<if test="userName != null">
+	        user_name LIKE concat('%',#{userName},'%')
+	    </if>
+	    <if test="userName != null and userPhone != null">
+	        AND
+	    </if>
+	    <if test="userPhone != null">
+	        user_phone LIKE concat('%',#{userPhone},'%')
+	    </if>
+	</where>
+	ORDER BY create_time ASC
   </select>
 </mapper>

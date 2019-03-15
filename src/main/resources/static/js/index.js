@@ -6,6 +6,7 @@ $(function () {
      get_task_deal_list();
      get_task_complete_list();
      get_user();
+    check_is_admin();
 })
 var currentUser;
 
@@ -18,101 +19,38 @@ function get_user() {//后台用拦截器拦截，前端就不必进来一次请
             if(result.status==200){//如果存在当前用户，执行
                 //保存返回的用户信息，填充到html
                 currentUser=result.data;
+                $("#nav-user").html(currentUser.userName+"<span class=\"layui-nav-more\"></span>");
+            }
+        }
+    });
+}
+function check_is_admin() {
+    $.ajax({
+        url:"/user/check_is_admin.do",
+        type:"POST",
+        dataType:"json",
+        success:function (result) {
+            if(result.status==200){
+                $("#Nav").append(" <li class=\"layui-nav-item\">" +
+                    "                    <a href=\"\">" +
+                    "                        <i class=\"layui-icon\">&#xe609;</i>" +
+                    "                        <em>后台管理</em>" +
+                    "<span class=\"layui-nav-more\"></span>"+
+                    "                    </a>" +
+                    "                    <dl class=\"layui-nav-child\">" +
+                    "                        <dd><a href=\"views/manage_user\">账号信息管理</a></dd>" +
+                    "                        <dd><a href=\"views/manage_task\">任务信息管理</a></dd>" +
+                    "                        <dd><a href=\"views/manage_file\">文件信息管理</a></dd>" +
+                    "                        <dd><a href=\"views/manage_notice\">公告信息管理</a></dd>" +
+                    // "                        <dd><a href=\"views/manage_department\">部门信息管理</a></dd>" +
+                    // "                        <dd><a href=\"views/manage_dictionary\">字典管理</a></dd>" +
+                    "                    </dl>" +
+                    "                </li>");
             }
         }
     })
 }
 
-// function back_show_html() {
-//     var back_show=$("    <div class=\"layui-row layui-col-space20\">" +
-//         "" +
-//         "    <div class=\"layui-col-md6\">" +
-//         "        <div class=\"layui-card\">" +
-//         "            <div class=\"layui-card-header card-notice\">" +
-//         "                <p class=\"card-title\">公告</p>" +
-//         "                <a class=\"card-more\">更多>></a>" +
-//         "            </div>" +
-//         "            <div class=\"layui-card-body\">" +
-//         "                <ul id=\"show-notice\">" +
-//         "                </ul>" +
-//         "            </div>" +
-//         "        </div>" +
-//         "    </div>" +
-//         "" +
-//         "    <div class=\"layui-col-md6\">" +
-//         "        <div class=\"layui-card\">" +
-//         "            <div class=\"layui-card-header card-notice\">" +
-//         "                <p class=\"card-title\">共享文件</p>" +
-//         "                <a class=\"card-more\">更多>></a>" +
-//         "            </div>" +
-//         "            <div class=\"layui-card-body\">" +
-//         "                <ul id=\"show-file\">" +
-//         "                </ul>" +
-//         "            </div>" +
-//         "        </div>" +
-//         "    </div>" +
-//         "" +
-//         "    <div class=\"layui-col-md12\">" +
-//         "        <div class=\"layui-card\">" +
-//         "            <div class=\"layui-tab layui-tab-brief\">" +
-//         "                <ul class=\"layui-tab-title\">" +
-//         "                    <li class=\"layui-this\">待办任务</li>" +
-//         "                    <li>已完成任务</li>" +
-//         "                </ul>" +
-//         "                <div class=\"layui-tab-content clearfix\">" +
-//         "                    <div class=\"layui-tab-item layui-show\">" +
-//         "                        <table class=\"layui-table\" lay-size=\"sm\">" +
-//         "                            <colgroup>" +
-//         "                                <col width=\"\">" +
-//         "                                <col width=\"150\">" +
-//         "                                <col width=\"250\">" +
-//         "                            </colgroup>" +
-//         "                            <thead>" +
-//         "                            <tr>" +
-//         "                                <th>任务</th>" +
-//         "                                <th>指派人</th>" +
-//         "                                <th>指派时间</th>" +
-//         "                            </tr>" +
-//         "                            </thead>" +
-//         "                            <tbody id=\"show-task-deal\">" +
-//         "                            </tbody>" +
-//         "                        </table>" +
-//         "                    </div>" +
-//         "                    <div class=\"layui-tab-item\">" +
-//         "                        <table class=\"layui-table\" lay-size=\"sm\">" +
-//         "                            <colgroup>" +
-//         "                                <col width=\"\">" +
-//         "                                <col width=\"150\">" +
-//         "                                <col width=\"250\">" +
-//         "                            </colgroup>" +
-//         "                            <thead>" +
-//         "                            <tr>" +
-//         "                                <th>任务</th>" +
-//         "                                <th>指派人</th>" +
-//         "                                <th>完成时间</th>" +
-//         "                            </tr>" +
-//         "                            </thead>" +
-//         "                            <tbody id=\"show-task-complete\">" +
-//         "                            </tbody>" +
-//         "                        </table>" +
-//         "                    </div>" +
-//         "                    <div>" +
-//         "                        <a class=\"card-more\" href=\"#\">更多>></a>" +
-//         "                    </div>" +
-//         "                </div>" +
-//         "            </div>" +
-//         "        </div>" +
-//         "    </div>" +
-//         "</div>");
-//     //返回，即
-//     $("#show").empty();
-//     $("#show").append(back_show);
-//     //返回后重新回填页面
-//     get_notice_list();
-//     get_file_list();
-//     get_task_deal_list();
-//     get_task_complete_list();
-// }
 
 function file_column(result) {
     $('#show-file').empty();
@@ -125,7 +63,7 @@ function file_column(result) {
         }
         var file_top_a=$("<a href=\"javascript:void(0);\" class='file-click'></a>").append(item.fileName);
         file_top_a.attr("file-id",item.fileId);
-        var file_top_p=$("<p></p>").append(item.createTime);
+        var file_top_p=$("<p></p>").append(renderTime(item.createTime));
         var file=$("<li class=\"card-link\"></li>").append(file_top_a).append(file_top_p);
         $('#show-file').append(file);
     });
@@ -143,7 +81,7 @@ function notice_column(result){
             "data-method=\"offset\" data-type=\"auto\"></a>").append(item.noticeTitle);
         //自定义属性，存放id
         notice_top_a.attr("notice-id",item.noticeId);
-        var notice_top_p=$("<p></p>").append(item.createTime);
+        var notice_top_p=$("<p></p>").append(renderTime(item.createTime));
         var notice=$("<li class=\"card-link\"></li>").append(notice_top_a).append(notice_top_p);
         $('#show-notice').append(notice);
     });
@@ -161,7 +99,7 @@ function task_deal_column(result) {
         task_deal_top_a.attr("task-id",item.taskId);
         var task_deal_top_a=$("<td></td>").append(task_deal_top_a);
         var task_deal_top_name=$("<td></td>").append("<p>"+item.taskRequester+"</p>");
-        var task_deal_top_time=$("<td></td>").append("<p>"+item.createTime+"</p>");
+        var task_deal_top_time=$("<td></td>").append("<p>"+renderTime(item.createTime)+"</p>");
         var task_deal=$("<tr></tr>").append(task_deal_top_a).append(task_deal_top_name).append(task_deal_top_time);
         $("#show-task-deal").append(task_deal);
     });
@@ -179,7 +117,7 @@ function task_complete_column(result) {
         task_complete_top_a.attr("task-id",item.taskId)
         var task_complete_top_a=$("<td></td>").append(task_complete_top_a);
         var task_complete_top_name=$("<td></td>").append("<p>"+item.taskRequester+"</p>");
-        var task_complete_top_time=$("<td></td>").append("<p>"+item.createTime+"</p>");
+        var task_complete_top_time=$("<td></td>").append("<p>"+renderTime(item.createTime)+"</p>");
         var task_complete=$("<tr></tr>").append(task_complete_top_a).append(task_complete_top_name).append(task_complete_top_time);
         $("#show-task-complete").append(task_complete);
     });
@@ -205,7 +143,7 @@ function file_details_html(result) {
         "        </div>" +
         "    </div>");
     $("#show").empty();
-    $("#show").append(file_details);
+    $("#show").html(file_details);
 
     $("#file-name").text(result.data.fileName);
     $("#file-upload-user").text("上传人："+fileUploadUser);
@@ -216,7 +154,7 @@ function notice_details_html(result) {
         "        <div class=\"layui-card\">" +
         "            <div>" +
         "                <button class=\"layui-btn layui-btn-normal\" id='back-btn'><i class=\"layui-icon\">&#xe603;</i>返回</button></div>" +
-        "            <div class=\"layui-card-header\" style=\"text-align: center; font-size: large;\" id='notice-title'>卡片面板</div>" +
+        "            <div class=\"layui-card-header\" style=\"text-align:center;font-size: 28px;font-weight:550;\" id='notice-title'>卡片面板</div>" +
         "            <div>" +
         "                <p style=\"text-align: center; font-size: small;\" id='notice-publisher'>发布者：</p>" +
         "            </div>" +
@@ -227,11 +165,11 @@ function notice_details_html(result) {
         "        </div>" +
         "    </div>");
     $("#show").empty();
-    $("#show").append(notice_details);
+    $("#show").html(notice_details);
 
     $("#notice-title").text(result.data.noticeTitle);
     $("#notice-publichser").text(result.data.noticePubilsher);
-    $("#notice-body").text(result.data.noticeDetails);
+    $("#notice-body").html(result.data.noticeDetails);
 }
 
 //填充广告
@@ -318,7 +256,7 @@ function get_file_details(id) {
 //填充待处理任务
 function get_task_deal_list() {
     $.ajax({
-        url:"/task/get_task_of_user.do",
+        url:"/task/get_task_of_user_now.do",
         type:"POST",
         dataType:"json",
         success:function (result) {
@@ -340,7 +278,7 @@ $(document).on("click",".task-deal-click",function () {
 //填充已关闭任务
 function get_task_complete_list() {
     $.ajax({
-        url:"/task/get_task_of_user_close.do",
+        url:"/task/get_task_of_user.do",
         type:"POST",
         dataType:"json",
         success:function (result) {
@@ -363,4 +301,16 @@ $(document).on("click","#back-btn",function () {
     window.location.href="show";
     //填充首页内容区
     // back_show_html();
-})
+});
+
+//前端时间转换2019-01-13T05:22:01.000+0000 --> 2019-01-13 13:22:01
+function renderTime(date) {
+    var dateFormat = new Date(date);
+    var times= dateFormat.getFullYear() + '年'
+        + (dateFormat.getMonth() + 1 < 10 ? "0" + (dateFormat.getMonth() + 1) : dateFormat.getMonth() + 1)
+        + '月' + (dateFormat.getDate() < 10 ? "0"+ dateFormat.getDate() : dateFormat.getDate())
+        + '日  ' + (dateFormat.getHours() < 10 ? "0"+ dateFormat.getHours() : dateFormat.getHours())
+        + ':' + (dateFormat.getMinutes() < 10 ? "0"+ dateFormat.getMinutes() : dateFormat.getMinutes())
+        + ':' + (dateFormat.getSeconds() < 10 ? "0"+ dateFormat.getSeconds() : dateFormat.getSeconds());
+    return times;
+}

@@ -1,0 +1,128 @@
+* {
+    padding: 0;
+    margin: 0;
+    font-family: PingFangSC-Medium;
+    -webkit-tap-highlight-color: rgba(255,255,255,0);
+    tap-highlight-color: hsla(0,0%,100%,0);
+}
+a{
+    text-decoration: none;
+    color: #00a1d6;
+}
+
+div{
+    display: block;
+}
+li{
+    display: list-item;
+    text-align: -webkit-match-parent;
+}
+ol,li{
+    list-style: none;
+}
+
+.pager{
+    margin: 0 0 5px;
+    overflow: hidden;
+    line-height: 40px;
+    display: block;
+    width: 100%;
+}
+.pagination{
+    margin-top: 20px;
+}
+.pages{
+    display: inline-block;
+    vertical-align: middle;
+}
+.pages strong{
+    display: inline-block;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    font-weight: 400;
+    font-size: 14px;
+    margin: 0 2px;
+    padding: 0 10px;
+}
+.page-item{
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 400;
+    vertical-align: middle;
+}
+.page-item button{
+    color: #222;
+    cursor: pointer;
+    outline: none;
+    text-align: center;
+    border-radius: 4px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    background-image: none;
+    transition: all .2s;
+    font-size: 12px;
+    min-width: 15px;
+    margin: 0 2px;
+    padding: 0 15px;
+    display: block;
+    height: 32px;
+    line-height: 32px;
+    float: left;
+}
+.page-item button:hover{
+    color: #fff;
+    border: 1px solid #00a1d6;
+    background: #00a1d6;
+    background-image: -webkit-linear-gradient(left,#29adeb,#177ce3);
+}
+.active button{
+    color: #fff;
+    border: 1px solid #00a1d6;
+    background: #00a1d6;
+    background-image: -webkit-linear-gradient(left,#29adeb,#177ce3);
+}
+
+.jump-pager{
+    float: right;
+    padding: 0 2px;
+    font-size: 12px;
+    color: #99a2aa;
+    line-height: 40px;
+    height: 40px;
+}
+.jump-pager input[type=text]{
+    padding: 0 10px;
+    width: 30px;
+    height: 24px;
+    line-height: 24px;
+    font-size: 12px;
+    box-shadow: none;
+    color: #99a2aa;
+    text-align: center;
+    margin: 0 2px;
+    border: 1px solid #ccd0d7;
+    border-radius: 4px;
+}
+.jump-pager input[type=button]{
+    padding: 0 10px;
+    width: 50px;
+    height: 24px;
+    line-height: 24px;
+    font-size: 12px;
+    box-shadow: none;
+    color: #99a2aa;
+    background: #f1f1f1;
+    text-align: center;
+    margin: 0 2px;
+    border: 1px solid #ccd0d7;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.jump-pager input[type=button]:hover{
+    color: #f0f4fb;
+    background: #00a1d6;
+    background-image: -webkit-linear-gradient(left,#29adeb,#177ce3);
+}
+.page-total{
+    display: inline-block;
+}

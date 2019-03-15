@@ -133,7 +133,11 @@ public class HomeController {
     	ModelAndView mv = new ModelAndView("views/task_request");
     	return mv;
     }
-    
+    @RequestMapping("/views/create_task")
+    public ModelAndView views_create_task() {
+    	ModelAndView mv = new ModelAndView("views/create_task");
+    	return mv;
+    }
     
     @RequestMapping("/views/user_info")
     public ModelAndView views_user_info() {
@@ -144,6 +148,12 @@ public class HomeController {
     @RequestMapping("/views/user_pass")
     public ModelAndView views_user_pass() {
     	ModelAndView mv = new ModelAndView("views/user_pass");
+    	return mv;
+    }
+    
+    @RequestMapping("/views/user_question")
+    public ModelAndView views_user_question() {
+    	ModelAndView mv = new ModelAndView("views/user_question");
     	return mv;
     }
     
@@ -160,5 +170,21 @@ public class HomeController {
     	ModelAndView mv = new ModelAndView("views/task_complete_details");
     	return mv;
     }
+    @RequestMapping("/views/task_request_details")
+    public ModelAndView views_task_request_details() {
+    	ModelAndView mv = new ModelAndView("views/task_request_details");
+    	return mv;
+    }
+    @RequestMapping("/views/manage_task_details")
+    public ModelAndView views_manage_task_details() {
+    	ModelAndView mv = new ModelAndView("views/manage_task_details");
+    	return mv;
+    }
+    @RequestMapping("/views/manage_task_request_details")
+    public ModelAndView manage_task_request_details() {
+    	ModelAndView mv = new ModelAndView("views/manage_task_request_details");
+    	return mv;
+    }
+    
     
 }

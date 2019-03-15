@@ -28,9 +28,9 @@
 
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">
-                <a href="javascript:;">OoJou</a>
+                <a id="nav-user" href="javascript:;"></a>
                 <dl class="layui-nav-child">
-                    <dd><a href="">帮助中心</a></dd>
+                    <dd><a href="">进入首页</a></dd>
                     <dd><a href="login">退出</a></dd>
                 </dl>
             </li>
@@ -41,7 +41,7 @@
         <div class="layui-side-scroll">
 
             <div class="custom-logo">
-                <img src="static/images/logo.png" alt=""/>
+                <img src="" alt=""/>
                 <h1>多多办公管理系统</h1>
             </div>
             <ul id="Nav" class="layui-nav layui-nav-tree"  lay-filter="test">
@@ -63,8 +63,8 @@
                     </a>
                     <dl class="layui-nav-child">
                         <dd><a href="views/task_deal">待办任务</a></dd>
-                        <dd><a href="views/task_completed">已完成任务</a></dd>
-                        <dd><a href="views/task_request">指派任务</a></dd>
+                        <dd><a href="views/task_completed">已处理任务</a></dd>
+                        <dd><a href="views/task_request">我发布的任务</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
@@ -74,21 +74,8 @@
                     </a>
                     <dl class="layui-nav-child">
                         <dd><a href="views/user_info">账号信息</a></dd>
+                        <dd><a href="views/user_question">设置密保问题</a></dd>
                         <dd><a href="views/user_pass">修改密码</a></dd>
-                    </dl>
-                </li>
-                <li class="layui-nav-item">
-                    <a href="">
-                        <i class="layui-icon">&#xe609;</i>
-                        <em>后台管理</em>
-                    </a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="views/manage_user">账号信息管理</a></dd>
-                        <dd><a href="views/manage_file">文件信息管理</a></dd>
-                        <dd><a href="views/manage_task">任务信息管理</a></dd>
-                        <dd><a href="views/manage_notice">公告信息管理</a></dd>
-                        <dd><a href="views/manage_department">部门信息管理</a></dd>
-                        <dd><a href="views/manage_dictionary">字典管理</a></dd>
                     </dl>
                 </li>
             </ul>
@@ -101,11 +88,10 @@
             <div id="appTabPage" class="layui-tab-content"></div>
         </div>
     </div>
-    <!--页面底部信息-->
+     <!--页面底部信息-->
     <div class="layui-footer">
         <p>© 2019 by OoJou</a></p>
     </div>
-
     <div class="mobile-mask"></div>
 </div>
 </body>

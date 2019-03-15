@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="../../static/css/details.css"/>
     <script src="../../static/layui/layui.js"></script>
     <script src="../../static/js/index-use.js"></script>
-    <script src="../../static/js/task-complete-details.js"></script>
+    <script src="../../static/js/views-js/task-complete-details.js"></script>
 </head>
 <body class="layui-view-body">
 <div class="layui-content" id="show">
@@ -26,20 +26,30 @@
                     <div class="layui-card">
                         <div class="layui-card-header">
                             <span class="user_info_icon"></span>
-                            <span class="user_info_text">任务内容</span>
+                            <span class="user_info_text">任务处理</span>
                         </div>
-                        <div class="layui-card-body">
+                        <div id="completed" class="layui-card-body">
                             <div class="detail-item">
-                                <label class="layui-form-label">任务标题:</label>
-                                <div class="layui-input-block">
-                                    <input id="task-title" type="text" name="title" lay-verify="title"
-                                           autocomplete="off" placeholder="请输入" class="layui-input">
+                                <label class="layui-form-label">类型:</label>
+                                <div>
+                                    <select id="task-type" style="width: 200px;padding: 2px 3px;">
+                                        <option value="11">请假</option>
+                                        <option value="22">资金申请</option>
+                                        <option value="33">活动申请</option>
+                                        <option value="44">其他</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="detail-item">
-                                <label class="layui-form-label">任务内容:</label>
+                                <label class="layui-form-label">标题:</label>
                                 <div class="layui-input-block">
-                                    <textarea id="task-body" name="desc" placeholder="请输入内容"
+                                    <input id="task-title" type="text" placeholder="请输入" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="detail-item">
+                                <label class="layui-form-label">详细内容:</label>
+                                <div class="layui-input-block">
+                                    <textarea id="task-body" placeholder="请输入内容"
                                               class="layui-textarea"></textarea>
                                 </div>
                             </div>
@@ -50,9 +60,6 @@
                                         <option value="1">北京</option>
                                         <option value="2">上海</option>
                                         <option value="3">杭州</option>
-                                        <option value="1">北京</option>
-                                        <option value="2">上海</option>
-                                        <option value="3">杭州</option>
                                     </select>
                                 </div>
                             </div>
@@ -60,23 +67,23 @@
                                 <label class="layui-form-label">任务状态:</label>
                                 <div class="layui-input-inline">
                                     <select id="task-status-select" name="status" style="width: 200px">
-                                        <option value="1">待处理</option>
-                                        <option value="2">处理中</option>
-                                        <option value="3">已处理</option>
-                                        <option value="4">已关闭</option>
+                                        <option value="20004">待处理</option>
+                                        <option value="20003">处理中</option>
+                                        <option value="20002">已处理</option>
+                                        <option value="20001">已关闭</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="detail-item">
                                 <label class="layui-form-label">发起人:</label>
                                 <div class="layui-input-inline">
-                                    <p id="task-requester" class="user_depart_info">xxxxx</p>
+                                    <p id="task-requester" >xxxxx</p>
                                 </div>
                             </div>
                             <div class="detail-item">
                                 <label class="layui-form-label">创建时间:</label>
                                 <div class="layui-input-inline">
-                                    <p id="task-time" class="user_depart_info">xxxxx</p>
+                                    <p id="task-time">xxxxx</p>
                                 </div>
                             </div>
                             <div class="detail-item" style="height: 30px">

@@ -27,14 +27,15 @@ public interface TaskMapper {
     //检查历史处理人包含了当前处理人没有，等于0时表示没有
     int checkOldResponser(@Param("taskId")int taskId,@Param("currentResponder")String currentResponder);
     
-    //待处理任务、发起任务、已关闭任务三个列表
+    //已处理任务、发起任务、已关闭任务、待处理任务三个列表
     List<Task> selectTaskOfUserByUsername(String userName);
     List<Task> selectTaskOfUserCreateByUsername(String userName);
     List<Task> selectTaskOfUserCloseByUsername(String userName);
+	List<Task> selectTaskOfUserNowByUsername(String username);
     
     //管理界面-查询全部
     List<Task> selectAllTask();
-    
-    
-    
+    List<Task> selectAllTaskByDESC(Task task);
+    List<Task> selectAllTaskByASC(Task task);
+
 }

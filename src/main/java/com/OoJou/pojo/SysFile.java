@@ -2,7 +2,7 @@ package com.OoJou.pojo;
 
 import java.util.Date;
 
-public class File {
+public class SysFile {
     private Integer fileId;
 
     private String fileName;

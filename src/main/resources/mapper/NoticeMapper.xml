@@ -6,11 +6,13 @@
     <result column="notice_title" jdbcType="VARCHAR" property="noticeTitle" />
     <result column="notice_pubilsher" jdbcType="VARCHAR" property="noticePubilsher" />
     <result column="notice_details" jdbcType="VARCHAR" property="noticeDetails" />
+    <result column="notice_image" jdbcType="VARCHAR" property="noticeImage" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    notice_id, notice_title, notice_pubilsher, notice_details, create_time, update_time
+    notice_id, notice_title, notice_pubilsher, notice_details, notice_image, create_time, 
+    update_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -24,11 +26,11 @@
   </delete>
   <insert id="insert" parameterType="com.OoJou.pojo.Notice">
     insert into ddoa_notice (notice_id, notice_title, notice_pubilsher, 
-      notice_details, create_time, update_time
-      )
+      notice_details, notice_image, create_time, 
+      update_time)
     values (#{noticeId,jdbcType=INTEGER}, #{noticeTitle,jdbcType=VARCHAR}, #{noticePubilsher,jdbcType=VARCHAR}, 
-      #{noticeDetails,jdbcType=VARCHAR}, now(), now()
-      )
+      #{noticeDetails,jdbcType=VARCHAR}, #{noticeImage,jdbcType=VARCHAR}, now(), 
+      now())
   </insert>
   <insert id="insertSelective" parameterType="com.OoJou.pojo.Notice">
     insert into ddoa_notice
@@ -44,6 +46,9 @@
       </if>
       <if test="noticeDetails != null">
         notice_details,
+      </if>
+      <if test="noticeImage != null">
+        notice_image,
       </if>
       <if test="createTime != null">
         create_time,
@@ -65,6 +70,9 @@
       <if test="noticeDetails != null">
         #{noticeDetails,jdbcType=VARCHAR},
       </if>
+      <if test="noticeImage != null">
+        #{noticeImage,jdbcType=VARCHAR},
+      </if>
       <if test="createTime != null">
         now(),
       </if>
@@ -85,6 +93,9 @@
       <if test="noticeDetails != null">
         notice_details = #{noticeDetails,jdbcType=VARCHAR},
       </if>
+      <if test="noticeImage != null">
+        notice_image = #{noticeImage,jdbcType=VARCHAR},
+      </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -99,6 +110,7 @@
     set notice_title = #{noticeTitle,jdbcType=VARCHAR},
       notice_pubilsher = #{noticePubilsher,jdbcType=VARCHAR},
       notice_details = #{noticeDetails,jdbcType=VARCHAR},
+      notice_image = #{noticeImage,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = now()
     where notice_id = #{noticeId,jdbcType=INTEGER}

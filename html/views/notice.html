@@ -4,80 +4,114 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Title</title>
-    <link rel="stylesheet" href="../static/layui/css/layui.css">
-    <link rel="stylesheet" href="../static/css/show.css"/>
+    <script src="../static/jquery-3.3.1/jquery-3.3.1.js"></script>
+    <script src="../static/jquery-cookies-1.4.1/jquery.cookie.js"></script>
+    <link rel="stylesheet" href="../static/css/views-css/pager.css"/>
+    <link rel="stylesheet" href="../static/css/views-css/notice.css"/>
     <script src="../static/layui/layui.js"></script>
     <script src="../static/js/index-use.js"></script>
+    <script src="../static/js/views-js/notice.js"></script>
 </head>
 <body>
-<div class="layui-content">
-    <div class="layui-row">
-        <div class="layui-col-md12 layui-col-space8">
-            <div class="layui-card">
-                <table class="layui-table"  lay-size="sm">
-                    <colgroup>
-                        <col width="12">
-                        <col width="48">
-                        <col width="">
-                        <col width="200">
-                        <col width="200">
-                        <col width="100">
-                    </colgroup>
-                    <thead>
-                    <tr>
-                        <th><input type="checkbox"></th>
-                        <th>序号</th>
-                        <th>公告标题</th>
-                        <th>发布日期</th>
-                        <th>发布人</th>
-                        <th>操作</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td>xxx部门申请活动经费</td>
-                        <td>贤心</td>
-                        <td>2019年1月19日 12:10:12</td>
-                        <td>
-                            <input class="layui-btn layui-btn-xs" style="width: 68px" type="button" value="查看">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td>xxx部门申请活动经费</td>
-                        <td>许闲心</td>
-                        <td>2019年1月19日 12:09:42</td>
-                        <td>
-                            <input class="layui-btn layui-btn-xs" style="width: 68px" type="button" value="查看">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td>xxx部门申请活动经费</td>
-                        <td>许闲心</td>
-                        <td>2019年1月19日 12:09:42</td>
-                        <td>
-                            <input class="layui-btn layui-btn-xs" style="width: 68px" type="button" value="查看">
-                        </td>
-                    </tr>
-                    </tbody>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td>xxx部门申请活动经费</td>
-                        <td>许闲心</td>
-                        <td>2019年1月19日 12:09:42</td>
-                        <td>
-                            <input class="layui-btn layui-btn-xs" style="width: 68px" type="button" value="查看">
-                        </td>
-                    </tr>
-                </table>
+<div style="padding: 12px">
+    <div class="commonMian-l fl">
+        <ul class="noticeList">
+            <li>
+                <a href="/view/52.html">
+                    <img src="https://i0.hdslb.com/bfs/sycp/creative_img/201903/cf1f947a3a08a29fc8918a7eb37b60da.jpg" width="250" height="153" class="fl">
+                    <div class="noticeList-box fl">
+                        <h3 class="cut">市民想感受非遗魅力，就来参加文化馆定期开展的这些活动！</h3>
+                        <p class="cut3">
+                            汕头市文化馆副馆长陈少冰向记者介绍，展示馆依照功能划分为三大分区，分别是动态区、静态区和戏剧展区。馆内有市级以上非物质文化遗产项目73项，当中13项入选国家级非物质文化遗产名录，38项入选省级非物质文化遗产名录；市级以&nbsp;上非物质文化遗产项目代表</p>
+                        <span><i class="time"></i>2018-11-29</span>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a href="/view/53.html">
+                    <img src="ftp://oojou:123456@192.168.43.137:21/img/5e468ffa-f4d7-4581-8e5e-8014697f8237.jpg" width="250" height="153" class="fl">
+                    <div class="noticeList-box fl">
+                        <h3 class="cut">第二届广东民间潮乐大赛汕头市复赛 暨2015年汕头市民参加的热情！</h3>
+                        <p class="cut3">
+                            汕头市文化馆副馆长陈少冰向记者介绍，展示馆依照功能划分为三大分区，分别是动态区、静态区和戏剧展区。馆内有市级以上非物质文化遗产项目73项，当中13项入选国家级非物质文化遗产名录，38项入选省级非物质文化遗产名录；市级以&nbsp;上非物质文化遗产项目代表</p>
+                        <span><i class="time"></i>2018-11-29</span>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a href="/view/110.html">
+                    <img src="file:///H:/ftpfile/file/img8.jpg" width="250" height="153" class="fl">
+                    <div class="noticeList-box fl">
+                        <h3 class="cut">汕头市文化馆参加第十三届中原民间艺术节开幕式演出博得喝彩</h3>
+                        <p class="cut3">
+                            9月5日，第十三届中原民间艺术节在河北省邯郸市文化艺术中心广场隆重开幕。应邯郸市文广新局的邀请，汕头市文广新局黄煜生局长带领我馆王建兵馆长和市杂技团一行代表汕头市参加了艺术节活动。</p>
+                        <span><i class="time"></i>2019-01-14</span>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a href="/view/108.html">
+                    <img src="" width="250" height="153" class="fl">
+                    <div class="noticeList-box fl">
+                        <h3 class="cut">市民想感受非遗魅力，就来参加文化馆定期开展的这些活动吧</h3>
+                        <p class="cut3">
+                            非遗展示馆位于汕头市外马路149号市文化馆主楼二、三、四层，建筑面积1200多平方米。2015年6月13日的“文化遗产日”，非物质文化遗产展示馆以崭新面貌，加入现代化设备、精美场景设置、全新理念设计以及大量实物模型,全面正式免费开放，这也是广东省首个市级非遗展示馆。</p>
+                        <span><i class="time"></i>2018-12-29</span>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a href="/view/109.html">
+                    <img src="" width="250" height="153" class="fl">
+                    <div class="noticeList-box fl">
+                        <h3 class="cut">【闭馆通知】9月16日—9月17日闭馆，敬请留意！</h3>
+                        <p class="cut3">【闭馆通知】9月16日—9月17日闭馆，敬请留意！</p>
+                        <span><i class="time"></i>2018-09-15</span>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a href="/view/121.html">
+                    <img src="images/739713d3fa5841c8b8302d85ec31f463.jpg" width="250" height="153" class="fl">
+                    <div class="noticeList-box fl">
+                        <h3 class="cut">省组织部副部长、老干局局长郭跃文等莅临我馆参观</h3>
+                        <p class="cut3">8月8日下午，省组织部副部长、老干局局长郭跃文等在汕头市委常委、组织部部长米银俊，市文广新局副局长陈练生陪同下莅临我馆非遗展示馆参观。</p>
+                        <span><i class="time"></i>2017-08-09</span>
+                    </div>
+                </a>
+            </li>
+        </ul>
+
+        <div class="pager pagination">
+            <ul class="pages">
+                <li class="page-item prev">
+                    <button class="nav-btn">上一页</button>
+                </li>
+                <li class="page-item active">
+                    <button class="pagination-btn num-btn">1</button>
+                </li>
+                <li class="page-item">
+                    <button class="pagination-btn num-btn">2</button>
+                </li>
+                <strong>...</strong>
+                <li class="page-item last">
+                    <button class="pagination-btn num-btn">3</button>
+                </li>
+                <li class="page-item next">
+                    <button class="nav-btn">下一页</button>
+                </li>
+            </ul>
+            <div class="jump-pager">
+                <div class="page-total">
+                    <span class="pagination-btn count">共 4705 页/ 94100 个 ，</span>
+                </div>
+                <span>跳至</span>
+                <input type="text" class="jump-pager-input no-spin">
+                <span>页</span>
+                <input type="button" value="跳转" class="jump-pager-button">
             </div>
         </div>
+        <div class="clearfix"></div>
     </div>
 </div>
 </body>

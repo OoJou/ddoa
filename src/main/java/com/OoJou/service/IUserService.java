@@ -20,13 +20,14 @@ public interface IUserService {
 	ServerResponse<String> checkAdminRole(User user);
 	
 	//管理页面- 增删查改
-	ServerResponse<PageInfo> getAllUser(int pageNum,int pageSize);
+	ServerResponse<PageInfo> getAllUser(int pageNum,int pageSize,String sortType,User user);
 	ServerResponse<User> getUserDetails(int userId);
 	ServerResponse<User> createUser(User user);
 	ServerResponse<User> setRole(int roleId,int userId);
+	ServerResponse<String> checkRoleValid(int roleId);
 	ServerResponse<User> updateUser(User user);
 	ServerResponse<String> deleteUser(int userId);
-	
+	ServerResponse<String> checkUpdateValid(String str, String type,int id);
 	//任务查询用
 	ServerResponse<PageInfo> getAllResponder(int pageNum,int pageSize);
 }

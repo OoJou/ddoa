@@ -30,6 +30,16 @@ public class NoticeServiceImpl implements INoticeService {
 	}
 
 	public ServerResponse<Notice> createNotice(Notice notice) {
+		//校验创建的参数 title、detail
+		if(notice.getNoticeTitle()==null || notice.getNoticeTitle().equals("")) {
+			return ServerResponse.createByErrorMsg("标题不能为空，请输入后重试");
+		}
+		if(notice.getNoticeDetails()==null || notice.getNoticeDetails().equals("")) {
+			return ServerResponse.createByErrorMsg("内容不能为空，请输入后重试");
+		}
+		if(notice.getNoticeImage()==null) {
+			return ServerResponse.createByErrorMsg("图片参数未传");
+		}
 		int resultCount=noticeMapper.insert(notice);
 		if (resultCount==0) {
 			return ServerResponse.createByErrorMsg("创建失败");
@@ -42,6 +52,7 @@ public class NoticeServiceImpl implements INoticeService {
 		if(notice==null) {
 			return ServerResponse.createByErrorMsg("公告不存在");
 		}
+		
 		return ServerResponse.createBySuccess("获取公告信息成功", notice);
 	}
 

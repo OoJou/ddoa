@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Title</title>
+    <script src="../../static/jquery-3.3.1/jquery-3.3.1.js"></script>
+    <script src="../../static/jquery-cookies-1.4.1/jquery.cookie.js"></script>
+    <link rel="stylesheet" href="../../static/layui/css/layui.css"/>
+    <link rel="stylesheet" href="../../static/css/show.css"/>
+    <script src="../../static/layui/layui.js"></script>
+    <script src="../../static/js/index-use.js"></script>
+    <script src="../../static/js/views-js/user-question.js"></script>
+</head>
+<body class="layui-view-body">
+<div class="layui-content">
+    <div class="layui-row layui-col-space3">
+        <div class="layui-col-md8 layui-col-md-offset2">
+            <div class="layui-card">
+                <div class="layui-card-header">
+                    <span class="user_info_icon"></span>
+                    <span class="user_info_text">设置密保问题</span>
+                </div>
+                <div class="layui-card-body">
+                    <form class="layui-form" action="">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">原密保问题:</label>
+                            <div class="layui-input-inline" style="width: 280px">
+                                <p id="old-question" class="user_depart_info">xxxxx</p>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">新密保问题:</label>
+                            <div class="layui-input-inline" style="width: 280px">
+                                <input id="new-question" type="text" name="question" autocomplete="off" placeholder="请输入密保问题" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">答案:</label>
+                            <div class="layui-input-inline" style="width: 280px">
+                                <input id="new-answer" type="text" name="answer"  autocomplete="off" placeholder="请输入答案" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-input-block">
+                                <button id="save-btn" class="layui-btn layui-btn-normal">保存</button>
+                                <button id="reset-btn" type="reset" class="layui-btn layui-btn-primary">重置</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

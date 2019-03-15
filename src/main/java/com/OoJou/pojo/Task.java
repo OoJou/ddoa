@@ -17,7 +17,13 @@ public class Task {
 
     private String taskOldResponder;
 
+    private String taskType;
+
     private String taskMessage;
+
+    private String taskPass;
+
+    private String taskResult;
 
     private Date taskStartTime;
 
@@ -83,12 +89,36 @@ public class Task {
         this.taskOldResponder = taskOldResponder == null ? null : taskOldResponder.trim();
     }
 
+    public String getTaskType() {
+        return taskType;
+    }
+
+    public void setTaskType(String taskType) {
+        this.taskType = taskType == null ? null : taskType.trim();
+    }
+
     public String getTaskMessage() {
         return taskMessage;
     }
 
     public void setTaskMessage(String taskMessage) {
         this.taskMessage = taskMessage == null ? null : taskMessage.trim();
+    }
+
+    public String getTaskPass() {
+        return taskPass;
+    }
+
+    public void setTaskPass(String taskPass) {
+        this.taskPass = taskPass == null ? null : taskPass.trim();
+    }
+
+    public String getTaskResult() {
+        return taskResult;
+    }
+
+    public void setTaskResult(String taskResult) {
+        this.taskResult = taskResult == null ? null : taskResult.trim();
     }
 
     public Date getTaskStartTime() {

@@ -1,9 +1,7 @@
 package com.OoJou.service.impl;
 
 
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.log;
 
-import java.io.Console;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,9 +24,19 @@ public class TaskServiceImpl implements ITaskService {
 	private TaskMapper taskMapper;
 	
 	public ServerResponse<Task> createTask(Task task) {
+		//校验创建的参数 title、detail
+		if(task.getTaskTitle()==null || task.getTaskTitle().equals("")) {
+			return ServerResponse.createByErrorMsg("标题不能为空，请输入后重试");
+		}
+		if(task.getTaskDetails()==null || task.getTaskDetails().equals("")) {
+			return ServerResponse.createByErrorMsg("内容不能为空，请输入后重试");
+		}
+		if(task.getTaskResponder()==null || task.getTaskResponder().equals("")) {
+			return ServerResponse.createByErrorMsg("处理人不能为空，请选择后重试");
+		}
 		//创建时，状态设置为 待处理。处理人添加至历史处理人
 		task.setTaskStatus(Const.TaskStatus.STATUS_DAICHULI);
-		task.setTaskOldResponder(task.getTaskResponder());
+		task.setTaskOldResponder(","+task.getTaskResponder());
 		task.setTaskMessage("#");
 		int resultCount=taskMapper.insert(task);
 		if (resultCount==0) {
@@ -47,6 +55,13 @@ public class TaskServiceImpl implements ITaskService {
 	}
 
 	public ServerResponse<Task> handleTask(Task task) {
+		//校验创建的参数 title、detail
+		if(task.getTaskTitle()==null || task.getTaskTitle().equals("")) {
+			return ServerResponse.createByErrorMsg("标题不能为空，请输入后重试");
+		}
+		if(task.getTaskDetails()==null || task.getTaskDetails().equals("")) {
+			return ServerResponse.createByErrorMsg("内容不能为空，请输入后重试");
+		}
 		//获取旧任务数据
 		Task oldtask=taskMapper.selectByPrimaryKey(task.getTaskId());
 		//1.前端传来最新一次更改的处理人，check处理人有无变更 2.处理人有变更，则查出历史处理人，用，号隔开，拼接处理人，然后再存入
@@ -54,7 +69,7 @@ public class TaskServiceImpl implements ITaskService {
 		int responserCount=taskMapper.checkResponserIsChange(task.getTaskId(), task.getTaskResponder());
 		int oldResponserCount=taskMapper.checkOldResponser(task.getTaskId(), task.getTaskResponder());
 		if(responserCount==0 && oldResponserCount==0) {//处理人有变更,且不在历史处理人中,则添加到历史处理人
-			task.setTaskOldResponder(oldtask.getTaskOldResponder()+","+task.getTaskResponder());
+			task.setTaskOldResponder(oldtask.getTaskOldResponder()+task.getTaskResponder()+",");
 		}else {
 			task.setTaskOldResponder(oldtask.getTaskOldResponder());
 		}
@@ -136,10 +151,34 @@ public class TaskServiceImpl implements ITaskService {
 		pageResult.setList(taskListVoList);
 		return ServerResponse.createBySuccess("查询成功",pageResult);
 	}
-
-	public ServerResponse<PageInfo> getAllTask(int pageNum,int pageSize) {
+	
+	public ServerResponse<PageInfo> getTaskOfUserNow(String username,int pageNum,int pageSize) {
 		PageHelper.startPage(pageNum, pageSize);
-		List<Task> taskList=taskMapper.selectAllTask();//Task-pojo的列表
+		List<Task> taskList=taskMapper.selectTaskOfUserNowByUsername(username);//Task-pojo的列表
+		
+		List<TaskListVo> taskListVoList =new ArrayList<TaskListVo>();//存转化成TaskListvo-vo的列表
+		for(Task taskItem : taskList) {//循环转换
+			TaskListVo taskListVo = assembleTaskListVo(taskItem);
+			taskListVoList.add(taskListVo);
+		}
+		PageInfo pageResult=new PageInfo(taskList);
+		pageResult.setList(taskListVoList);
+		return ServerResponse.createBySuccess("查询成功",pageResult);
+	}
+
+	public ServerResponse<PageInfo> getAllTask(int pageNum,int pageSize,String sortType,Task task) {
+		PageHelper.startPage(pageNum, pageSize);
+		List<Task> taskList=null;//Task-pojo的列表
+		
+		// 模糊查询
+		if(!sortType.equals("DESC")&& !sortType.equals("ASC")) {
+			return ServerResponse.createByErrorMsg("无此排序");
+		}
+		if (sortType.equals("DESC")) {
+			taskList=taskMapper.selectAllTaskByDESC(task);//pojo
+		}else {
+			taskList=taskMapper.selectAllTaskByASC(task);//pojo
+		}
 		
 		List<TaskListVo> taskListVoList =new ArrayList<TaskListVo>();//存转化成TaskListvo-vo的列表
 		for(Task taskItem : taskList) {//循环转换
@@ -158,5 +197,6 @@ public class TaskServiceImpl implements ITaskService {
 		}
 		return ServerResponse.createBySuccessMsg("删除成功");
 	}
+
 	
 }

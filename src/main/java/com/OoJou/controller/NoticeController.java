@@ -14,11 +14,14 @@ import com.OoJou.dao.NoticeMapper;
 import com.OoJou.pojo.Notice;
 import com.OoJou.pojo.User;
 import com.OoJou.service.INoticeService;
+import com.OoJou.service.IUserService;
 import com.github.pagehelper.PageInfo;
 
 @RestController
 @RequestMapping("/notice")
 public class NoticeController {
+	@Autowired
+	private IUserService iUserService;
 	
 	@Autowired
 	private INoticeService iNoticeService;
@@ -59,7 +62,9 @@ public class NoticeController {
 		if(user==null) {
 			return ServerResponse.createByErrorMsg("用户未登录，无法创建公告");
 		}
+		notice.setNoticePubilsher(user.getUserName());//强制为当前用户上传
 		return iNoticeService.createNotice(notice);
+		
 	}
 	
 	/**
@@ -71,6 +76,9 @@ public class NoticeController {
 		if(user==null) {
 			return ServerResponse.createByErrorMsg("用户未登录，无法修改公告");
 		}
+		if(!iUserService.checkAdminRole(user).isSuccess()){
+	        return ServerResponse.createByErrorMsg("无权限操作");
+	    }
 		return iNoticeService.updateNotice(notice);
 	}
 	
@@ -84,6 +92,9 @@ public class NoticeController {
 		if(user==null) {
 			return ServerResponse.createByErrorMsg("用户未登录，无法删除公告");
 		}
+		if(!iUserService.checkAdminRole(user).isSuccess()){
+	        return ServerResponse.createByErrorMsg("无权限操作");
+	    }
 		return iNoticeService.deleteNotice(noticeId);
 	}
 	

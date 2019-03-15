@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.OoJou.dao.FileMapper">
-  <resultMap id="BaseResultMap" type="com.OoJou.pojo.File">
+<mapper namespace="com.OoJou.dao.SysFileMapper">
+  <resultMap id="BaseResultMap" type="com.OoJou.pojo.SysFile">
     <id column="file_id" jdbcType="INTEGER" property="fileId" />
     <result column="file_name" jdbcType="VARCHAR" property="fileName" />
     <result column="file_source" jdbcType="VARCHAR" property="fileSource" />
@@ -25,7 +25,7 @@
     delete from ddoa_file
     where file_id = #{fileId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.OoJou.pojo.File">
+  <insert id="insert" parameterType="com.OoJou.pojo.SysFile">
     insert into ddoa_file (file_id, file_name, file_source, 
       file_image, file_upload_user, file_upload_time, 
       create_time, update_time)
@@ -33,7 +33,7 @@
       #{fileImage,jdbcType=VARCHAR}, #{fileUploadUser,jdbcType=VARCHAR}, now(), 
       now(), now())
   </insert>
-  <insert id="insertSelective" parameterType="com.OoJou.pojo.File">
+  <insert id="insertSelective" parameterType="com.OoJou.pojo.SysFile">
     insert into ddoa_file
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="fileId != null">
@@ -88,7 +88,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.OoJou.pojo.File">
+  <update id="updateByPrimaryKeySelective" parameterType="com.OoJou.pojo.SysFile">
     update ddoa_file
     <set>
       <if test="fileName != null">
@@ -115,7 +115,7 @@
     </set>
     where file_id = #{fileId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.OoJou.pojo.File">
+  <update id="updateByPrimaryKey" parameterType="com.OoJou.pojo.SysFile">
     update ddoa_file
     set file_name = #{fileName,jdbcType=VARCHAR},
       file_source = #{fileSource,jdbcType=VARCHAR},
@@ -128,8 +128,7 @@
   </update>
   
   
-  
-   <!-- 以下新增 -->
+     <!-- 以下新增 -->
   <select id="selectAllFile" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

@@ -9,7 +9,10 @@
     <result column="task_requester" jdbcType="VARCHAR" property="taskRequester" />
     <result column="task_responder" jdbcType="VARCHAR" property="taskResponder" />
     <result column="task_old_responder" jdbcType="VARCHAR" property="taskOldResponder" />
+    <result column="task_type" jdbcType="VARCHAR" property="taskType" />
     <result column="task_message" jdbcType="VARCHAR" property="taskMessage" />
+    <result column="task_pass" jdbcType="VARCHAR" property="taskPass" />
+    <result column="task_result" jdbcType="VARCHAR" property="taskResult" />
     <result column="task_start_time" jdbcType="TIMESTAMP" property="taskStartTime" />
     <result column="task_end_time" jdbcType="TIMESTAMP" property="taskEndTime" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
@@ -17,7 +20,8 @@
   </resultMap>
   <sql id="Base_Column_List">
     task_id, task_title, task_details, task_status, task_requester, task_responder, task_old_responder, 
-    task_message, task_start_time, task_end_time, create_time, update_time
+    task_type, task_message, task_pass, task_result, task_start_time, task_end_time, 
+    create_time, update_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -32,12 +36,14 @@
   <insert id="insert" parameterType="com.OoJou.pojo.Task">
     insert into ddoa_task (task_id, task_title, task_details, 
       task_status, task_requester, task_responder, 
-      task_old_responder, task_message, task_start_time, 
+      task_old_responder, task_type, task_message, 
+      task_pass, task_result, task_start_time, 
       task_end_time, create_time, update_time
       )
     values (#{taskId,jdbcType=INTEGER}, #{taskTitle,jdbcType=VARCHAR}, #{taskDetails,jdbcType=VARCHAR}, 
       #{taskStatus,jdbcType=INTEGER}, #{taskRequester,jdbcType=VARCHAR}, #{taskResponder,jdbcType=VARCHAR}, 
-      #{taskOldResponder,jdbcType=VARCHAR}, #{taskMessage,jdbcType=VARCHAR}, now(), 
+      #{taskOldResponder,jdbcType=VARCHAR}, #{taskType,jdbcType=VARCHAR}, #{taskMessage,jdbcType=VARCHAR}, 
+      #{taskPass,jdbcType=VARCHAR}, #{taskResult,jdbcType=VARCHAR}, now(), 
       #{taskEndTime,jdbcType=TIMESTAMP}, now(), now()
       )
   </insert>
@@ -65,8 +71,17 @@
       <if test="taskOldResponder != null">
         task_old_responder,
       </if>
+      <if test="taskType != null">
+        task_type,
+      </if>
       <if test="taskMessage != null">
         task_message,
+      </if>
+      <if test="taskPass != null">
+        task_pass,
+      </if>
+      <if test="taskResult != null">
+        task_result,
       </if>
       <if test="taskStartTime != null">
         task_start_time,
@@ -103,8 +118,17 @@
       <if test="taskOldResponder != null">
         #{taskOldResponder,jdbcType=VARCHAR},
       </if>
+      <if test="taskType != null">
+        #{taskType,jdbcType=VARCHAR},
+      </if>
       <if test="taskMessage != null">
         #{taskMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="taskPass != null">
+        #{taskPass,jdbcType=VARCHAR},
+      </if>
+      <if test="taskResult != null">
+        #{taskResult,jdbcType=VARCHAR},
       </if>
       <if test="taskStartTime != null">
         now(),
@@ -141,8 +165,17 @@
       <if test="taskOldResponder != null">
         task_old_responder = #{taskOldResponder,jdbcType=VARCHAR},
       </if>
+      <if test="taskType != null">
+        task_type = #{taskType,jdbcType=VARCHAR},
+      </if>
       <if test="taskMessage != null">
         task_message = #{taskMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="taskPass != null">
+        task_pass = #{taskPass,jdbcType=VARCHAR},
+      </if>
+      <if test="taskResult != null">
+        task_result = #{taskResult,jdbcType=VARCHAR},
       </if>
       <if test="taskStartTime != null">
         task_start_time = #{taskStartTime,jdbcType=TIMESTAMP},
@@ -167,7 +200,10 @@
       task_requester = #{taskRequester,jdbcType=VARCHAR},
       task_responder = #{taskResponder,jdbcType=VARCHAR},
       task_old_responder = #{taskOldResponder,jdbcType=VARCHAR},
+      task_type = #{taskType,jdbcType=VARCHAR},
       task_message = #{taskMessage,jdbcType=VARCHAR},
+      task_pass = #{taskPass,jdbcType=VARCHAR},
+      task_result = #{taskResult,jdbcType=VARCHAR},
       task_start_time = #{taskStartTime,jdbcType=TIMESTAMP},
       task_end_time = #{taskEndTime,jdbcType=TIMESTAMP},
       create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -181,7 +217,8 @@
   	select
   	<include refid="Base_Column_List" />
   	from ddoa_task
-  	where task_old_responder LIKE #{userName}
+  	where task_old_responder LIKE concat('%',',',#{userName},',','%')
+  	and task_responder !=#{userName}
   </select>
   <select id="selectTaskOfUserCreateByUsername" resultMap="BaseResultMap" parameterType="String">
   	select
@@ -194,8 +231,14 @@
   	<include refid="Base_Column_List" />
   	from ddoa_task
   	where (task_requester=#{userName}
-  	or task_old_responder LIKE #{userName})
+  	or task_old_responder LIKE concat('%',',',#{userName},',','%'))
   	and task_status=20001
+  </select>
+  <select id="selectTaskOfUserNowByUsername" resultMap="BaseResultMap" parameterType="String">
+    select
+  	<include refid="Base_Column_List" />
+  	from ddoa_task
+  	where task_responder=#{userName}
   </select>
   <select id="selectAllTask" resultMap="BaseResultMap" >
     select
@@ -203,6 +246,53 @@
   	from ddoa_task
   	ORDER BY task_id ASC
   </select>
+  <select id="selectAllTaskByDESC" resultMap="BaseResultMap" parameterType="com.OoJou.pojo.Task">
+    select
+  	<include refid="Base_Column_List" />
+  	from ddoa_task
+  	<where>
+		<if test="taskTitle != null">
+	        task_title LIKE concat('%',#{taskTitle},'%')
+	    </if>
+	    <if test="taskTitle != null and taskRequester != null">
+	        AND
+	    </if>
+	    <if test="taskRequester != null">
+	        task_requester LIKE concat('%',#{taskRequester},'%')
+	    </if>
+	    <if test="(taskTitle != null or taskRequester != null) and taskResponder != null">
+	        AND
+	    </if>
+	    <if test="taskResponder != null">
+	        task_responder LIKE concat('%',#{taskResponder},'%')
+	    </if>
+	</where>
+  	ORDER BY create_time DESC
+  </select>
+  <select id="selectAllTaskByASC" resultMap="BaseResultMap" parameterType="com.OoJou.pojo.Task">
+    select
+  	<include refid="Base_Column_List" />
+  	from ddoa_task
+  	  <where>
+		<if test="taskTitle != null">
+	        task_title LIKE concat('%',#{taskTitle},'%')
+	    </if>
+	    <if test="taskTitle != null and taskRequester != null">
+	        AND
+	    </if>
+	    <if test="taskRequester != null">
+	        task_requester LIKE concat('%',#{taskRequester},'%')
+	    </if>
+	    <if test="(taskTitle != null or taskRequester != null ) and taskResponder != null">
+	        AND
+	    </if>
+	    <if test="taskResponder != null">
+	        task_responder LIKE concat('%',#{taskResponder},'%')
+	    </if>
+	</where>
+  	ORDER BY create_time ASC
+  </select>
+  
   
   <!-- check -->
   <select id="checkResponserIsChange" resultType="int" parameterType="map">
@@ -221,6 +311,6 @@
  	select count(1)
     from ddoa_task
     where task_id=#{taskId}
-    and binary task_old_responder LIKE concat('%',#{currentResponder},'%')
+    and binary task_old_responder LIKE concat('%',',',#{currentResponder},',','%')
   </select>
 </mapper>

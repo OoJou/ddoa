@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="../../static/css/details.css"/>
     <script src="../../static/layui/layui.js"></script>
     <script src="../../static/js/index-use.js"></script>
-    <script src="../../static/js/task-deal-details.js"></script>
+    <script src="../../static/js/views-js/task-deal-details.js"></script>
 </head>
 <body class="layui-view-body">
 <div class="layui-content" id="show">
@@ -26,20 +26,30 @@
                     <div class="layui-card">
                         <div class="layui-card-header">
                             <span class="user_info_icon"></span>
-                            <span class="user_info_text">任务内容</span>
+                            <span class="user_info_text">任务处理</span>
                         </div>
                         <div class="layui-card-body">
                             <div class="detail-item">
-                                <label class="layui-form-label">任务标题:</label>
-                                <div class="layui-input-block">
-                                    <input id="task-title" type="text" name="title" lay-verify="title"
-                                           autocomplete="off" placeholder="请输入" class="layui-input">
+                                <label class="layui-form-label">类型:</label>
+                                <div>
+                                    <select id="task-type" style="width: 200px;padding: 2px 3px;">
+                                        <option value="11">请假</option>
+                                        <option value="22">资金申请</option>
+                                        <option value="33">活动申请</option>
+                                        <option value="44">其他</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="detail-item">
-                                <label class="layui-form-label">任务内容:</label>
+                                <label class="layui-form-label">标题:</label>
+                                <div  class="layui-input-block ">
+                                    <input id="task-title" type="text" placeholder="请输入" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="detail-item">
+                                <label class="layui-form-label">详细内容:</label>
                                 <div class="layui-input-block">
-                                    <textarea id="task-body" name="desc" placeholder="请输入内容"
+                                    <textarea id="task-body" placeholder="请输入内容"
                                               class="layui-textarea"></textarea>
                                 </div>
                             </div>
@@ -49,10 +59,6 @@
                                     <select id="task-responder-select" name="responder" style="width: 200px">
                                         <option value="1">北京</option>
                                         <option value="2">上海</option>
-                                        <option value="3">杭州</option>
-                                        <option value="1">北京</option>
-                                        <option value="2">上海</option>
-                                        <option value="3">杭州</option>
                                     </select>
                                 </div>
                             </div>
@@ -60,31 +66,30 @@
                                 <label class="layui-form-label">任务状态:</label>
                                 <div class="layui-input-inline">
                                     <select id="task-status-select" name="status" style="width: 200px">
-                                        <option value="1">待处理</option>
-                                        <option value="2">处理中</option>
-                                        <option value="3">已处理</option>
-                                        <option value="4">已关闭</option>
+                                        <option value="20004">待处理</option>
+                                        <option value="20003">处理中</option>
+                                        <option value="20002">已处理</option>
+                                        <option value="20001">已关闭</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="detail-item">
                                 <label class="layui-form-label">发起人:</label>
                                 <div class="layui-input-inline">
-                                    <p id="task-requester" class="user_depart_info">xxxxx</p>
+                                    <p id="task-requester">xxxxx</p>
                                 </div>
                             </div>
                             <div class="detail-item">
                                 <label class="layui-form-label">创建时间:</label>
                                 <div class="layui-input-inline">
-                                    <p id="task-time" class="user_depart_info">xxxxx</p>
+                                    <p id="task-time">xxxxx</p>
                                 </div>
                             </div>
                             <div class="detail-item" style="height: 30px">
                             </div>
                             <div class="detail-item">
                                 <div class="layui-input-block">
-                                    <button id="task-save-btn" class="layui-btn layui-btn-normal" lay-submit=""
-                                            lay-filter="demo1">保存
+                                    <button id="task-save-btn" class="layui-btn layui-btn-normal">保存
                                     </button>
                                     <button id="task-reset-btn" type="reset" class="layui-btn layui-btn-primary">重置
                                     </button>
@@ -104,9 +109,8 @@
                         </div>
                         <div id="answer-body" class="layui-card-body">
                             <div class="layui-card" style="margin-bottom: 4px;border: 1px solid #e7e7e7;">
-                                <div class="layui-card-body">
-                                    卡片式面板面板通常用于非白色背景色的主体内<br>
-                                    从而映衬出边框投影
+                                <div class="content-wrap layui-card-body">
+                                    124234234234324324124234234234324324124234234234324324124234234234324324124234234234324324124234234234324324
                                 </div>
                                 <div class="answer-info">回复人 -- 2019年2月28日15:22:33</div>
                             </div>

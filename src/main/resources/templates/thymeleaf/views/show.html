@@ -13,97 +13,88 @@
     <script src="../../static/js/index.js"></script>
 </head>
 <body class="layui-view-body">
+<!--首页3个区域展示-->
 <div class="layui-content" id="show">
     <div class="layui-row layui-col-space20">
 
-        <div class="layui-col-md6">
-            <div class="layui-card">
-                <div class="layui-card-header card-notice">
-                    <p class="card-title">公告</p>
-                    <a class="card-more">更多>></a>
-                </div>
-                <div class="layui-card-body">
-                    <ul id="show-notice">
-                    </ul>
-                </div>
+    <div class="layui-col-md6">
+        <div class="layui-card">
+            <div class="layui-card-header card-notice">
+                <p class="card-title">公告</p>
+                <!-- <a class="card-more" id="notice">更多>></a> -->
+            </div>
+            <div class="layui-card-body">
+                <ul id="show-notice">
+                </ul>
             </div>
         </div>
+    </div>
 
-        <div class="layui-col-md6">
-            <div class="layui-card">
-                <div class="layui-card-header card-notice">
-                    <p class="card-title">共享文件</p>
-                    <a class="card-more">更多>></a>
-                </div>
-                <div class="layui-card-body">
-                    <ul id="show-file">
-                    </ul>
-                </div>
+    <div class="layui-col-md6">
+        <div class="layui-card">
+            <div class="layui-card-header card-notice">
+                <p class="card-title">共享文件</p>
+                <!-- <a class="card-more" id="file">更多>></a> -->
+            </div>
+            <div class="layui-card-body">
+                <ul id="show-file">
+                </ul>
             </div>
         </div>
+    </div>
 
-        <div class="layui-col-md12">
-            <div class="layui-card">
-                <div class="layui-tab layui-tab-brief">
-                    <ul class="layui-tab-title">
-                        <li class="layui-this">待办任务</li>
-                        <li>已完成任务</li>
-                    </ul>
-                    <div class="layui-tab-content clearfix">
-                        <div class="layui-tab-item layui-show">
-                            <table class="layui-table" lay-size="sm">
-                                <colgroup>
-                                    <col width="">
-                                    <col width="150">
-                                    <col width="250">
-                                </colgroup>
-                                <thead>
-                                <tr>
-                                    <th>任务</th>
-                                    <th>指派人</th>
-                                    <th>指派时间</th>
-                                </tr>
-                                </thead>
-                                <tbody id="show-task-deal">
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="layui-tab-item">
-                            <table class="layui-table" lay-size="sm">
-                                <colgroup>
-                                    <col width="">
-                                    <col width="150">
-                                    <col width="250">
-                                </colgroup>
-                                <thead>
-                                <tr>
-                                    <th>任务</th>
-                                    <th>指派人</th>
-                                    <th>完成时间</th>
-                                </tr>
-                                </thead>
-                                <tbody id="show-task-complete">
-                                <tr>
-                                    <td><a>xxx部门申请活动经费</a></td>
-                                    <td>贤心</td>
-                                    <td>2019年1月19日 12:10:12</td>
-                                </tr>
-                                <tr>
-                                    <td><a>xxx部门申请活动经费</a></td>
-                                    <td>许闲心</td>
-                                    <td>2019年1月19日 12:09:42</td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div>
-                            <a class="card-more" href="#">更多>></a>
-                        </div>
+    <div class="layui-col-md12">
+        <div class="layui-card">
+            <div class="layui-tab layui-tab-brief">
+                <ul class="layui-tab-title">
+                    <li class="layui-this">待办任务</li>
+                    <li>已处理任务</li>
+                </ul>
+                <div class="layui-tab-content clearfix">
+                    <div class="layui-tab-item layui-show">
+                        <table class="layui-table" lay-size="sm">
+                            <colgroup>
+                                <col width="">
+                                <col width="200">
+                                <col width="200">
+                            </colgroup>
+                            <thead>
+                            <tr>
+                                <th>任务</th>
+                                <th>指派人</th>
+                                <th>指派时间</th>
+                            </tr>
+                            </thead>
+                            <tbody id="show-task-deal">
+                            </tbody>
+                        </table>
                     </div>
+                    <div class="layui-tab-item">
+                        <table class="layui-table" lay-size="sm">
+                            <colgroup>
+                                <col width="">
+                                <col width="150">
+                                <col width="250">
+                            </colgroup>
+                            <thead>
+                            <tr>
+                                <th>任务</th>
+                                <th>指派人</th>
+                                <th>完成时间</th>
+                            </tr>
+                            </thead>
+                            <tbody id="show-task-complete">
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- <div>
+                        <a class="card-more" id="task">更多>></a>
+                    </div> -->
                 </div>
             </div>
         </div>
     </div>
+</div>
 </div>
 </body>
 </html>

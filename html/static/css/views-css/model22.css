@@ -1,7 +1,6 @@
 * {
     padding: 0;
     margin: 0;
-    font-family: PingFangSC-Medium;
     -webkit-tap-highlight-color: rgba(255,255,255,0);
     tap-highlight-color: hsla(0,0%,100%,0);
 }
@@ -20,6 +19,8 @@ li{
 ol,li{
     list-style: none;
 }
+
+
 .color-coral{
     background-color: lightcoral;
 }
@@ -32,20 +33,25 @@ ol,li{
 .color-green{
     background-color: lightgreen;
 }
+.text{
+    margin: 6px 0;
+    font-size: 12px;
+    height: 20px;
+    line-height: 20px;
+}
 .sign {
-    height: 400px;
-}
-header{
-    height: 100px;
-}
-nav{
-    height:100%;
-    width: 150px;
+    width: 80%;
+    height: 1000px;
     float: left;
 }
-article{
+.header{
+    height: 100px;
+}
+.article{
     height: 100%;
 }
-footer{
-    height: 50px;
+.nav{
+    height:400px;
+    width: 20%;
+    float: right;
 }

@@ -148,15 +148,21 @@ public class UserController {
 		}
 		//Id和UserName是不能更改的，在控制层就set当前用户进去，逻辑层就不要set了
 		user.setUserId(currentUser.getUserId());
-		user.setUserName(currentUser.getUserName());
+//		user.setUserName(currentUser.getUserName());
 		ServerResponse<User> response = iUserService.updateInformation(user);
-		if (response.isSuccess()) {
+		if (response.isSuccess()) {//修改当前用户信息后，要即时更新当前的session用户信息
 			response.getData().setUserName(currentUser.getUserName());
 			session.setAttribute(Const.CURRENT_USER, response.getData());
 		}
 		return response;
 	}
 	
+	/**
+	 * 待改造，前面的get_user_info获取当前用户信息就够了
+	 * 这个方法改成使用userId查找用户信息
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping(value = "get_information.do", method = RequestMethod.POST)
 	public ServerResponse<User> get_information(HttpSession session) {
 		User currentUser = (User) session.getAttribute(Const.CURRENT_USER);
@@ -175,12 +181,14 @@ public class UserController {
 	public ServerResponse<PageInfo> getAllUser(
 			@RequestParam(value="pageNum",defaultValue="1")int pageNum
 			,@RequestParam(value="pageSize",defaultValue="5")int pageSize
+			,String sortType
+			,User user
 			,HttpSession session) {
 		User currentUser = (User) session.getAttribute(Const.CURRENT_USER);
 		if (currentUser == null) {
 			return ServerResponse.createByErrorMsg("用户未登录");
 		}
-		return iUserService.getAllUser(pageNum, pageSize);
+		return iUserService.getAllUser(pageNum, pageSize, sortType,user);
 	}
 	
 	/**
@@ -217,7 +225,7 @@ public class UserController {
 			return ServerResponse.createByErrorMsg("用户未登录");
 		}
 		return iUserService.updateUser(user);
-	}
+	}	
 	
 	/**
 	 * 管理页面-删除用户
@@ -228,6 +236,9 @@ public class UserController {
 		if (currentUser == null) {
 			return ServerResponse.createByErrorMsg("用户未登录");
 		}
+		if(!iUserService.checkAdminRole(currentUser).isSuccess()){
+	        return ServerResponse.createByErrorMsg("无权限操作");
+	    }
 		return iUserService.deleteUser(userId);
 	}
 	
@@ -243,5 +254,16 @@ public class UserController {
 		return iUserService.setRole(roleId, userId);
 	}
 	
+	/**
+	 * 校验角色权限
+	 */
+	@RequestMapping(value = "check_is_admin.do")
+	public ServerResponse<String> checkIsAdmin(HttpSession session) {
+		User currentUser = (User) session.getAttribute(Const.CURRENT_USER);
+		if (currentUser == null) {
+			return ServerResponse.createByErrorMsg("用户未登录");
+		}
+		return iUserService.checkAdminRole(currentUser);
+	}
 	
 }

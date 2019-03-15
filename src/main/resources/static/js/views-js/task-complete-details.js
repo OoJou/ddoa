@@ -1,5 +1,6 @@
 //控制用户的主页操作
 var currentResponder;//当前处理人
+var currentUser;
 $(function () {
     var taskId=getQueryVariable("id");
     get_task_complete_details(taskId);
@@ -18,17 +19,7 @@ function get_user() {//后台用拦截器拦截，前端就不必进来一次请
         }
     })
 }
-//获取?id=，的值
-function getQueryVariable(variable) {
-    var query = window.location.search.substring(1);
-    var vars = query.split("&");
-    for (var i=0;i<vars.length;i++) {
-        var pair = vars[i].split("=");
-        if(pair[0] == variable){return pair[1];}
-    }
-    return(false);
-}
-//填充信息
+//填充信息，设置页面只可读
 function task_complete_details_html(result) {
     currentResponder=result.data.taskResponder;
     get_all_responder();//此时全局变量responderList填充完毕
@@ -38,7 +29,7 @@ function task_complete_details_html(result) {
 
     var statusSelect=$("#task-status-select");
     statusSelect.empty();
-    val=-1;
+    var val=-1;
     var arr=new Array("待处理","处理中","已处理","已关闭");//状态数组
     var arr2=new Array(20004,20003,20002,20001);
     $.each(arr,function (index,item) {
@@ -53,19 +44,43 @@ function task_complete_details_html(result) {
         case 20003:statusSelect.find("option[value='20003']").attr("selected",true);break;
         case 20004:statusSelect.find("option[value='20004']").attr("selected",true);break;
     }
+    var typeSelect=$("#task-type");
+    switch (result.data.taskType){//设值状态
+        case '请假':typeSelect.find("option[value='11']").attr("selected",true);break;
+        case '资金申请':typeSelect.find("option[value='22']").attr("selected",true);break;
+        case '活动申请':typeSelect.find("option[value='33']").attr("selected",true);break;
+        case '其他':typeSelect.find("option[value='44']").attr("selected",true);break;
+    }
 
     set_status_time(result.data.taskStatus);//设置时间线
     $("#task-requester").text(result.data.taskRequester);//接下来一一设置对应值
-    $("#task-time").text(result.data.createTime);
+    $("#task-time").text(renderTime(result.data.createTime));
 
     $("#task-title").attr("task-id",result.data.taskId);//自定义属性设置id
 
-    $("input").attr('readonly', true);//设置页面只可读
-    $("textarea").attr('readonly', true);
-    $(':radio').attr('disabled', true);
-    $(':checkbox').attr('disabled', true);
-    $('a').removeAttr('onclick');
-    $('select').attr('disabled', true);
+    if((!check_level(currentUser.userLevel)
+        && result.data.taskRequester!=currentUser.userName)
+        || result.data.taskStatus==20001){//判断级别,级别不够且不是发起人，或者任务状态为已关闭的不能修改
+        $("input").attr('readonly', true);//设置页面只可读
+        $("textarea").attr('readonly', true);
+        $(':radio').attr('disabled', true);
+        $(':checkbox').attr('disabled', true);
+        $('a').removeAttr('onclick');
+        $('select').attr('disabled', true);
+    }
+    else if((check_level(currentUser.userLevel)
+            || result.data.taskRequester==currentUser.userName)
+            && result.data.taskStatus!=20001){//如果级别够高增加修改按钮
+        var btn=$("<div class=\"detail-item\">\n" +
+            "                                <div class=\"layui-input-block\">\n" +
+            "                                    <button id=\"task-save-btn\" class=\"layui-btn layui-btn-normal\">保存\n" +
+            "                                    </button>\n" +
+            "                                    <button id=\"task-reset-btn\" type=\"reset\" class=\"layui-btn layui-btn-primary\">重置\n" +
+            "                                    </button>\n" +
+            "                                </div>\n" +
+            "                            </div>");
+        $("#completed").append(btn);
+    }
 }
 //请求详情页信息
 function get_task_complete_details(id) {
@@ -165,12 +180,27 @@ function set_reply(result) {
         $("#answer-body").append(model);
     }
 }
+//判断级别，确定是否能修改状态(这里只设置可写，其实后台有逻辑判断，级别不够这里改了也没用)
+function check_level(level) {
+    switch (level){
+        case 10001:return true;break;
+        case 10002:return true;break;
+        case 10003:return true;break;
+        case 10004:return false;break;
+        case 10005:return false;break;
+    }
+}
 
 //返回首页
 $(document).on("click","#back-btn",function () {
     window.location.href="show";
-    //填充首页内容区
-    // back_show_html();
+    var html=getQueryVariable("html");
+    if(html=="task_completed"){
+        window.location.href="task_completed";
+    }
+    if(!html) {
+        window.location.href="show";
+    }
 });
 
 //任务详情页 保存
@@ -182,6 +212,7 @@ $(document).on("click","#task-save-btn",function () {
     var taskResponder=$("#task-responder-select").find("option:selected").text();
     var taskStatus=$("#task-status-select").find("option:selected").val();
     var taskRequester=$("#task-requester").text();
+    var taskType=$("#task-type").find("option:selected").text();
     $.ajax({
         url:"/task/handle_task.do",
         type:"POST",
@@ -192,12 +223,19 @@ $(document).on("click","#task-save-btn",function () {
             taskDetails:taskDetails,
             taskResponder:taskResponder,
             taskRequester:taskRequester,
-            taskStatus:taskStatus
+            taskStatus:taskStatus,
+            taskType:taskType
         },
         success:function (result) {
             if(result.status==200){
                 console.log(result);
-                window.location.href="task_complete_details?id="+taskId;
+                var html=getQueryVariable("html");
+                if(html=="task_completed"){
+                    window.location.href="task_complete_details?id="+taskId + "&html=task_completed";
+                }
+                if(!html) {
+                    window.location.href="task_complete_details?id="+taskId;
+                }
             }
         }
     })
@@ -208,4 +246,33 @@ $(document).on("click","#task-reset-btn",function () {
     //重新用id请求一次详情页
     var taskId=$("#task-title").attr("task-id");
     window.location.href="task_complete_details?id="+taskId;
+    var html=getQueryVariable("html");
+    if(html=="task_completed"){
+        window.location.href="task_complete_details?id="+taskId + "&html=task_completed";
+    }
+    if(!html) {
+        window.location.href="task_complete_details?id="+taskId;
+    }
 });
+
+//前端时间转换2019-01-13T05:22:01.000+0000 --> 2019-01-13 13:22:01
+function renderTime(date) {
+    var dateFormat = new Date(date);
+    var times= dateFormat.getFullYear() + '年'
+        + (dateFormat.getMonth() + 1 < 10 ? "0" + (dateFormat.getMonth() + 1) : dateFormat.getMonth() + 1)
+        + '月' + (dateFormat.getDate() < 10 ? "0"+ dateFormat.getDate() : dateFormat.getDate())
+        + '日  ' + (dateFormat.getHours() < 10 ? "0"+ dateFormat.getHours() : dateFormat.getHours())
+        + ':' + (dateFormat.getMinutes() < 10 ? "0"+ dateFormat.getMinutes() : dateFormat.getMinutes())
+        + ':' + (dateFormat.getSeconds() < 10 ? "0"+ dateFormat.getSeconds() : dateFormat.getSeconds());
+    return times;
+}
+//获取?id=，的值
+function getQueryVariable(variable) {
+    var query = window.location.search.substring(1);
+    var vars = query.split("&");
+    for (var i=0;i<vars.length;i++) {
+        var pair = vars[i].split("=");
+        if(pair[0] == variable){return pair[1];}
+    }
+    return(false);
+}

@@ -1,13 +1,12 @@
 * {
     padding: 0;
     margin: 0;
-    font-family: PingFangSC-Medium;
+    -moz-box-sizing: border-box;
     -webkit-tap-highlight-color: rgba(255,255,255,0);
-    tap-highlight-color: hsla(0,0%,100%,0);
 }
 a{
     text-decoration: none;
-    color: #00a1d6;
+    cursor: pointer;
 }
 
 div{
@@ -90,7 +89,7 @@ ol,li{
 }
 
 .file-select .item input{
-    width: 180px;
+    width: 140px;
     height: 23px;
     border: 1px solid #ddd;
     border-radius: 2px;
@@ -109,20 +108,16 @@ ol,li{
     width: 4px;
     height: 16px;
     margin-top: 18px;
-    background-color: #009688;
+    background-color: #177ce3!important; /*#009688;*/
     border-radius: 4px;
 }
 .user_info_text{
     float: left;
     margin: 5px 0 0 5px;
-    color: #009688;
+    color: #177ce3!important; /*#009688;*/
     font-size: 14px;
     cursor: default;
 }
-.user_depart_info{
-    margin-top: 8px;
-}
-
 .manage_btn{
     padding: 8px 0px 8px 8px;
 }
@@ -134,9 +129,6 @@ ol,li{
 .layui-content{
     padding: 16px;
 }
-
-
-
 
 
 
@@ -197,4 +189,38 @@ ol,li{
 .chart-card .field span:last-child{
     margin-left: 8px;
     color: rgba(0,0,0,.85);
+}
+
+.download-btn{
+    width: 260px;
+    height: 40px;
+    font-size: 23px;
+}
+
+.file-img{
+    width: 240px;
+    height: 240px;
+}
+
+/*换行*/
+.content-wrap{
+    height: auto;
+    word-wrap:break-word;
+    word-break:break-all;
+    overflow: hidden;
+    /*white-space:nowrap;强制不换行切除*/
+}
+/*超出长度显示...（需要父元素设置宽度才有效果）*/
+.content-space{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: clip;
+    word-wrap: normal;
+}
+.view-content{
+    padding:10px;
+}
+.card-header{
+    background:#dadada;
+    background-image: -webkit-linear-gradient(left,#c9c9c9,#dadada);
 }
