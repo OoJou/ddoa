@@ -180,7 +180,11 @@ function check_level(level) {
 //回复
 $(document).on("click","#answer-btn",function () {
     answer_message=currentUser.userName+":"+$("#answer-message").val();
-    $("#task-save-btn").click();
+    if ($("#answer-message").val()==''||$("#answer-message").val()==null){
+        alert("回复不能为空");
+    }else {
+        $("#task-save-btn").click();
+    }
 });
 
 //返回首页

@@ -27,13 +27,16 @@ public class LocationUploadUtil {
 //	@Value("${img.location}")
 //	private static String imgp="H:\\ftpfile\\img\\";
 	
-	@Value("${file.location}")
-	private static String filep= "H:\\ftpfile\\file\\";
-	
+	private static String filep;//@Value无法直接注入静态变量中,外部set或者中间变量赋值
+
+	public static void setFilep(String filep) {
+		LocationUploadUtil.filep = filep;
+	}
+
 	private static Logger logger = LoggerFactory.getLogger(LocationUploadUtil.class);
 	
 	// 单文件上传
-	public static Boolean uploadFile(MultipartFile file,String uploadFileName) {
+	public static boolean uploadFile(MultipartFile file,String uploadFileName) {
 		logger.info("filep:{}",filep);
 		BufferedOutputStream stream = null;
 		File fileDir = new File(filep);
@@ -84,17 +87,20 @@ public class LocationUploadUtil {
 	}
 	
 	//文件下载相关代码,可以考虑吧request传入
-	public static String downloadFile(HttpServletRequest request
+	public static boolean downloadFile(HttpServletRequest request
 			, HttpServletResponse response
-			,String fileSource
+			,String realPath
 			,String fileName) {
-	    fileName = "aim_test.txt";// 设置文件名，根据业务需要替换成要下载的文件名
+//	    fileName = "aim_test.txt";// 设置文件名，根据业务需要替换成要下载的文件名
 	    if (fileName != null) {
-	        //设置文件路径
-	        String realPath = fileSource;//格式"D://aim//"
+	        //设置当前下载文件的所在路径（不是用户设置另存的路径）
+//	        String realPath = fileSource;//格式"D://aim//"
+//	    	String realPath = "h://ftpfile//file//";
 	        File file = new File(realPath , fileName);
 	        if (file.exists()) {
-	            response.setContentType("application/force-download");// 设置强制下载不打开
+	    		logger.info("realPath:{}",realPath);
+	            response.setContentType("application/force-download");// 设置强制下载
+//	    		response.setContentType(request.getSession().getServletContext().getMimeType(fileName));//设置文件MIME类型
 	            response.addHeader("Content-Disposition", "attachment;fileName=" + fileName);// 设置文件名
 	            byte[] buffer = new byte[1024];
 	            FileInputStream fis = null;
@@ -108,7 +114,7 @@ public class LocationUploadUtil {
 	                    os.write(buffer, 0, i);
 	                    i = bis.read(buffer);
 	                }
-	                return "下载成功";
+	                return true;
 	            } catch (Exception e) {
 	                e.printStackTrace();
 	            } finally {
@@ -129,6 +135,6 @@ public class LocationUploadUtil {
 	            }
 	        }
 	    }
-	    return "下载失败";
+	    return false;
 	}
 }

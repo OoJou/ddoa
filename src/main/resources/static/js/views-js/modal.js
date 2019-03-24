@@ -20,10 +20,12 @@ function checkmodalType(type) {
         case "删除":return $("#modal-del");break;
         case "初始化密码":return $("#modal-reset");break;
         case "新增":return $("#modal-insert");break;
+        case "下载":return $("#modal-download");break;
+        case "上传文件":return $("#modal-upload");break;
     }
 }
 $(window).resize(function(){
-    if(modalType.is(":visible")){ //弹出框必须可见后 才能调用showmodal()
+    if(modalType.is(':visible')){ //弹出框必须可见后 才能调用showmodal()
         showmodal(modalType);
     }
 });

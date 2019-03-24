@@ -168,7 +168,7 @@ function notice_details_html(result) {
     $("#show").html(notice_details);
 
     $("#notice-title").text(result.data.noticeTitle);
-    $("#notice-publichser").text(result.data.noticePubilsher);
+    $("#notice-publisher").text("发布者："+result.data.noticePubilsher);
     $("#notice-body").html(result.data.noticeDetails);
 }
 

@@ -181,7 +181,7 @@ public class UserController {
 	public ServerResponse<PageInfo> getAllUser(
 			@RequestParam(value="pageNum",defaultValue="1")int pageNum
 			,@RequestParam(value="pageSize",defaultValue="5")int pageSize
-			,String sortType
+			,@RequestParam(value="sortType",defaultValue="ASC")String sortType 
 			,User user
 			,HttpSession session) {
 		User currentUser = (User) session.getAttribute(Const.CURRENT_USER);

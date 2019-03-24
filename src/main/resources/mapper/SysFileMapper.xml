@@ -128,10 +128,44 @@
   </update>
   
   
-     <!-- 以下新增 -->
+  <!-- 以下新增 -->
   <select id="selectAllFile" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from ddoa_file
+  </select>
+  <select id="selectAllFileByDESC" resultMap="BaseResultMap" parameterType="com.OoJou.pojo.SysFile">
+    select 
+    <include refid="Base_Column_List" />
+    from ddoa_file
+    <where>
+		<if test="fileName != null">
+	        file_name LIKE concat('%',#{fileName},'%')
+	    </if>
+	    <if test="fileName != null and fileUploadUser != null">
+	        AND
+	    </if>
+	    <if test="fileUploadUser != null">
+	        file_upload_user LIKE concat('%',#{fileUploadUser},'%')
+	    </if>
+	</where>
+	ORDER BY create_time DESC
+  </select>
+  <select id="selectAllFileByASC" resultMap="BaseResultMap" parameterType="com.OoJou.pojo.SysFile">
+    select 
+    <include refid="Base_Column_List" />
+    from ddoa_file
+    <where>
+		<if test="fileName != null">
+	        file_name LIKE concat('%',#{fileName},'%')
+	    </if>
+	    <if test="fileName != null and fileUploadUser != null">
+	        AND
+	    </if>
+	    <if test="fileUploadUser != null">
+	        file_upload_user LIKE concat('%',#{fileUploadUser},'%')
+	    </if>
+	</where>
+	ORDER BY create_time ASC
   </select>
 </mapper>

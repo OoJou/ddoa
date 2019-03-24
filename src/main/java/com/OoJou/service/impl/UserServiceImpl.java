@@ -272,7 +272,7 @@ public class UserServiceImpl implements IUserService {
 		List<User> userList = null;
 		// 模糊查询
 		if(!sortType.equals("DESC")&& !sortType.equals("ASC")) {
-			return ServerResponse.createByErrorMsg("无此排序");
+			userList=userMapper.selectAllUser();
 		}
 		if (sortType.equals("DESC")) {
 			userList=userMapper.selectAllUserByDESC(user);//pojo

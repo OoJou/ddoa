@@ -4,7 +4,7 @@ var currentResponder;//当前处理人
 var answer_message;//当前回复
 $(function () {
     var taskId=getQueryVariable("id");
-    get_task_request_details(taskId);
+    get_task_deal_details(taskId);
     get_user();
 });
 function get_user() {//后台用拦截器拦截，前端就不必进来一次请求一次
@@ -21,7 +21,7 @@ function get_user() {//后台用拦截器拦截，前端就不必进来一次请
     })
 }
 //填充信息----状态判断单独做方法
-function task_request_details_html(result) {
+function task_deal_details_html(result) {
 
     currentResponder=result.data.taskResponder;
     get_all_responder();//此时全局变量responderList填充完毕
@@ -47,29 +47,20 @@ function task_request_details_html(result) {
         case 20003:statusSelect.find("option[value='20003']").attr("selected",true);break;
         case 20004:statusSelect.find("option[value='20004']").attr("selected",true);break;
     }
-
-    var typeSelect=$("#task-type");
     switch (result.data.taskType){//设值状态
-        case '请假':typeSelect.find("option[value='11']").attr("selected",true);break;
-        case '资金申请':typeSelect.find("option[value='22']").attr("selected",true);break;
-        case '活动申请':typeSelect.find("option[value='33']").attr("selected",true);break;
-        case '其他':typeSelect.find("option[value='44']").attr("selected",true);break;
+        case '请假':statusSelect.find("option[value='请假']").attr("selected",true);break;
+        case '资金申请':statusSelect.find("option[value='资金申请']").attr("selected",true);break;
+        case '活动申请':statusSelect.find("option[value='活动申请']").attr("selected",true);break;
+        case '其他':statusSelect.find("option[value='其他']").attr("selected",true);break;
     }
     set_status_time(result.data.taskStatus);//设置时间线
     $("#task-requester").text(result.data.taskRequester);//接下来一一设置对应值
     $("#task-time").text(renderTime(result.data.createTime));
 
     $("#task-title").attr("task-id",result.data.taskId);
-
-    if(!check_level(currentUser.userLevel)
-        && result.data.taskRequester!=currentUser.userName){//判断级别,级别不够且不是发起人
-        $("#task-title").attr('disabled', true);//设置页面只可读
-        $("#task-body").attr('disabled', true);
-        $("#task-type").attr('disabled', true);
-    }
 }
 //请求详情页信息
-function get_task_request_details(id) {
+function get_task_deal_details(id) {
     var taskDealId=id;
     $.ajax({
         url:"/task/get_task_details.do",
@@ -80,7 +71,7 @@ function get_task_request_details(id) {
         },
         success:function (result) {
             if(result.status==200){
-                task_request_details_html(result);
+                task_deal_details_html(result);
                 set_reply(result);
                 console.log(result);
             }else{
@@ -166,16 +157,6 @@ function set_reply(result) {
         $("#answer-body").append(model);
     }
 }
-//判断级别，确定是否能修改状态(这里只设置可写，其实后台有逻辑判断，级别不够这里改了也没用)
-function check_level(level) {
-    switch (level){
-        case 10001:return true;break;
-        case 10002:return true;break;
-        case 10003:return true;break;
-        case 10004:return false;break;
-        case 10005:return false;break;
-    }
-}
 
 //回复
 $(document).on("click","#answer-btn",function () {
@@ -187,21 +168,9 @@ $(document).on("click","#answer-btn",function () {
     }
 });
 
-//返回首页
+//返回任务管理界面
 $(document).on("click","#back-btn",function () {
-    var html=getQueryVariable("html");
-    if(html=="task_deal"){
-        window.location.href="task_deal";
-    }
-    if(html=="manage_task"){
-        window.location.href="manage_task";
-    }
-    if(html=="task_request"){
-        window.location.href="task_request";
-    }
-    if(!html) {
-        window.location.href="show";
-    }
+    window.location.href="manage_task";
     //填充首页内容区
     // back_show_html();
 });
@@ -216,7 +185,6 @@ $(document).on("click","#task-save-btn",function () {
     var taskStatus=$("#task-status-select").find("option:selected").val();
     var taskRequester=$("#task-requester").text();
     var taskMessage=answer_message;
-    var taskType=$("#task-type").find("option:selected").text();
     $.ajax({
         url:"/task/handle_task.do",
         type:"POST",
@@ -228,24 +196,11 @@ $(document).on("click","#task-save-btn",function () {
             taskResponder:taskResponder,
             taskRequester:taskRequester,
             taskStatus:taskStatus,
-            taskMessage:taskMessage,
-            taskType:taskType
+            taskMessage:taskMessage
         },
         success:function (result) {
             if (result.status == 200) {
-                var html=getQueryVariable("html");
-                if(html=="task_deal"){
-                    window.location.href = "task_request_details?id=" + taskId +"&html=task_deal";
-                }
-                if(html=="manage_task"){
-                    window.location.href="task_request_details?id=" + taskId + "&html=manage_task";
-                }
-                if(html=="task_request"){
-                    window.location.href="task_request_details?id=" + taskId + "&html=task_request";
-                }
-                if((!html)) {
-                    window.location.href = "task_request_details?id=" + taskId;
-                }
+                window.location.href = "manage_task_details?id=" + taskId;
             }
         }
     })
@@ -255,23 +210,8 @@ $(document).on("click","#task-save-btn",function () {
 $(document).on("click","#task-reset-btn",function () {
     //重新用id请求一次详情页
     var taskId=$("#task-title").attr("task-id");
-    var html=getQueryVariable("html");
-    if(html=="task_deal"){
-        window.location.href = "task_request_details?id=" + taskId +"&html=task_deal";
-    }
-    if(html=="manage_task"){
-        window.location.href="task_request_details?id=" + taskId + "&html=manage_task";
-    }
-    if(html=="task_request"){
-        window.location.href="task_request_details?id=" + taskId + "&html=task_request";
-    }
-    if(!html){
-        window.location.href = "task_request_details?id=" + taskId;
-    }
+    window.location.href="manage_task_details?id="+taskId;
 });
-
-//发布任务
-
 
 //前端时间转换2019-01-13T05:22:01.000+0000 --> 2019-01-13 13:22:01
 function renderTime(date) {

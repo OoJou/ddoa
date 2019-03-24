@@ -171,7 +171,7 @@ public class TaskServiceImpl implements ITaskService {
 		List<Task> taskList=null;//Task-pojo的列表
 		
 		// 模糊查询
-		if(!sortType.equals("DESC")&& !sortType.equals("ASC")) {
+		if((!sortType.equals("DESC")&& !sortType.equals("ASC"))||sortType==null) {
 			return ServerResponse.createByErrorMsg("无此排序");
 		}
 		if (sortType.equals("DESC")) {

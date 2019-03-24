@@ -45,6 +45,7 @@ public class NoticeController {
 	public ServerResponse<PageInfo> getAllNotice(
 			@RequestParam(value="pageNum",defaultValue="1")int pageNum
 			,@RequestParam(value="pageSize",defaultValue="5")int pageSize
+			,@RequestParam(value="sortType",defaultValue="ASC")String sortType 
 			,HttpSession session){
 		User user=(User)session.getAttribute(Const.CURRENT_USER);
 		if(user==null) {

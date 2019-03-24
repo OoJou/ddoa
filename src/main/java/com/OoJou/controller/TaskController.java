@@ -160,7 +160,7 @@ public class TaskController {
 	public ServerResponse<PageInfo> getAllTask(
 			@RequestParam(value="pageNum",defaultValue="1")int pageNum
 			,@RequestParam(value="pageSize",defaultValue="5")int pageSize
-			,String sortType
+			,@RequestParam(value="sortType",defaultValue="ASC")String sortType 
 			,Task task
 			,HttpSession session){
 		User user=(User)session.getAttribute(Const.CURRENT_USER);

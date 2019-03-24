@@ -20,4 +20,6 @@ public interface SysFileMapper {
     //新增方法
     //管理页面-查
     List<SysFile> selectAllFile();
+    List<SysFile> selectAllFileByDESC(SysFile sysFile);
+    List<SysFile> selectAllFileByASC(SysFile sysFile);
 }
