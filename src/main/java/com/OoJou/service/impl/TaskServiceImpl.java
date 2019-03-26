@@ -107,12 +107,12 @@ public class TaskServiceImpl implements ITaskService {
 		return taskListVo;
 	}
 	
-	public ServerResponse<PageInfo> getTaskOfUser(String username,int pageNum,int pageSize) {
+	public ServerResponse<PageInfo> getTaskOfUser(String username,int pageNum,int pageSize,String sortType) {
         //startPage--start
         //填充自己的sql查询逻辑
         //pageHelper-收尾	
 		PageHelper.startPage(pageNum, pageSize);
-		List<Task> taskList=taskMapper.selectTaskOfUserByUsername(username);//Task-pojo的列表
+		List<Task> taskList=taskMapper.selectTaskOfUserByUsername(username,sortType);//Task-pojo的列表
 		
 		List<TaskListVo> taskListVoList =new ArrayList<TaskListVo>();//存转化成TaskListvo-vo的列表
 		for(Task taskItem : taskList) {//循环转换
@@ -124,9 +124,9 @@ public class TaskServiceImpl implements ITaskService {
 		return ServerResponse.createBySuccess("查询成功",pageResult);
 	}
 
-	public ServerResponse<PageInfo> getTaskOfUserCreate(String username,int pageNum,int pageSize) {
+	public ServerResponse<PageInfo> getTaskOfUserCreate(String username,int pageNum,int pageSize,String sortType) {
 		PageHelper.startPage(pageNum, pageSize);
-		List<Task> taskList=taskMapper.selectTaskOfUserCreateByUsername(username);//Task-pojo的列表
+		List<Task> taskList=taskMapper.selectTaskOfUserCreateByUsername(username,sortType);//Task-pojo的列表
 		
 		List<TaskListVo> taskListVoList =new ArrayList<TaskListVo>();//存转化成TaskListvo-vo的列表
 		for(Task taskItem : taskList) {//循环转换
@@ -138,9 +138,9 @@ public class TaskServiceImpl implements ITaskService {
 		return ServerResponse.createBySuccess("查询成功",pageResult);
 	}
 
-	public ServerResponse<PageInfo> getTaskOfUserClose(String username,int pageNum,int pageSize) {
+	public ServerResponse<PageInfo> getTaskOfUserClose(String username,int pageNum,int pageSize,String sortType) {
 		PageHelper.startPage(pageNum, pageSize);
-		List<Task> taskList=taskMapper.selectTaskOfUserCloseByUsername(username);//Task-pojo的列表
+		List<Task> taskList=taskMapper.selectTaskOfUserCloseByUsername(username,sortType);//Task-pojo的列表
 		
 		List<TaskListVo> taskListVoList =new ArrayList<TaskListVo>();//存转化成TaskListvo-vo的列表
 		for(Task taskItem : taskList) {//循环转换
@@ -152,9 +152,9 @@ public class TaskServiceImpl implements ITaskService {
 		return ServerResponse.createBySuccess("查询成功",pageResult);
 	}
 	
-	public ServerResponse<PageInfo> getTaskOfUserNow(String username,int pageNum,int pageSize) {
+	public ServerResponse<PageInfo> getTaskOfUserNow(String username,int pageNum,int pageSize,String sortType) {
 		PageHelper.startPage(pageNum, pageSize);
-		List<Task> taskList=taskMapper.selectTaskOfUserNowByUsername(username);//Task-pojo的列表
+		List<Task> taskList=taskMapper.selectTaskOfUserNowByUsername(username,sortType);//Task-pojo的列表
 		
 		List<TaskListVo> taskListVoList =new ArrayList<TaskListVo>();//存转化成TaskListvo-vo的列表
 		for(Task taskItem : taskList) {//循环转换

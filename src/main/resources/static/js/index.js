@@ -123,31 +123,47 @@ function task_complete_column(result) {
     });
 }
 
-function file_details_html(result) {
-    var file_details=$("<div class=\"layui-col-sm12 layui-col-md12\">" +
-        "        <div class=\"layui-card\">" +
-        "            <div>" +
-        "                <button class=\"layui-btn layui-btn-normal\" id='back-btn'><i class=\"layui-icon\">&#xe603;</i>返回</button></div>" +
-        "            <div class=\"layui-card-header\" style=\"text-align: center; font-size: large;\" id='file-name'>面板</div>" +
-        "            <div>" +
-        "                <p style=\"text-align: center; font-size: small;\" id='file-upload-user'>上传人：</p>" +
-        "            </div>," +
-        "            <div class=\"layui-card-body\">" +
-        "                <div style=\"text-align: center; margin: 25px 0px\">" +
-        "                    <img src=\"../static/images/img-me.jpg\" alt=\"图片加载失败····\" id='file-image'>" +
-        "                </div>" +
-        "                <div style=\"text-align: center\">" +
-        "                    <input type=\"button\" class=\"layui-btn layui-btn-normal download-btn\" value=\"下载\" id='file-download-btn'>" +
-        "                </div>" +
-        "            </div>" +
-        "        </div>" +
-        "    </div>");
-    $("#show").empty();
-    $("#show").html(file_details);
 
-    $("#file-name").text(result.data.fileName);
-    $("#file-upload-user").text("上传人："+fileUploadUser);
-    $("#file-image").attr("src",result.data.fileImage);
+//填充广告
+function get_notice_list() {
+    $.ajax({
+        url:"/notice/get_all_notice.do",
+        type:"POST",
+        dataType:"json",
+        success:function (result) {
+            if(result.status==200){
+                notice_column(result);
+            }
+        },
+        error:function () {
+            notice_column(null);
+        }
+    })
+}
+//监听+获取广告详情
+$(document).on("click",".notice-click",function ()  {
+    var id=$(this).attr("notice-id");
+    // get_notice_details(id);//作废
+    window.location.href="notice_details?id="+id+"&html=show"
+})
+function get_notice_details(id) {
+    var noticeId=id;
+    $.ajax({
+        url:"/notice/get_notice_details.do",
+        type:"POST",
+        dataType:"json",
+        data:{
+            noticeId:noticeId
+        },
+        success:function (result) {
+            if(result.status==200){
+                notice_details_html(result);
+            }
+        },
+        error:function () {
+            notice_details_html(null);
+        }
+    })
 }
 function notice_details_html(result) {
     var notice_details=$("<div class=\"layui-col-sm12 layui-col-md12\">" +
@@ -172,47 +188,6 @@ function notice_details_html(result) {
     $("#notice-body").html(result.data.noticeDetails);
 }
 
-//填充广告
-function get_notice_list() {
-    $.ajax({
-        url:"/notice/get_all_notice.do",
-        type:"POST",
-        dataType:"json",
-        success:function (result) {
-            if(result.status==200){
-                notice_column(result);
-            }
-        },
-        error:function () {
-            notice_column(null);
-        }
-    })
-}
-//监听+获取广告详情
-$(document).on("click",".notice-click",function () {
-    var id=$(this).attr("notice-id");
-    get_notice_details(id);//传入id，查询后，详情页进行填充
-})
-function get_notice_details(id) {
-    var noticeId=id;
-    $.ajax({
-        url:"/notice/get_notice_details.do",
-        type:"POST",
-        dataType:"json",
-        data:{
-            noticeId:noticeId
-        },
-        success:function (result) {
-            if(result.status==200){
-                notice_details_html(result);
-            }
-        },
-        error:function () {
-            notice_details_html(null);
-        }
-    })
-}
-
 //填充文件
 function get_file_list() {
     $.ajax({
@@ -231,7 +206,8 @@ function get_file_list() {
 }
 $(document).on("click",".file-click",function () {
     var id=$(this).attr("file-id");
-    get_file_details(id);
+    // get_file_details(id);----该方法可以作废了
+    window.location.href="file_details?id="+id+"&html=show"
 })
 function get_file_details(id) {
     var fileId=id;
@@ -251,6 +227,55 @@ function get_file_details(id) {
             alert("详情页错误");
         }
     })
+}
+function file_details_html(result) {
+    var item=result.data;
+    var btn=null,img=null;
+    //图片地址,
+    var img_url ="http://localhost:8080/file/show_img.do?url="+item.fileSource;//拼接
+    var img1 ="<img src=\""+img_url+"\" alt=\"图片加载失败····\" style='width: auto;height: auto;max-width: 100%;max-height: 100%'>";
+    var img2 ="<img src=\"../../static/images/timg2.jpg\" alt=\"图片加载失败····\" style='width: auto;height: auto;max-width: 100%;max-height: 100%'>";
+    var fileExtensionName = img_url.substring(img_url.lastIndexOf(".")+1);//jpg等
+    var pattern = "(bmp|jpg|png|tif|gif|pcx|tga|exif|fpx|svg|psd|cdr|pcd|dxf|ufo|eps|ai|raw|WMF|webp)";
+    if(!fileExtensionName.match(pattern)){//如果是图片则直接显示，不是则显示默认配置的图片
+        img=img2;
+    }else {
+        img=img1;
+    }
+
+    //区别显示按钮,保存id
+    var btn1= "<input file-id=\""+item.fileId+"\" type=\"button\" class=\"download open layui-btn layui-btn-normal my-upload-btn\" value=\"下载\">" +
+        "      <input file-id=\""+item.fileId+"\" type=\"button\" class=\"del open layui-btn layui-btn-normal my-upload-btn\" value=\"删除\">";
+    var btn2="<input file-id=\""+item.fileId+"\" type=\"button\" class=\"download open layui-btn layui-btn-normal download-btn\" value=\"下载\">";
+    if(currentUser.userName==item.fileUploadUser){//如果是上传者是当前用户，显示下载和删除的按钮
+        btn=btn1;
+    }else {
+        btn=btn2;
+    }
+
+    var file_details=$("<div class=\"layui-col-sm12 layui-col-md12\">" +
+        "        <div class=\"layui-card\">" +
+        "            <div>" +
+        "                <button class=\"layui-btn layui-btn-normal\" id='back-btn'><i class=\"layui-icon\">&#xe603;</i>返回</button></div>" +
+        "            <div class=\"layui-card-header\" style=\"text-align: center; font-size: large;\" id='file-name'>面板</div>" +
+        "            <div>" +
+        "                <p style=\"text-align: center; font-size: small;\" id='file-upload-user'>上传人：</p>" +
+        "            </div>," +
+        "            <div class=\"layui-card-body\">" +
+        "                <div style=\"text-align: center; margin: 25px 0px\">" +
+        img +
+        "                </div>" +
+        "                <div style=\"text-align: center\">" +
+        btn +
+        "                </div>" +
+        "            </div>" +
+        "        </div>" +
+        "    </div>");
+    $("#show").empty();
+    $("#show").html(file_details);
+
+    $("#file-name").text(result.data.fileName);
+    $("#file-upload-user").text("上传人："+fileUploadUser);
 }
 
 //填充待处理任务
@@ -296,13 +321,79 @@ $(document).on("click",".task-complete-click",function () {
     window.location.href="task_complete_details?id="+id;
 })
 
+//点击删除，保存id
+$(document).on("click",".del",function () {
+    var id=$(this).attr("file-id");
+    $(".tips-del-yes").attr("file-id",id);
+});
+//确认删除
+$(document).on("click",".tips-del-yes",function () {
+    $.ajax({
+        url:"/file/delete_file.do",
+        type:"POST",
+        dataType:"json",
+        data:{
+            fileId:$(".tips-del-yes").attr("file-id")
+        },
+        success:function (result) {
+            alert(result.msg);
+            $("#modal-del").hide();
+            $(".mask").fadeOut();
+            var html=getQueryVariable("html");
+            if(html=="file"){
+                window.location.href="file";
+            }else {
+                window.location.href="show";
+            }
+        }
+    });
+});
+//取消删除
+$(document).on("click",".tips-del-no",function () {
+    $("#modal-del").hide();
+    $(".mask").fadeOut();
+});
+
+//点击下载，保存id
+$(document).on("click",".download",function () {
+    var id=$(this).attr("file-id");
+    $(".tips-download-yes").attr("file-id",id);
+    $(".tips-download-yes").attr("href","http://localhost:8080/file/download_file.do?fileId="+id);
+});
+//确认下载
+$(document).on("click",".tips-download-yes",function () {
+    setTimeout(function () {
+        $("#modal-download").hide();
+        $(".mask").fadeOut();
+    }, 500);//点击下载后0.5秒关闭弹框，保证点击事件是有效的
+});
+//取消下载
+$(document).on("click",".tips-download-no",function () {
+    $("#modal-download").hide();
+    $(".mask").fadeOut();
+});
+
 //返回首页
 $(document).on("click","#back-btn",function () {
-    window.location.href="show";
-    //填充首页内容区
+    var html=getQueryVariable("html");
+    if(html=="file"){
+        window.location.href="file";
+    }else {
+        window.location.href="show";
+    }
     // back_show_html();
 });
 
+//获取?id=，的值
+function getQueryVariable(variable) {
+    var query = window.location.search.substring(1);
+    var vars = query.split("&");
+    for (var i=0;i<vars.length;i++) {
+        var pair = vars[i].split("=");
+        if(pair[0] == variable){return pair[1];}
+    }
+    return(false);
+}
 //前端时间转换2019-01-13T05:22:01.000+0000 --> 2019-01-13 13:22:01
 function renderTime(date) {
     var dateFormat = new Date(date);

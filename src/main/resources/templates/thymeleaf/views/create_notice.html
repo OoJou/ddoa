@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="../../static/jquery-3.3.1/jquery-3.3.1.js"></script>
+    <script src="../../static/jquery-cookies-1.4.1/jquery.cookie.js"></script>
+    <link rel="stylesheet" href="../../static/layui/css/layui.css">
+    <link rel="stylesheet" href="../../static/css/show.css"/>
+    <link rel="stylesheet" href="../../static/css/details.css"/>
+    <script src="../../static/layui/layui.js"></script>
+    <script src="../../static/js/index-use.js"></script>
+    <!-- 引入ckeditor.js文件 -->
+    <script src="../../static/ckeditor/ckeditor.js"></script>
+    <script src="../../static/js/views-js/create-notice.js"></script>
+</head>
+<body class="layui-view-body">
+<div class="layui-content">
+    <!--任务区-->
+    <div class="" style="width: 100%">
+        <div class="header color-white">
+            <button id="back-btn" class="layui-btn layui-btn-normal"><i class="layui-icon">&#xe603;</i>返回</button>
+        </div>
+        <div class="article">
+            <!--任务内容（表单形式）-->
+            <div class="layui-row layui-col-space3">
+                <div class="layui-col-md12">
+                    <div class="layui-card">
+                        <div class="layui-card-header">
+                            <span class="user_info_text">发布公告</span>
+                        </div>
+                        <div class="layui-card-body">
+                            <div class="detail-item">
+                                <label class="layui-form-label">标题:</label>
+                                <div  class="layui-input-block ">
+                                    <input id="notice-title" type="text" placeholder="请输入" value="" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="detail-item">
+                                <label class="layui-form-label">详细内容:</label>
+                                <div class="layui-input-block">
+                                    <form>
+                                        <textarea name="details" id="details" rows="10" cols="80"></textarea>
+                                        <script>
+                                            // 替换 <textarea id="editor1">为CKEditor实例
+                                            // 使用默认配置
+                                            CKEDITOR.replace('details',{ fullPage: true, allowedContent: true });
+                                        </script>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="detail-item">
+                                <label class="layui-form-label">发布者:</label>
+                                <div class="layui-input-inline">
+                                    <p id="notice-pubilsher">aaaa</p>
+                                </div>
+                            </div>
+                            <div class="detail-item" style="height: 30px">
+                            </div>
+                            <div class="detail-item">
+                                <div class="layui-input-block">
+                                    <button id="notice-save-btn" class="layui-btn layui-btn-normal">立即发布
+                                    </button>
+                                    <button style="margin-left: 30px" id="notice-reset-btn" type="reset" class="layui-btn layui-btn-primary">重置
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

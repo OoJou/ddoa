@@ -47,7 +47,8 @@ public class SysFileController {
 	@RequestMapping(value = "get_all_file.do")
 	public ServerResponse<PageInfo> getAllFile(@RequestParam(value = "pageNum", defaultValue = "1") int pageNum,
 			@RequestParam(value = "pageSize", defaultValue = "5") int pageSize,
-			@RequestParam(value = "sortType", defaultValue = "ASC") String sortType, SysFile sysFile,
+			@RequestParam(value = "sortType", defaultValue = "DESC") String sortType, 
+			SysFile sysFile,
 			HttpSession session) {
 		User user = (User) session.getAttribute(Const.CURRENT_USER);
 		if (user == null) {
@@ -138,7 +139,25 @@ public class SysFileController {
 		}
 		return iSysFileService.deleteFile(fileId);
 	}
-
+	
+	/**
+	 * img标签显示本地磁盘的图片，读取流
+	 * 直接使用src=file:\\\H:ftpfile\file\xxx.jpg是不能显示，浏览器不支持直接读取磁盘的图片
+	 * 解决方法1：在项目中的resource包下创建一个存放静态资源的文件，这样可根据根目录进行读取，src=../static/upload/xx.jpg
+	 * 解决方法2：读写流，然后通过response返回到浏览器。src=http://localhost:8080/file/show_img.do?url=h:/ftpfile/file/xx.jpg
+	 */
+	@RequestMapping(value = "show_img.do")
+	public ServerResponse<String> showImg(HttpSession session,HttpServletRequest request
+			, HttpServletResponse response
+			, @RequestParam(value = "url")String url) {
+		User user = (User) session.getAttribute(Const.CURRENT_USER);
+		if (user == null) {
+			return ServerResponse.createByErrorMsg("用户未登录");
+		}
+		iSysFileService.showImg(request,response,url);
+		return null;
+	}
+	
 	/**
 	 * 富文本框上传图片专用方法，pojo+config+controller
 	 */

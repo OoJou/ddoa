@@ -50,13 +50,14 @@ public class TaskController {
 	public ServerResponse<PageInfo> getTaskOfUser(
 			@RequestParam(value="pageNum",defaultValue="1")int pageNum
 			,@RequestParam(value="pageSize",defaultValue="5")int pageSize
+			,@RequestParam(value="sortType",defaultValue="DESC")String sortType
 			,HttpSession session) {
 		User user=(User)session.getAttribute(Const.CURRENT_USER);
 		if(user==null) {
 			return ServerResponse.createByErrorMsg("用户未登录，无法获取当前任务列表");
 		}
 		String username=user.getUserName();//强制使用当前用户对象的userName
-		return iTaskService.getTaskOfUser(username, pageNum, pageSize);
+		return iTaskService.getTaskOfUser(username, pageNum, pageSize, sortType);
 	}
 	
 	/**
@@ -66,13 +67,14 @@ public class TaskController {
 	public ServerResponse<PageInfo> getTaskOfUserCreate(
 			@RequestParam(value="pageNum",defaultValue="1")int pageNum
 			,@RequestParam(value="pageSize",defaultValue="5")int pageSize
+			,@RequestParam(value="sortType",defaultValue="DESC")String sortType
 			,HttpSession session) {
 		User user=(User)session.getAttribute(Const.CURRENT_USER);
 		if(user==null) {
 			return ServerResponse.createByErrorMsg("用户未登录，无法获取当前任务列表");
 		}
 		String username=user.getUserName();//强制使用当前用户对象的userName
-		return iTaskService.getTaskOfUserCreate(username, pageNum, pageSize);
+		return iTaskService.getTaskOfUserCreate(username, pageNum, pageSize, sortType);
 	}
 	
 	
@@ -83,13 +85,14 @@ public class TaskController {
 	public ServerResponse<PageInfo> getTaskOfUserClose(
 			@RequestParam(value="pageNum",defaultValue="1")int pageNum
 			,@RequestParam(value="pageSize",defaultValue="5")int pageSize
+			,@RequestParam(value="sortType",defaultValue="DESC")String sortType
 			,HttpSession session) {
 		User user=(User)session.getAttribute(Const.CURRENT_USER);
 		if(user==null) {
 			return ServerResponse.createByErrorMsg("用户未登录，无法获取当前任务列表");
 		}
 		String username=user.getUserName();//强制使用当前用户对象的userName，即自己只能查自己的
-		return iTaskService.getTaskOfUserClose(username, pageNum, pageSize);
+		return iTaskService.getTaskOfUserClose(username, pageNum, pageSize, sortType);
 	}
 	
 	/**
@@ -99,13 +102,14 @@ public class TaskController {
 	public ServerResponse<PageInfo> getTaskOfUserNow(
 			@RequestParam(value="pageNum",defaultValue="1")int pageNum
 			,@RequestParam(value="pageSize",defaultValue="5")int pageSize
+			,@RequestParam(value="sortType",defaultValue="DESC")String sortType
 			,HttpSession session) {
 		User user=(User)session.getAttribute(Const.CURRENT_USER);
 		if(user==null) {
 			return ServerResponse.createByErrorMsg("用户未登录，无法获取当前任务列表");
 		}
 		String username=user.getUserName();//使用当前用户对象的userName
-		return iTaskService.getTaskOfUserNow(username, pageNum, pageSize);
+		return iTaskService.getTaskOfUserNow(username, pageNum, pageSize, sortType);
 	}
 	
 	/**
@@ -160,7 +164,7 @@ public class TaskController {
 	public ServerResponse<PageInfo> getAllTask(
 			@RequestParam(value="pageNum",defaultValue="1")int pageNum
 			,@RequestParam(value="pageSize",defaultValue="5")int pageSize
-			,@RequestParam(value="sortType",defaultValue="ASC")String sortType 
+			,@RequestParam(value="sortType",defaultValue="DESC")String sortType 
 			,Task task
 			,HttpSession session){
 		User user=(User)session.getAttribute(Const.CURRENT_USER);

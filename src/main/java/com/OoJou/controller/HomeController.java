@@ -138,7 +138,11 @@ public class HomeController {
     	ModelAndView mv = new ModelAndView("views/create_task");
     	return mv;
     }
-    
+    @RequestMapping("/views/create_notice")
+    public ModelAndView views_create_notice() {
+    	ModelAndView mv = new ModelAndView("views/create_notice");
+    	return mv;
+    }
     @RequestMapping("/views/user_info")
     public ModelAndView views_user_info() {
     	ModelAndView mv = new ModelAndView("views/user_info");
@@ -185,6 +189,15 @@ public class HomeController {
     	ModelAndView mv = new ModelAndView("views/manage_task_request_details");
     	return mv;
     }
-    
+    @RequestMapping("/views/file_details")
+    public ModelAndView file_details() {
+    	ModelAndView mv = new ModelAndView("views/file_details");
+    	return mv;
+    }
+    @RequestMapping("/views/notice_details")
+    public ModelAndView notice_details() {
+    	ModelAndView mv = new ModelAndView("views/notice_details");
+    	return mv;
+    }
     
 }

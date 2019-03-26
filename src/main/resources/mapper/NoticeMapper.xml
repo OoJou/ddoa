@@ -123,4 +123,40 @@
     <include refid="Base_Column_List" />
     from ddoa_notice
   </select>
+  
+  <select id="selectAllNoticeByASC" resultMap="BaseResultMap" parameterType="com.OoJou.pojo.Notice">
+    select 
+    <include refid="Base_Column_List" />
+    from ddoa_notice
+    <where>
+		<if test="noticeTitle != null">
+	        notice_title LIKE concat('%',#{noticeTitle},'%')
+	    </if>
+	    <if test="noticeTitle != null and noticePubilsher != null">
+	        AND
+	    </if>
+	    <if test="noticePubilsher != null">
+	        notice_pubilsher LIKE concat('%',#{noticePubilsher},'%')
+	    </if>
+	</where>
+	ORDER BY create_time ASC
+  </select>
+  
+  <select id="selectAllNoticeByDESC" resultMap="BaseResultMap" parameterType="com.OoJou.pojo.Notice">
+    select 
+    <include refid="Base_Column_List" />
+    from ddoa_notice
+    <where>
+		<if test="noticeTitle != null">
+	        notice_title LIKE concat('%',#{noticeTitle},'%')
+	    </if>
+	    <if test="noticeTitle != null and noticePubilsher != null">
+	        AND
+	    </if>
+	    <if test="noticePubilsher != null">
+	        notice_pubilsher LIKE concat('%',#{noticePubilsher},'%')
+	    </if>
+	</where>
+	ORDER BY create_time DESC
+  </select>
 </mapper>

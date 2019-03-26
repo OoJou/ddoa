@@ -213,39 +213,68 @@
 
 
 <!-- 以下新增 -->
-  <select id="selectTaskOfUserByUsername" resultMap="BaseResultMap" parameterType="String">
+  <select id="selectTaskOfUserByUsername" resultMap="BaseResultMap" parameterType="map">
   	select
   	<include refid="Base_Column_List" />
   	from ddoa_task
   	where task_old_responder LIKE concat('%',',',#{userName},',','%')
   	and task_responder !=#{userName}
+  	<if test="sortType=='DESC'">
+  	ORDER BY create_time DESC
+  	</if>
+  	<if test="sortType=='ASC'">
+  	ORDER BY create_time ASC
+  	</if>
   </select>
-  <select id="selectTaskOfUserCreateByUsername" resultMap="BaseResultMap" parameterType="String">
+  
+  <select id="selectTaskOfUserCreateByUsername" resultMap="BaseResultMap" parameterType="map">
   	select
   	<include refid="Base_Column_List" />
   	from ddoa_task
   	where task_requester=#{userName}
+  	<if test="sortType=='DESC'">
+  	ORDER BY create_time DESC
+  	</if>
+  	<if test="sortType=='ASC'">
+  	ORDER BY create_time ASC
+  	</if>
   </select>
-  <select id="selectTaskOfUserCloseByUsername" resultMap="BaseResultMap" parameterType="String">
+  
+  <select id="selectTaskOfUserCloseByUsername" resultMap="BaseResultMap" parameterType="map">
     select
   	<include refid="Base_Column_List" />
   	from ddoa_task
   	where (task_requester=#{userName}
   	or task_old_responder LIKE concat('%',',',#{userName},',','%'))
   	and task_status=20001
+  	<if test="sortType=='DESC'">
+  	ORDER BY create_time DESC
+  	</if>
+  	<if test="sortType=='ASC'">
+  	ORDER BY create_time ASC
+  	</if>
   </select>
-  <select id="selectTaskOfUserNowByUsername" resultMap="BaseResultMap" parameterType="String">
+  
+  <select id="selectTaskOfUserNowByUsername" resultMap="BaseResultMap" parameterType="map">
     select
   	<include refid="Base_Column_List" />
   	from ddoa_task
   	where task_responder=#{userName}
+  	<if test="sortType=='DESC'">
+  	ORDER BY create_time DESC
+  	</if>
+  	<if test="sortType=='ASC'">
+  	ORDER BY create_time ASC
+  	</if>
   </select>
+  
   <select id="selectAllTask" resultMap="BaseResultMap" >
     select
   	<include refid="Base_Column_List" />
   	from ddoa_task
-  	ORDER BY task_id ASC
+  	ORDER BY create_time ASC
   </select>
+  
   <select id="selectAllTaskByDESC" resultMap="BaseResultMap" parameterType="com.OoJou.pojo.Task">
     select
   	<include refid="Base_Column_List" />
@@ -269,6 +298,7 @@
 	</where>
   	ORDER BY create_time DESC
   </select>
+  
   <select id="selectAllTaskByASC" resultMap="BaseResultMap" parameterType="com.OoJou.pojo.Task">
     select
   	<include refid="Base_Column_List" />

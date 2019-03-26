@@ -192,9 +192,15 @@ ol,li{
 }
 
 .download-btn{
-    width: 260px;
-    height: 40px;
-    font-size: 23px;
+    width: 200px;
+    height: 35px;
+    font-size: 18px;
+}
+
+.my-upload-btn{
+    width: 78px;
+    height: 35px;
+    font-size: 18px;
 }
 
 .file-img{
@@ -210,11 +216,12 @@ ol,li{
     overflow: hidden;
     /*white-space:nowrap;强制不换行切除*/
 }
-/*超出长度显示...（需要父元素设置宽度才有效果）*/
+/*超出长度显示...*/
 .content-space{
+    max-width: 180px;
     overflow: hidden;
     white-space: nowrap;
-    text-overflow: clip;
+    text-overflow: ellipsis;
     word-wrap: normal;
 }
 .view-content{
@@ -223,7 +230,4 @@ ol,li{
 .card-header{
     background:#dadada;
     background-image: -webkit-linear-gradient(left,#c9c9c9,#dadada);
-}
-#notice-body p{
-    margin-bottom: 20px;
 }

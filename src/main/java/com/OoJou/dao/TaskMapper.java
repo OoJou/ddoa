@@ -28,10 +28,10 @@ public interface TaskMapper {
     int checkOldResponser(@Param("taskId")int taskId,@Param("currentResponder")String currentResponder);
     
     //已处理任务、发起任务、已关闭任务、待处理任务三个列表
-    List<Task> selectTaskOfUserByUsername(String userName);
-    List<Task> selectTaskOfUserCreateByUsername(String userName);
-    List<Task> selectTaskOfUserCloseByUsername(String userName);
-	List<Task> selectTaskOfUserNowByUsername(String username);
+    List<Task> selectTaskOfUserByUsername(@Param("userName")String userName,@Param("sortType")String sortType);
+    List<Task> selectTaskOfUserCreateByUsername(@Param("userName")String userName,@Param("sortType")String sortType);
+    List<Task> selectTaskOfUserCloseByUsername(@Param("userName")String userName,@Param("sortType")String sortType);
+	List<Task> selectTaskOfUserNowByUsername(@Param("userName")String userName,@Param("sortType")String sortType);
     
     //管理界面-查询全部
     List<Task> selectAllTask();

@@ -18,7 +18,10 @@ import ch.qos.logback.classic.pattern.DateConverter;
 @Component
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
-//    @SuppressWarnings("deprecation")
+/**	在这里也可以配置单个文件大小和总文件大小，在properties也可以（properties只能写数字不能带单位，默认为byte，1mb=1024000字节）。
+	一般两个都配置时，这里的配置优先起作用！
+*/
+//    @SuppressWarnings("deprecation") 
 //	@Bean
 //    public MultipartConfigElement multipartConfigElement(){
 //        MultipartConfigFactory factory = new MultipartConfigFactory();

@@ -24,5 +24,6 @@ public interface ISysFileService {
 	
 	ServerResponse<SysFile> getFileDetails(int fileId);
 	ServerResponse<PageInfo> getAllFile(int pageNum, int pageSize, String sortType, SysFile sysFile);
+	ServerResponse<String> showImg(HttpServletRequest request,HttpServletResponse response,String url);
 	
 }

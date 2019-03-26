@@ -186,22 +186,22 @@ function set_edit_user_html(result) {
     $("#user-email").val(userList.userEmail);
     $("#user-phone").val(userList.userPhone);
     var statusSelect=$("#user-level-select");
-    // statusSelect.empty();
-    // var val=-1;
-    // var arr=new Array("员工","部门主管","行政人员","部门经理","总经理");//状态数组
-    // var arr2=new Array(10005,10004,10003,10002,10001);
-    // $.each(arr,function (index,item) {
-    //     val=val+1;
-    //     var status=$("<option></option>").append(item);//循环产生各选项
-    //     status.attr("value",arr2[val]);
-    //     statusSelect.append(status);
-    // });
+    statusSelect.find("option:selected").attr("selected",false);
     switch (userList.userLevel){//设值状态
         case 10001:statusSelect.find("option[value='10001']").attr("selected",true);break;
         case 10002:statusSelect.find("option[value='10002']").attr("selected",true);break;
         case 10003:statusSelect.find("option[value='10003']").attr("selected",true);break;
         case 10004:statusSelect.find("option[value='10004']").attr("selected",true);break;
         case 10005:statusSelect.find("option[value='10005']").attr("selected",true);break;
+    }
+    var departmentSelect=$("#user-department-select");
+    departmentSelect.find("option:selected").attr("selected",false);
+    switch (userList.userDepartmentId){//设值状态
+        case 30001:departmentSelect.find("option[value='30001']").attr("selected",true);break;
+        case 30002:departmentSelect.find("option[value='30002']").attr("selected",true);break;
+        case 30003:departmentSelect.find("option[value='30003']").attr("selected",true);break;
+        case 30004:departmentSelect.find("option[value='30004']").attr("selected",true);break;
+        case 30005:departmentSelect.find("option[value='30005']").attr("selected",true);break;
     }
     $("#createtime").text(renderTime(userList.createTime));
     $("#updatetime").text(renderTime(userList.updateTime));
@@ -217,7 +217,9 @@ $(document).on("click",".edit-yes",function () {
             userName:$("#user-name").val(),
             userEmail:$("#user-email").val(),
             userPhone:$("#user-phone").val(),
-            userLevel:$("#user-level-select").val()
+            userLevel:$("#user-level-select").val(),
+            userDepartmentId:$("#user-department-select").val(),
+            userDepartmentName:$("#user-department-select").find("option:selected").text()
         },
         success:function (result) {
             alert(result.msg);
@@ -304,7 +306,9 @@ $(document).on("click",".insert-yes",function () {
            userName:$("#insert-user-name").val(),
            userPhone:$("#insert-user-phone").val(),
            userPassword:$("#insert-user-password").text(),
-           userLevel:$("#insert-user-level-select").val()
+           userLevel:$("#insert-user-level-select").val(),
+           userDepartmentId:$("#insert-user-department-select").val(),
+           userDepartmentName:$("#insert-user-department-select").find("option:selected").text()
        },
        success:function (result) {
            alert(result.msg);

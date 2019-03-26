@@ -45,13 +45,14 @@ public class NoticeController {
 	public ServerResponse<PageInfo> getAllNotice(
 			@RequestParam(value="pageNum",defaultValue="1")int pageNum
 			,@RequestParam(value="pageSize",defaultValue="5")int pageSize
-			,@RequestParam(value="sortType",defaultValue="ASC")String sortType 
+			,@RequestParam(value="sortType",defaultValue="DESC")String sortType 
+			,Notice notice
 			,HttpSession session){
 		User user=(User)session.getAttribute(Const.CURRENT_USER);
 		if(user==null) {
 			return ServerResponse.createByErrorMsg("用户未登录，无法获取公告列表");
 		}
-		return iNoticeService.getAllNotice(pageNum, pageSize);
+		return iNoticeService.getAllNotice(pageNum, pageSize,sortType,notice);
 	}
 	
 	/**

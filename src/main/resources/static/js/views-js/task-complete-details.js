@@ -193,7 +193,6 @@ function check_level(level) {
 
 //返回首页
 $(document).on("click","#back-btn",function () {
-    window.location.href="show";
     var html=getQueryVariable("html");
     if(html=="task_completed"){
         window.location.href="task_completed";
