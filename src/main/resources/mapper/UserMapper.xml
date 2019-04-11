@@ -226,11 +226,11 @@
   <!-- 以下自定义查询 -->
   <select id="checkUsername" resultType="int" parameterType="string">
   	select count(1) from ddoa_user
-  	where user_name = #{userName}
+  	where user_name LIKE binary #{userName}
   </select>
   <select id="checkEmail" resultType="int" parameterType="string">
   	select count(1) from ddoa_user
-  	where user_email = #{userEmail}
+  	where user_email LIKE binary #{userEmail}
   </select>
      <select id="checkPhone" resultType="int" parameterType="string">
   	select count(1) from ddoa_user

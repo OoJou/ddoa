@@ -47,15 +47,27 @@ function task_deal_details_html(result) {
         case 20003:statusSelect.find("option[value='20003']").attr("selected",true);break;
         case 20004:statusSelect.find("option[value='20004']").attr("selected",true);break;
     }
+    var typeSelect=$("#task-type");
     switch (result.data.taskType){//设值状态
-        case '请假':statusSelect.find("option[value='请假']").attr("selected",true);break;
-        case '资金申请':statusSelect.find("option[value='资金申请']").attr("selected",true);break;
-        case '活动申请':statusSelect.find("option[value='活动申请']").attr("selected",true);break;
-        case '其他':statusSelect.find("option[value='其他']").attr("selected",true);break;
+        case '请假':typeSelect.find("option[value='请假']").attr("selected",true);break;
+        // case '资金申请':typeSelect.find("option[value='资金申请']").attr("selected",true);break;
+        case '活动申请':typeSelect.find("option[value='活动申请']").attr("selected",true);break;
+        case '其他':typeSelect.find("option[value='其他']").attr("selected",true);break;
+    }
+    var passSelect=$("#task-pass-select");
+    switch (result.data.taskPass){//设值状态
+        case '不通过':passSelect.find("option[value='0']").attr("selected",true);break;
+        case '通过':passSelect.find("option[value='1']").attr("selected",true);break;
+        case '待定':passSelect.find("option[value='2']").attr("selected",true);break;
     }
     set_status_time(result.data.taskStatus);//设置时间线
     $("#task-requester").text(result.data.taskRequester);//接下来一一设置对应值
     $("#task-time").text(renderTime(result.data.createTime));
+    if(result.data.taskRequester==currentUser.userName){//发起人不能编辑是否通过等
+        $("#task-pass-select").attr('disabled', true);//设置页面只可读
+        $("#task-result").parent().empty();
+        $("#task-result").parent().append("<p>"+result.data.taskResult+"</p>");
+    }
 
     $("#task-title").attr("task-id",result.data.taskId);
 }
@@ -185,6 +197,13 @@ $(document).on("click","#task-save-btn",function () {
     var taskStatus=$("#task-status-select").find("option:selected").val();
     var taskRequester=$("#task-requester").text();
     var taskMessage=answer_message;
+    var taskType=$("#task-type").find("option:selected").text();
+    var taskPass=$("#task-pass-select").find("option:selected").text();
+    if($("#task-result").val()==null||$("#task-result").val()==""){
+        var taskResult=$("#task-result").text();
+    }else {
+        var taskResult=$("#task-result").val();
+    }
     $.ajax({
         url:"/task/handle_task.do",
         type:"POST",
@@ -196,7 +215,10 @@ $(document).on("click","#task-save-btn",function () {
             taskResponder:taskResponder,
             taskRequester:taskRequester,
             taskStatus:taskStatus,
-            taskMessage:taskMessage
+            taskMessage:taskMessage,
+            taskType:taskType,
+            taskPass:taskPass,
+            taskResult:taskResult
         },
         success:function (result) {
             if (result.status == 200) {

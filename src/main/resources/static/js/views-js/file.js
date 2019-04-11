@@ -57,8 +57,8 @@ function set_all_file_html(result) {
         var btn=null,img=null;
         //图片地址,
         var img_url ="http://localhost:8080/file/show_img.do?url="+item.fileSource;//拼接
-        var img1 ="<img src=\""+img_url+"\" alt=\"图片加载失败····\" style='width: auto;height: auto;max-width: 100%;max-height: 100%'>";
-        var img2 ="<img src=\"../../static/images/timg2.jpg\" alt=\"图片加载失败····\" style='width: auto;height: auto;max-width: 100%;max-height: 100%'>";
+        var img1 ="<img class='img-file' src=\""+img_url+"\" alt=\"图片加载失败····\" style='width: auto;height: auto;max-width: 100%;max-height: 100%;cursor: pointer'>";
+        var img2 ="<img class='img-file' src=\"../../static/images/timg2.jpg\" alt=\"图片加载失败····\" style='width: auto;height: auto;max-width: 100%;max-height: 100%;cursor: pointer'>";
         var fileExtensionName = img_url.substring(img_url.lastIndexOf(".")+1);//jpg等
         var pattern = "(bmp|jpg|png|tif|gif|pcx|tga|exif|fpx|svg|psd|cdr|pcd|dxf|ufo|eps|ai|raw|WMF|webp)";
         if(!fileExtensionName.match(pattern)){//如果是图片则直接显示，不是则显示默认配置的图片
@@ -96,6 +96,13 @@ function set_all_file_html(result) {
 
     set_pager(result.data);
 }
+
+//点击图片跳转到文件详情页
+$(document).on("click",".img-file",function () {
+    var id=$(this).parent().parent().find("input:eq(0)").attr("file-id");
+    window.location.href="file_details?id="+id+"&html=file"
+});
+
 
 //分页
 function set_pager(pageList) {

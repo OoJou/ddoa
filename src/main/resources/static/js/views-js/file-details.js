@@ -69,7 +69,7 @@ function set_file_details_html(result) {
         "            <div>" +
         "                <p style=\"text-align: center; font-size: small;\">上传人："+item.fileUploadUser+"</p>" +
         "                <p style=\"text-align: center; font-size: small;\">"+renderTime(item.createTime)+"</p>"+
-        "            </div>," +
+        "            </div>" +
         "            <div class=\"layui-card-body\">" +
         "                <div style=\"text-align: center; margin: 25px 0px\">" +
         img +

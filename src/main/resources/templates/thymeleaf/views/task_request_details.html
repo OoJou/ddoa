@@ -34,7 +34,7 @@
                                 <div>
                                     <select id="task-type" style="width: 200px;padding: 2px 3px;">
                                         <option value="11">请假</option>
-                                        <option value="22">资金申请</option>
+                                        <!--<option value="22">资金申请</option>-->
                                         <option value="33">活动申请</option>
                                         <option value="44">其他</option>
                                     </select>
@@ -83,6 +83,22 @@
                                 <label class="layui-form-label">创建时间:</label>
                                 <div class="layui-input-inline">
                                     <p id="task-time">xxxxx</p>
+                                </div>
+                            </div>
+                            <div class="detail-item">
+                                <label class="layui-form-label">是否通过:</label>
+                                <div class="layui-input-inline">
+                                    <select id="task-pass-select" name="status" style="width: 200px">
+                                 		<option value="0">不通过</option>
+                                        <option value="1">通过</option>
+                                        <option value="2" selected="selected">待定</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="detail-item">
+                                <label class="layui-form-label">最终结果/建议:</label>
+                                <div class="layui-input-block">
+                                    <textarea id="task-result" placeholder="请输入内容" style="width: 300px;height: 130px"></textarea>
                                 </div>
                             </div>
                             <div class="detail-item" style="height: 30px">

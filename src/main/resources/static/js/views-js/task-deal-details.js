@@ -51,13 +51,28 @@ function task_deal_details_html(result) {
     var typeSelect=$("#task-type");
     switch (result.data.taskType){//设值状态
         case '请假':typeSelect.find("option[value='11']").attr("selected",true);break;
-        case '资金申请':typeSelect.find("option[value='22']").attr("selected",true);break;
+        // case '资金申请':typeSelect.find("option[value='22']").attr("selected",true);break;
         case '活动申请':typeSelect.find("option[value='33']").attr("selected",true);break;
         case '其他':typeSelect.find("option[value='44']").attr("selected",true);break;
     }
+
+    var passSelect=$("#task-pass-select");
+    switch (result.data.taskPass){//设值状态
+        case '不通过':passSelect.find("option[value='0']").attr("selected",true);break;
+        case '通过':passSelect.find("option[value='1']").attr("selected",true);break;
+        case '待定':passSelect.find("option[value='2']").attr("selected",true);break;
+    }
+
     set_status_time(result.data.taskStatus);//设置时间线
     $("#task-requester").text(result.data.taskRequester);//接下来一一设置对应值
     $("#task-time").text(renderTime(result.data.createTime));
+    if(result.data.taskRequester==currentUser.userName){//发起人不能编辑是否通过等
+        $("#task-pass-select").attr('disabled', true);//设置页面只可读
+        $("#task-result").parent().empty();
+        $("#task-result").parent().append("<p>"+result.data.taskResult+"</p>");
+    }else {
+        $("#task-result").val(result.data.taskResult);
+    }
 
     $("#task-title").attr("task-id",result.data.taskId);
 
@@ -214,6 +229,12 @@ $(document).on("click","#task-save-btn",function () {
     var taskRequester=$("#task-requester").text();
     var taskMessage=answer_message;
     var taskType=$("#task-type").find("option:selected").text();
+    var taskPass=$("#task-pass-select").find("option:selected").text();
+    if($("#task-result").val()==null||$("#task-result").val()==""){
+        var taskResult=$("#task-result").text();
+    }else {
+        var taskResult=$("#task-result").val();
+    }
     $.ajax({
         url:"/task/handle_task.do",
         type:"POST",
@@ -226,7 +247,9 @@ $(document).on("click","#task-save-btn",function () {
             taskRequester:taskRequester,
             taskStatus:taskStatus,
             taskMessage:taskMessage,
-            taskType:taskType
+            taskType:taskType,
+            taskPass:taskPass,
+            taskResult:taskResult
         },
         success:function (result) {
             if (result.status == 200) {

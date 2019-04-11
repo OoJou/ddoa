@@ -5,12 +5,12 @@
     <title>Title</title>
     <script src="../../static/jquery-3.3.1/jquery-3.3.1.js"></script>
     <script src="../../static/jquery-cookies-1.4.1/jquery.cookie.js"></script>
-    <link rel="stylesheet" href="../../static/layui/css/layui.css">
-    <link rel="stylesheet" href="../../static/css/show.css"/>
-    <link rel="stylesheet" href="../../static/css/details.css"/>
+    <link rel="stylesheet" href="../static/layui/css/layui.css">
+    <link rel="stylesheet" href="../static/css/show.css"/>
+    <link rel="stylesheet" href="../static/css/details.css"/>
     <script src="../../static/layui/layui.js"></script>
     <script src="../../static/js/index-use.js"></script>
-    <script src="../../static/js/views-js/task-deal-details.js"></script>
+    <script src="../../static/js/views-js/manage-task-details.js"></script>
 </head>
 <body class="layui-view-body">
 <div class="layui-content" id="show">
@@ -33,23 +33,23 @@
                                 <label class="layui-form-label">类型:</label>
                                 <div>
                                     <select id="task-type" style="width: 200px;padding: 2px 3px;">
-                                        <option value="11">请假</option>
-                                        <!--<option value="22">资金申请</option>-->
-                                        <option value="33">活动申请</option>
-                                        <option value="44">其他</option>
+                                        <option value="请假">请假</option>
+                                        <!--<option value="资金申请">资金申请</option>-->
+                                        <option value="活动申请">活动申请</option>
+                                        <option value="其他">其他</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="detail-item">
                                 <label class="layui-form-label">标题:</label>
                                 <div  class="layui-input-block ">
-                                    <input id="task-title" type="text" placeholder="请输入" class="layui-input">
+                                    <input id="task-title" type="text" disabled="disabled" placeholder="请输入" class="layui-input">
                                 </div>
                             </div>
                             <div class="detail-item">
                                 <label class="layui-form-label">详细内容:</label>
                                 <div class="layui-input-block">
-                                    <textarea id="task-body" placeholder="请输入内容"
+                                    <textarea id="task-body" disabled="disabled" placeholder="请输入内容"
                                               class="layui-textarea"></textarea>
                                 </div>
                             </div>

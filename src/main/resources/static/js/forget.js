@@ -4,7 +4,6 @@ $(function () {
     equalpass();
     forget_first_html();
 });
-
 var save_username;
 var save_question;
 var save_token;
@@ -25,6 +24,7 @@ function forget_first_html(result) {
         "                </li>");
     $('#forget').empty();
     $('#forget').append(first);
+    maxlength_first();
 }
 
 function forget_answer_html(result) {
@@ -69,6 +69,8 @@ function forget_reset_html(result) {
         "                </li>");
     $('#forget').empty();
     $('#forget').append(reset);
+    maxlength_reset();
+    equalpass();
 }
 //附加一个修改成功页面
 function reset_success_html(result) {
@@ -171,9 +173,9 @@ $(document).on('click','#reset-prev',function () {//第三步，点击上一步
 function maxlength_first() {
     //在键盘键入后，检查输入长度。超出部分强制切除
     $('input').keyup(function () {
-        var i=$('#forget-username').val();
+        var k=$('#forget-username').val();
 
-        if(i.length>=10){
+        if(k.length>=10){
             var subval=i.substring(0,10);
             $('#forget-username').val(subval);
         }
