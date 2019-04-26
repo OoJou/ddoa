@@ -13,6 +13,7 @@
     <script src="static/layui/layui.js"></script>
     <script src="static/js/index-use.js"></script>
     <script src="static/js/index-views.js"></script>
+    <script src="static/js/index.js"></script>
 </head>
 <body class="layui-layout-body">
 <!--容器-->
@@ -28,9 +29,9 @@
 
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">
-                <a href="javascript:;">OoJou</a>
+                <a id="nav-user" href="javascript:;">OoJou</a>
                 <dl class="layui-nav-child">
-                    <dd><a href="">帮助中心</a></dd>
+                    <dd><a href="#">进入首页</a></dd>
                     <dd><a href="login.html">退出</a></dd>
                 </dl>
             </li>
@@ -44,7 +45,7 @@
                 <img src="static/images/logo.png" alt=""/>
                 <h1>多多办公管理系统</h1>
             </div>
-            <ul id="Nav" class="layui-nav layui-nav-tree"  lay-filter="test">
+            <ul id="Nav" class="layui-nav layui-nav-tree">
                 <li class="layui-nav-item">
                     <a href="">
                         <i class="layui-icon">&#xe609;</i>
@@ -63,8 +64,8 @@
                     </a>
                     <dl class="layui-nav-child">
                         <dd><a href="views/task_deal.html">待办任务</a></dd>
-                        <dd><a href="views/task_completed.html">已完成任务</a></dd>
-                        <dd><a href="views/task_request.html">指派任务</a></dd>
+                        <dd><a href="views/task_completed.html">已处理任务</a></dd>
+                        <dd><a href="views/task_request.html">我发起的任务</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
@@ -78,33 +79,33 @@
                         <dd><a href="views/user_pass.html">修改密码</a></dd>
                     </dl>
                 </li>
-                <li class="layui-nav-item">
-                    <a href="">
-                        <i class="layui-icon">&#xe609;</i>
-                        <em>后台管理</em>
-                    </a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="views/manage_user.html">账号信息管理</a></dd>
-                        <dd><a href="views/manage_file.html">文件信息管理</a></dd>
-                        <dd><a href="views/manage_task.html">任务信息管理</a></dd>
-                        <dd><a href="views/manage_notice.html">公告信息管理</a></dd>
-                        <dd><a href="views/manage_department.html">部门信息管理</a></dd>
-                        <dd><a href="views/manage_dictionary.html">字典管理</a></dd>
-                    </dl>
-                </li>
+                <!--<li class="layui-nav-item">-->
+                    <!--<a href="">-->
+                        <!--<i class="layui-icon">&#xe609;</i>-->
+                        <!--<em>后台管理</em>-->
+                    <!--</a>-->
+                    <!--<dl class="layui-nav-child">-->
+                        <!--<dd><a href="views/manage_user.html">账号信息管理</a></dd>-->
+                        <!--<dd><a href="views/manage_task.html">任务信息管理</a></dd>-->
+                        <!--<dd><a href="views/manage_file.html">文件信息管理</a></dd>-->
+                        <!--<dd><a href="views/manage_notice.html">公告信息管理</a></dd>-->
+                        <!--<dd><a href="views/manage_department.html">部门信息管理</a></dd>-->
+                        <!--<dd><a href="views/manage_dictionary.html">字典管理</a></dd>-->
+                    <!--</dl>-->
+                <!--</li>-->
             </ul>
         </div>
     </div>
     <!--内容区-->
     <div class="layui-body">
-        <div class="layui-tab app-container" lay-allowClose="true" lay-filter="tabs">
+        <div class="layui-tab app-container">
             <ul id="appTabs" class="layui-tab-title custom-tab"></ul>
             <div id="appTabPage" class="layui-tab-content"></div>
         </div>
     </div>
     <!--页面底部信息-->
     <div class="layui-footer">
-        <p>© 2019 by OoJou</a></p>
+        <p>© 2019 by DDOA</a></p>
     </div>
 
     <div class="mobile-mask"></div>

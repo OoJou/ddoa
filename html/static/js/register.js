@@ -5,7 +5,6 @@ $(function () {
 //对完注册，以及忘记密码三个页面的接口
 $(document).on("click","#register",function () {
     if(!isEmpty()){
-        alert("1");
         $.ajax({
             url:"/user/register.do",
             type:"POST",
@@ -18,13 +17,10 @@ $(document).on("click","#register",function () {
             success:function (result) {
                 console.log(result);
                 if(result.status==200){
-                    window.location.href="login.html";
+                    window.location.href="login";
                 }else {
                     alert(result.msg);
                 }
-            },
-            error:function () {
-                alert("注册格式错误");
             }
         })
     }else {
@@ -48,8 +44,8 @@ function maxlength() {
             var subval=j.substring(0,20);
             $('#register-phone').val(subval);
         }
-        if(k.length>=12){
-            var subval=k.substring(0,12);
+        if(k.length>=8){
+            var subval=k.substring(0,8);
             $('#register-password').val(subval);
         }
     })
@@ -68,8 +64,4 @@ function isEmpty(){
     }else{
         return false;
     }
-}
-
-function is() {
-    
 }

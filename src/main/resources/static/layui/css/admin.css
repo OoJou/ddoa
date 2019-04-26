@@ -362,3 +362,7 @@ html, body , .app-container{
     background-color: rgba(0,0,0,.3);
     z-index: 1000;
 }
+
+#notice-body p{
+    margin-bottom: 20px;
+}

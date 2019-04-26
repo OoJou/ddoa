@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.OoJou.dao.SysFileMapper">
+  <resultMap id="BaseResultMap" type="com.OoJou.pojo.SysFile">
+    <id column="file_id" jdbcType="INTEGER" property="fileId" />
+    <result column="file_name" jdbcType="VARCHAR" property="fileName" />
+    <result column="file_source" jdbcType="VARCHAR" property="fileSource" />
+    <result column="file_image" jdbcType="VARCHAR" property="fileImage" />
+    <result column="file_upload_user" jdbcType="VARCHAR" property="fileUploadUser" />
+    <result column="file_upload_time" jdbcType="TIMESTAMP" property="fileUploadTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    file_id, file_name, file_source, file_image, file_upload_user, file_upload_time, 
+    create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ddoa_file
+    where file_id = #{fileId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ddoa_file
+    where file_id = #{fileId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.OoJou.pojo.SysFile">
+    insert into ddoa_file (file_id, file_name, file_source, 
+      file_image, file_upload_user, file_upload_time, 
+      create_time, update_time)
+    values (#{fileId,jdbcType=INTEGER}, #{fileName,jdbcType=VARCHAR}, #{fileSource,jdbcType=VARCHAR}, 
+      #{fileImage,jdbcType=VARCHAR}, #{fileUploadUser,jdbcType=VARCHAR}, now(), 
+      now(), now())
+  </insert>
+  <insert id="insertSelective" parameterType="com.OoJou.pojo.SysFile">
+    insert into ddoa_file
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="fileId != null">
+        file_id,
+      </if>
+      <if test="fileName != null">
+        file_name,
+      </if>
+      <if test="fileSource != null">
+        file_source,
+      </if>
+      <if test="fileImage != null">
+        file_image,
+      </if>
+      <if test="fileUploadUser != null">
+        file_upload_user,
+      </if>
+      <if test="fileUploadTime != null">
+        file_upload_time,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="fileId != null">
+        #{fileId,jdbcType=INTEGER},
+      </if>
+      <if test="fileName != null">
+        #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="fileSource != null">
+        #{fileSource,jdbcType=VARCHAR},
+      </if>
+      <if test="fileImage != null">
+        #{fileImage,jdbcType=VARCHAR},
+      </if>
+      <if test="fileUploadUser != null">
+        #{fileUploadUser,jdbcType=VARCHAR},
+      </if>
+      <if test="fileUploadTime != null">
+        now(),
+      </if>
+      <if test="createTime != null">
+        now(),
+      </if>
+      <if test="updateTime != null">
+        now(),
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.OoJou.pojo.SysFile">
+    update ddoa_file
+    <set>
+      <if test="fileName != null">
+        file_name = #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="fileSource != null">
+        file_source = #{fileSource,jdbcType=VARCHAR},
+      </if>
+      <if test="fileImage != null">
+        file_image = #{fileImage,jdbcType=VARCHAR},
+      </if>
+      <if test="fileUploadUser != null">
+        file_upload_user = #{fileUploadUser,jdbcType=VARCHAR},
+      </if>
+      <if test="fileUploadTime != null">
+        file_upload_time = #{fileUploadTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = now(),
+      </if>
+    </set>
+    where file_id = #{fileId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.OoJou.pojo.SysFile">
+    update ddoa_file
+    set file_name = #{fileName,jdbcType=VARCHAR},
+      file_source = #{fileSource,jdbcType=VARCHAR},
+      file_image = #{fileImage,jdbcType=VARCHAR},
+      file_upload_user = #{fileUploadUser,jdbcType=VARCHAR},
+      file_upload_time = #{fileUploadTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = now()
+    where file_id = #{fileId,jdbcType=INTEGER}
+  </update>
+  
+  
+  <!-- 以下新增 -->
+  <select id="selectAllFile" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ddoa_file
+  </select>
+  
+  <select id="selectAllFileByDESC" resultMap="BaseResultMap" parameterType="com.OoJou.pojo.SysFile">
+    select 
+    <include refid="Base_Column_List" />
+    from ddoa_file
+    <where>
+		<if test="fileName != null">
+	        file_name LIKE concat('%',#{fileName},'%')
+	    </if>
+	    <if test="fileName != null and fileUploadUser != null">
+	        AND
+	    </if>
+	    <if test="fileUploadUser != null">
+	        file_upload_user LIKE concat('%',#{fileUploadUser},'%')
+	    </if>
+	</where>
+	ORDER BY create_time DESC
+  </select>
+  
+  <select id="selectAllFileByASC" resultMap="BaseResultMap" parameterType="com.OoJou.pojo.SysFile">
+    select 
+    <include refid="Base_Column_List" />
+    from ddoa_file
+    <where>
+		<if test="fileName != null">
+	        file_name LIKE concat('%',#{fileName},'%')
+	    </if>
+	    <if test="fileName != null and fileUploadUser != null">
+	        AND
+	    </if>
+	    <if test="fileUploadUser != null">
+	        file_upload_user LIKE concat('%',#{fileUploadUser},'%')
+	    </if>
+	</where>
+	ORDER BY create_time ASC
+  </select>
+</mapper>

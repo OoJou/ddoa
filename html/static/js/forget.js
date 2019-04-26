@@ -3,7 +3,7 @@ $(function () {
     maxlength_reset();
     equalpass();
     forget_first_html();
-})
+});
 
 var save_username;
 var save_question;
@@ -21,7 +21,7 @@ function forget_first_html(result) {
         "                    <div class=\"text clearfix\"></div>" +
         "                </li>" +
         "                <li class=\"item\">" +
-        "                    <a class=\"tologin clearfix\" href=\"login.html\">返回登录注册</a>" +
+        "                    <a class=\"tologin clearfix\" href=\"login\">返回登录注册</a>" +
         "                </li>");
     $('#forget').empty();
     $('#forget').append(first);
@@ -43,10 +43,10 @@ function forget_answer_html(result) {
         "                </li>" +
         "                <li class=\"item\">" +
         "                    <a class=\"toprev\" id=\"answer-prev\">上一步</a>" +
-        "                    <a class=\"tologin clearfix\" href=\"login.html\">返回登录注册</a>" +
+        "                    <a class=\"tologin clearfix\" href=\"login\">返回登录注册</a>" +
         "                </li>");
     $('#forget').empty();
-    $('#forget').append(title).append(question2).append(answer);
+    $('#forget').append(title).append(question).append(answer);
 }
 
 function forget_reset_html(result) {
@@ -65,8 +65,8 @@ function forget_reset_html(result) {
         "                </li>" +
         "                <li class=\"item\">" +
         "                    <a class=\"toprev\" id=\"reset-prev\">上一步</a>" +
-        "                    <a class=\"tologin clearfix\" href=\"login.html\">返回登录注册</a>" +
-        "                </li>")
+        "                    <a class=\"tologin clearfix\" href=\"login\">返回登录注册</a>" +
+        "                </li>");
     $('#forget').empty();
     $('#forget').append(reset);
 }
@@ -75,7 +75,7 @@ function reset_success_html(result) {
     var success = $("<li class=\"success-tip\">\n" +
         "                    <p>成功重置密码!</p>\n" +
         "                    <div class=\"text clearfix\"></div>\n" +
-        "                    <a href=\"login.html\">返回登录</a>\n" +
+        "                    <a href=\"login\">返回登录</a>\n" +
         "                </li>");
     $('#forget').empty();
     $('#forget').append(success);
@@ -85,7 +85,6 @@ function reset_success_html(result) {
 //点击下一步，1.返回状态码为200，到下一个页面 2.返回状态码为201，无变化
 //点击上一步，1.返回上一个页面 2.再次点击下一步需要判断当前填写内容是否通过判断(状态码)
 $(document).on('click','#first-next',function () {//第一步，点击下一步
-    alert("1");
     $.ajax({
         url:"/user/forget_get_question.do",
         type:"POST",
@@ -111,7 +110,6 @@ $(document).on('click','#first-next',function () {//第一步，点击下一步
 })
 
 $(document).on('click','#answer-next',function () {//第二步，点击下一步
-    alert("1");
     $.ajax({
         url:"/user/forget_check_answer.do",
         type:"POST",
@@ -138,7 +136,6 @@ $(document).on('click','#answer-next',function () {//第二步，点击下一步
 })
 
 $(document).on('click','#answer-prev',function () {//第二步，点击上一步
-    alert("1");
     forget_first_html();
 })
 
@@ -168,7 +165,6 @@ $(document).on('click','#reset',function () {//第三部，点击确认重置
 })
 
 $(document).on('click','#reset-prev',function () {//第三步，点击上一步
-    alert("1");
     forget_answer_html();
 })
 
@@ -190,14 +186,14 @@ function maxlength_reset() {
         var i=$('#confirm-password').val();
         var j=$('#new-password').val();
 
-        if(i.length>=12){
+        if(i.length>=8){
             //确认密码超出部分强制切除
-            var subval=i.substring(0,12);
+            var subval=i.substring(0,8);
             $('#confirm-password').val(subval);
         }
-        if(j.length>=12){
+        if(j.length>=8){
             //新密码超出部分强制切除
-            var subval=j.substring(0,12);
+            var subval=j.substring(0,8);
             $('#new-password').val(subval);
         }
     })

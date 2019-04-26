@@ -1,12 +1,13 @@
 /*
   使用Layui的各类模块，统一放在这里进行预加载
 */
-layui.use(['element','form','layedit','laydate','table'], function(){
+layui.use(['element','form','layedit','laydate','table','layer'], function(){
     var element = layui.element
-        ,form = layer.form
-        ,layedit = layer.layedit
-        ,laydate = layer.laydate
-        ,table = layer.table;
+        ,form = layui.form
+        ,layedit = layui.layedit
+        ,laydate = layui.laydate
+        ,table = layui.table
+        ,layer = layui.layer;
 
     // form.on('submit(formDemo)', function(data){
     //     layer.msg(JSON.stringify(data.field));

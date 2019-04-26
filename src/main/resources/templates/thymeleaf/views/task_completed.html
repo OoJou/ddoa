@@ -4,106 +4,84 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Title</title>
+    <script src="../../static/jquery-3.3.1/jquery-3.3.1.js"></script>
+    <script src="../../static/jquery-cookies-1.4.1/jquery.cookie.js"></script>
     <link rel="stylesheet" href="../../static/layui/css/layui.css"/>
     <link rel="stylesheet" href="../../static/css/show.css"/>
+    <link rel="stylesheet" href="../../static/css/views-css/pager.css"/>
     <script src="../../static/layui/layui.js"></script>
     <script src="../../static/js/index-use.js"></script>
+    <script src="../../static/js/views-js/task-completed.js"></script>
 </head>
-<!--任务处理这一块，高权限的拥有查看处理人不是自己账户的待办任务-->
 <body class="layui-view-body">
-<div class="layui-content">
+<div class="view-content">
     <div class="layui-row layui-col-space3">
         <div class="layui-col-md12 layui-col-space8">
             <div class="layui-card">
-                <div class="layui-card-header">
-                    筛选
-                </div>
-                <div class="layui-card-body">
-                    <ul class="file-select clearfix">
-                        <li class="item">
-                            <span>上传日期:</span>
-                            <input type="text" value placeholder="模糊查询">
-                        </li>
-                        <li class="item">
-                            <span>排序方式:</span>
-                            <input type="text" value placeholder="模糊查询">
-                        </li>
-                        <li class="item">
-                            <span>文件名:</span>
-                            <input type="text" value placeholder="模糊查询">
-                        </li>
-                        <li class="btn">
-                            <input class="layui-btn layui-btn-xs" type="button" value="搜索">
-                            <input class="layui-btn layui-btn-xs" type="button" value="重置">
-                        </li>
-                    </ul>
+                <div class="layui-card-header card-header">
+                    <span>已处理任务</span>
                 </div>
             </div>
         </div>
         <div class="layui-col-md12 layui-col-space8">
             <div class="layui-card">
-                <table class="layui-table"  lay-size="sm">
+                <table class="layui-table"  lay-size="sm" lay-skin="line">
                     <colgroup>
-                        <col width="12">
-                        <col width="48">
                         <col width="">
-                        <col width="200">
-                        <col width="200">
                         <col width="100">
+                        <col width="100">
+                        <col width="100">
+                        <col width="180">
                     </colgroup>
                     <thead>
-                    <tr>
-                        <th><input type="checkbox"></th>
-                        <th>序号</th>
-                        <th>文件名</th>
-                        <th>上传日期</th>
-                        <th>上传人</th>
-                        <th>操作</th>
+                    <tr style="background: white;">
+                        <th style="font-weight: 600">标题</th>
+                        <th style="font-weight: 600">指派人</th>
+                        <th style="font-weight: 600">当前处理人</th>
+                        <th style="font-weight: 600">状态</th>
+                        <th style="font-weight: 600">创建时间</th>
                     </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="task-list">
                     <tr>
-                        <td></td>
-                        <td></td>
-                        <td>xxx部门申请活动经费</td>
+                        <td><a>xxx部门申请活动经费</a></td>
                         <td>贤心</td>
+                        <td>AmazingJou</td>
+                        <td>待处理</td>
                         <td>2019年1月19日 12:10:12</td>
-                        <td>
-                            <input class="layui-btn layui-btn-xs" style="width: 68px" type="button" value="下载">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td>xxx部门申请活动经费</td>
-                        <td>许闲心</td>
-                        <td>2019年1月19日 12:09:42</td>
-                        <td>
-                            <input class="layui-btn layui-btn-xs" style="width: 68px" type="button" value="下载">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td>xxx部门申请活动经费</td>
-                        <td>许闲心</td>
-                        <td>2019年1月19日 12:09:42</td>
-                        <td>
-                            <input class="layui-btn layui-btn-xs" style="width: 68px" type="button" value="下载">
-                        </td>
                     </tr>
                     </tbody>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td>xxx部门申请活动经费</td>
-                        <td>许闲心</td>
-                        <td>2019年1月19日 12:09:42</td>
-                        <td>
-                            <input class="layui-btn layui-btn-xs" style="width: 68px" type="button" value="下载">
-                        </td>
-                    </tr>
                 </table>
+                <div class="pager pagination">
+                    <ul class="pages">
+                        <li class="page-item prev">
+                            <button class="nav-btn">上一页</button>
+                        </li>
+                        <li class="page-item active">
+                            <button class="pagination-btn num-btn">1</button>
+                        </li>
+                        <li class="page-item">
+                            <button class="pagination-btn num-btn">2</button>
+                        </li>
+                        <strong>...</strong>
+                        <li class="page-item last">
+                            <button class="pagination-btn num-btn">3</button>
+                        </li>
+                        <li class="page-item next">
+                            <button class="nav-btn">下一页</button>
+                        </li>
+                    </ul>
+                    <div class="jump-pager">
+                        <div class="page-total">
+                            <span class="pagination-btn count">共 4705 页/ 94100 个 ，</span>
+                        </div>
+                        <span>跳至</span>
+                        <input type="text" class="jump-pager-input no-spin">
+                        <span>页</span>
+                        <input type="button" value="跳转" class="jump-pager-button">
+                    </div>
+                </div>
+                <div class="clearfix"></div>
             </div>
         </div>
     </div>

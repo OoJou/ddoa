@@ -1,0 +1,202 @@
+* {
+    padding: 0;
+    margin: 0;
+    word-wrap: break-word;
+    outline: none;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+
+html {
+    width: 100%;
+    background: #fff;
+}
+
+body {
+    background: #eee;
+    min-width: 1200px;
+}
+
+body, input, textarea, select {
+    color: #333;
+    border: 0;
+
+}
+
+body.no-support-wpf {
+    color: #333;
+    font-family: SimSun;
+    border: 0
+}
+
+input, textarea, select, button {
+    border: 1px solid #666
+}
+
+body, ul, ol, li, dl, dt , dd, p, h1, h2, h3, h4, h5, h6, form, fieldset {
+    margin: auto;
+    padding: 0;
+}
+
+ul , ol , li {
+    list-style-image: none;
+    list-style-type: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: normal;
+}
+
+a {
+    color:#333332;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none
+}
+
+a img {
+    border: none;
+}
+
+input {
+    border: 0
+}
+table {
+    word-break: break-all;
+}
+
+input[type="submit"], input[type="reset"], input[type="button"],button,textarea {
+    -webkit-appearance: none;
+}
+img {
+    max-width: 100%;
+}
+
+/*
+   这个clearfix用于清楚浮动效果，十分常用
+*/
+.clearfix:after{
+    display: block;
+    content: "";
+    clear: both;
+}
+.none {
+    display: none;
+}
+
+.cut {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    word-wrap: normal;
+}
+
+.cut2 {
+    display: -webkit-box;
+    overflow: hidden;
+    white-space: normal!important;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.cut3 {
+    display: -webkit-box;
+    overflow: hidden;
+    white-space: normal!important;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
+.fl {
+    float: left;
+}
+
+.fr {
+    float: right;
+}
+
+.center {
+    text-align: center
+}
+
+.hidden {
+    overflow: hidden;
+}
+
+.commonMian-l {
+    width: 1200px;
+    border-right: 1px solid #eee;
+    min-height: 300px;
+    margin: 30px auto;
+    padding-right: 40px;
+}
+.noticeList {
+}
+
+.noticeList li .noticeList-box {
+    width: 800px;
+    margin-left: 15px;
+}
+.noticeList li {
+    overflow: hidden;
+    position: relative;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
+.noticeList li:before {
+    content: "";
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: #BC0B01;!important;
+    /*以下实现效果：li的分割线在鼠标移过去是，显示进度条形式变色*/
+    -webkit-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    transition: all .3s ease;
+}
+.noticeList li a img {
+    border-radius: 10px;
+}
+.noticeList li .noticeList-box h3 {
+    margin-top: 5px;
+}
+.noticeList li .noticeList-box p {
+    margin: 15px auto;
+    color: #999;
+    font-size: 14px;
+    line-height: 24px;
+    display: block;
+    height: 67px;
+    overflow: hidden;
+}
+.noticeList li .noticeList-box .time {
+    background: url(../../images/ActivityIcon.png) no-repeat;
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    position: relative;
+    top: 4px;
+    margin-right: 10px;
+}
+.noticeList li .noticeList-box h3 {
+    margin-top: 5px;
+}
+
+.noticeList li:hover:before {
+    width: 100%;
+}
+
+.noticeList li:hover a h3 {
+    color: #BC0B01;
+}

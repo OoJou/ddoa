@@ -10,12 +10,12 @@ $(function () {
     maxlength();//input长度限制
 });
 
+
 //由于$('.class').click在加载页面时候执行，不方便绑定。在此使用on代替
 $(document).on('click','#login',function () {
     //存上一次账号密码
     if ($('#login-username').val()!="" && $('#login-password').val()!=""){
         save_cookies();
-        alert("login3");
     }
     //异步提交
     $.ajax({
@@ -39,7 +39,14 @@ $(document).on('click','#login',function () {
         }
     })
 });
+
 //回车登录
+$(document).keydown(function(ev){
+    if(ev.keyCode==13){
+        $("#login").trigger("click");
+    }
+});
+
 
 //记住我。使用$.cookie("键","值",{expires:7}有效期7天)
 function save_cookies() {
@@ -77,8 +84,8 @@ function maxlength() {
             var subval=i.substring(0,10);
             $('#login-username').val(subval);
         }
-        if(j.length>=12){
-            var subval=j.substring(0,12);
+        if(j.length>=8){
+            var subval=j.substring(0,8);
             $('#login-password').val(subval);
         }
     })

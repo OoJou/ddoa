@@ -2,6 +2,7 @@ package com.OoJou.service;
 
 import com.OoJou.common.ServerResponse;
 import com.OoJou.pojo.User;
+import com.github.pagehelper.PageInfo;
 
 public interface IUserService {
 	//登录、注册、忘记密码
@@ -16,5 +17,17 @@ public interface IUserService {
 	ServerResponse<String> selectQuestion(String username);
 	ServerResponse<User> getInformation(Integer userId);
 	ServerResponse<User> updateInformation(User user);
-	ServerResponse checkAdminRole(User user);
+	ServerResponse<String> checkAdminRole(User user);
+	
+	//管理页面- 增删查改
+	ServerResponse<PageInfo> getAllUser(int pageNum,int pageSize,String sortType,User user);
+	ServerResponse<User> getUserDetails(int userId);
+	ServerResponse<User> createUser(User user);
+	ServerResponse<User> setRole(int roleId,int userId);
+	ServerResponse<String> checkRoleValid(int roleId);
+	ServerResponse<User> updateUser(User user);
+	ServerResponse<String> deleteUser(int userId);
+	ServerResponse<String> checkUpdateValid(String str, String type,int id);
+	//任务查询用
+	ServerResponse<PageInfo> getAllResponder(int pageNum,int pageSize);
 }

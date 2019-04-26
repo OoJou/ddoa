@@ -1,5 +1,7 @@
 package com.OoJou.dao;
 
+import java.util.List;
+
 import com.OoJou.pojo.Department;
 
 public interface DepartmentMapper {
@@ -14,4 +16,8 @@ public interface DepartmentMapper {
     int updateByPrimaryKeySelective(Department record);
 
     int updateByPrimaryKey(Department record);
+    
+    //新增方法
+    //管理页面-查全部
+    List<Department> selectAllDepartment();
 }

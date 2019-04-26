@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Title</title>
+    <script src="../../static/jquery-3.3.1/jquery-3.3.1.js"></script>
+    <script src="../../static/jquery-cookies-1.4.1/jquery.cookie.js"></script>
+    <link rel="stylesheet" href="../../static/layui/css/layui.css"/>
+    <link rel="stylesheet" href="../../static/css/show.css"/>
+    <link rel="stylesheet" href="../../static/css/details.css"/>
+    <script src="../../static/layui/layui.js"></script>
+    <script src="../../static/js/index-use.js"></script>
+    <script src="../../static/js/views-js/manage-task-request-details.js"></script>
+</head>
+<body class="layui-view-body">
+<div class="layui-content">
+    <div class="sign">
+        <div class="article">
+            <!--任务内容（表单形式）-->
+            <div class="layui-row layui-col-space3">
+                <div class="layui-col-md12">
+                    <div class="layui-card">
+                        <div class="layui-card-header">
+                            <div>
+                                <input id="back-btn" class="layui-btn layui-btn-normal layui-btn-sm" style="width: 68px" type="button" value="返回">
+                            </div>
+                            <span class="user_info_icon"></span>
+                            <span class="user_info_text">创建</span>
+                        </div>
+                        <div class="layui-card-body">
+                            <form>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">类型:</label>
+                                    <div>
+                                        <select id="task-type-select" style="width: 200px;padding: 2px 3px;">
+                                            <option value="请假">请假</option>
+                                       <!--      <option value="资金申请">资金申请</option> -->
+                                            <option value="活动申请">活动申请</option>
+                                            <option value="其他" selected="true">其他</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">标题:</label>
+                                    <div class="layui-input-block">
+                                        <input id="task-title" type="text" placeholder="请输入" class="layui-input">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item layui-form-text">
+                                    <label class="layui-form-label">详细内容:</label>
+                                    <div class="layui-input-block">
+                                        <textarea id="task-details" placeholder="请输入内容" class="layui-textarea"></textarea>
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">处理人:</label>
+                                    <div>
+                                        <select id="task-responder-select" style="width: 200px;padding: 2px 3px;">
+                                            <option value="010">北京</option>
+                                            <option value="021">上海</option>
+                                            <option value="0571">杭州</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">任务状态:</label>
+                                    <div>
+                                        <select id="task-status-select" style="width: 200px;padding: 2px 3px;">
+                                            <option value="20004" selected="true">待处理</option>
+                                            <option value="20003">处理中</option>
+                                            <option value="20002">已处理</option>
+                                            <option value="20001">已关闭</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="text clearfix alert">
+                                    <!--无作用，仅标志-->
+                                    <p class="tips"></p>
+                                </div>
+                                <div class="layui-form-item">
+                                    <div class="layui-input-block">
+                                        <button id="save" class="layui-btn layui-btn-normal">确认发布</button>
+                                        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

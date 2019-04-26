@@ -1,6 +1,7 @@
 package com.OoJou.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -132,8 +133,16 @@ public class HomeController {
     	ModelAndView mv = new ModelAndView("views/task_request");
     	return mv;
     }
-    
-    
+    @RequestMapping("/views/create_task")
+    public ModelAndView views_create_task() {
+    	ModelAndView mv = new ModelAndView("views/create_task");
+    	return mv;
+    }
+    @RequestMapping("/views/create_notice")
+    public ModelAndView views_create_notice() {
+    	ModelAndView mv = new ModelAndView("views/create_notice");
+    	return mv;
+    }
     @RequestMapping("/views/user_info")
     public ModelAndView views_user_info() {
     	ModelAndView mv = new ModelAndView("views/user_info");
@@ -145,4 +154,50 @@ public class HomeController {
     	ModelAndView mv = new ModelAndView("views/user_pass");
     	return mv;
     }
+    
+    @RequestMapping("/views/user_question")
+    public ModelAndView views_user_question() {
+    	ModelAndView mv = new ModelAndView("views/user_question");
+    	return mv;
+    }
+    
+    /**
+     * 详情页
+     */
+    @RequestMapping("/views/task_deal_details")
+    public ModelAndView views_task_deal_details() {
+    	ModelAndView mv = new ModelAndView("views/task_deal_details");
+    	return mv;
+    }
+    @RequestMapping("/views/task_complete_details")
+    public ModelAndView views_task_complete_details() {
+    	ModelAndView mv = new ModelAndView("views/task_complete_details");
+    	return mv;
+    }
+    @RequestMapping("/views/task_request_details")
+    public ModelAndView views_task_request_details() {
+    	ModelAndView mv = new ModelAndView("views/task_request_details");
+    	return mv;
+    }
+    @RequestMapping("/views/manage_task_details")
+    public ModelAndView views_manage_task_details() {
+    	ModelAndView mv = new ModelAndView("views/manage_task_details");
+    	return mv;
+    }
+    @RequestMapping("/views/manage_task_request_details")
+    public ModelAndView manage_task_request_details() {
+    	ModelAndView mv = new ModelAndView("views/manage_task_request_details");
+    	return mv;
+    }
+    @RequestMapping("/views/file_details")
+    public ModelAndView file_details() {
+    	ModelAndView mv = new ModelAndView("views/file_details");
+    	return mv;
+    }
+    @RequestMapping("/views/notice_details")
+    public ModelAndView notice_details() {
+    	ModelAndView mv = new ModelAndView("views/notice_details");
+    	return mv;
+    }
+    
 }

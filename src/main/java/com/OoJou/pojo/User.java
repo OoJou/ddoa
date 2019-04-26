@@ -31,6 +31,10 @@ public class User {
 
     private String userAnswer;
 
+    private String userDepartmentName;
+
+    private String userLeaderName;
+
     public Integer getUserId() {
         return userId;
     }
@@ -141,5 +145,21 @@ public class User {
 
     public void setUserAnswer(String userAnswer) {
         this.userAnswer = userAnswer == null ? null : userAnswer.trim();
+    }
+
+    public String getUserDepartmentName() {
+        return userDepartmentName;
+    }
+
+    public void setUserDepartmentName(String userDepartmentName) {
+        this.userDepartmentName = userDepartmentName == null ? null : userDepartmentName.trim();
+    }
+
+    public String getUserLeaderName() {
+        return userLeaderName;
+    }
+
+    public void setUserLeaderName(String userLeaderName) {
+        this.userLeaderName = userLeaderName == null ? null : userLeaderName.trim();
     }
 }

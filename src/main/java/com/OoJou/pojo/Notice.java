@@ -11,6 +11,8 @@ public class Notice {
 
     private String noticeDetails;
 
+    private String noticeImage;
+
     private Date createTime;
 
     private Date updateTime;
@@ -45,6 +47,14 @@ public class Notice {
 
     public void setNoticeDetails(String noticeDetails) {
         this.noticeDetails = noticeDetails == null ? null : noticeDetails.trim();
+    }
+
+    public String getNoticeImage() {
+        return noticeImage;
+    }
+
+    public void setNoticeImage(String noticeImage) {
+        this.noticeImage = noticeImage == null ? null : noticeImage.trim();
     }
 
     public Date getCreateTime() {

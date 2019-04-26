@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../../static/jquery-3.3.1/jquery-3.3.1.js"></script>
+    <script src="../../static/jquery-cookies-1.4.1/jquery.cookie.js"></script>
+    <link rel="stylesheet" href="../../static/layui/css/layui.css">
+    <link rel="stylesheet" href="../../static/css/show.css"/>
+    <link rel="stylesheet" href="../../static/css/details.css"/>
+    <script src="../../static/layui/layui.js"></script>
+    <script src="../../static/js/index-use.js"></script>
+    <script src="../../static/js/views-js/create-task.js"></script>
+</head>
+<body class="layui-view-body">
+<div class="layui-content" id="show">
+    <!--任务区-->
+    <div class="" style="width: 100%">
+        <div class="header color-white">
+            <button id="back-btn" class="layui-btn layui-btn-normal"><i class="layui-icon">&#xe603;</i>返回</button>
+        </div>
+        <div class="article">
+            <!--任务内容（表单形式）-->
+            <div class="layui-row layui-col-space3">
+                <div class="layui-col-md12">
+                    <div class="layui-card">
+                        <div class="layui-card-header">
+                            <span class="user_info_text">发布任务</span>
+                        </div>
+                        <div class="layui-card-body">
+                            <div class="detail-item">
+                                <label class="layui-form-label">类型:</label>
+                                <div>
+                                    <select id="task-type" style="width: 200px;padding: 2px 3px;">
+                                        <option value="11">请假</option>
+                                        <!-- <option value="22">资金申请</option> -->
+                                        <option value="33">活动申请</option>
+                                        <option value="44">其他</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="detail-item">
+                                <label class="layui-form-label">标题:</label>
+                                <div  class="layui-input-block ">
+                                    <input id="task-title" type="text" placeholder="请输入" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="detail-item">
+                                <label class="layui-form-label">详细内容:</label>
+                                <div class="layui-input-block">
+                                    <textarea id="task-body" placeholder="请输入内容"
+                                              class="layui-textarea"></textarea>
+                                </div>
+                            </div>
+                            <div class="detail-item">
+                                <label class="layui-form-label">处理人:</label>
+                                <div class="layui-input-inline">
+                                    <select id="task-responder-select" name="responder" style="width: 200px;padding: 2px 3px;">
+                                        <option value="1">北京</option>
+                                        <option value="2">上海</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="detail-item" style="height: 30px">
+                            </div>
+                            <div class="detail-item">
+                                <div class="layui-input-block">
+                                    <button id="task-save-btn" class="layui-btn layui-btn-normal">立即发布
+                                    </button>
+                                    <button id="task-reset-btn" style="margin-left: 30px" type="reset" class="layui-btn layui-btn-primary">重置
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

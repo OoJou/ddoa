@@ -1,18 +1,45 @@
 /*
   使用Layui的各类模块，统一放在这里进行预加载
 */
-layui.use(['element','form','layedit','laydate','table'], function(){
+layui.use(['element','form','layedit','laydate','table','layer'], function(){
     var element = layui.element
-        ,form = layer.form
-        ,layedit = layer.layedit
-        ,laydate = layer.laydate
-        ,table = layer.table;
+        ,form = layui.form
+        ,layedit = layui.layedit
+        ,laydate = layui.laydate
+        ,table = layui.table
+        ,layer = layui.layer;
 
+    //触发事件
+    var active = {
+        offset: function(othis){
+            var type = othis.data('type')
+                ,text = othis.text();
+
+            layer.open({
+                type: 1
+                ,title:'<div style="text-align: center">'+ text +'</div>'
+                ,offset: type //具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
+                ,id: 'show-notice'+type //防止重复弹出
+                ,content:'<div style="padding: 200px 1000px;">'+ text +'</div>'
+                ,btn: '关闭全部'
+                ,btnAlign: 'c' //按钮居中
+                ,shade: 0 //不显示遮罩
+                ,yes: function(){
+                    layer.closeAll();
+                }
+            });
+        }
+
+}
+
+    $('#show-notice li a').on('click', function(){
+        var othis = $(this), method = othis.data('method');
+        active[method] ? active[method].call(this, othis) : '';
+    });
     // form.on('submit(formDemo)', function(data){
     //     layer.msg(JSON.stringify(data.field));
     //     return false;
     // });
-
 });
 
 /**

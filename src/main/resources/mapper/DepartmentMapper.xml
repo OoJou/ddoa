@@ -115,4 +115,11 @@
       update_time = now()
     where department_id = #{departmentId,jdbcType=INTEGER}
   </update>
+  
+  <!-- 以下新增 -->
+    <select id="selectAllDepartment" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ddoa_department
+  </select>
 </mapper>

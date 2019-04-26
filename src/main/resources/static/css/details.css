@@ -1,0 +1,133 @@
+* {
+    padding: 0;
+    margin: 0;
+    font-family: PingFangSC-Medium;
+    -webkit-tap-highlight-color: rgba(255,255,255,0);
+    tap-highlight-color: hsla(0,0%,100%,0);
+}
+a{
+    text-decoration: none;
+    color: #00a1d6;
+}
+
+div{
+    display: block;
+}
+li{
+    display: list-item;
+    text-align: -webkit-match-parent;
+}
+ol,li{
+    list-style: none;
+}
+
+
+.color-coral{
+    background-color: lightcoral;
+}
+.color-blue{
+    background-color: lightblue;
+}
+.color-salmon{
+    background-color: lightsalmon;
+}
+.color-green{
+    background-color: lightgreen;
+}
+.color-white{
+    background-color: white;
+}
+.text{
+    margin: 18px 0;
+    font-size: 20px;
+    height: 20px;
+    line-height: 20px;
+}
+.sign {
+    width: 80%;
+    height: 1000px;
+    float: left;
+}
+.header{
+    height: 50px;
+}
+.article{
+    height: 100%;
+}
+.nav{
+    height:400px;
+    width: 15%;
+    float: right;
+    position: fixed;
+    right: 15px;
+    bottom: 15px;
+    z-index:999999;
+}
+
+.answer-info{
+    position:relative;
+    height:28px;
+    line-height:28px;
+    padding:0 8px;
+    border-top:1px solid #f6f6f6;
+    border-radius:2px 2px 0 0;
+    font-size:12px;
+    text-align: right;
+    color: #777777;
+}
+.answer-background{
+    background-color: #f1f1f1;;
+}
+.answer-btn{
+    float: right;
+    background-color: #1E9FFF;
+    display: inline-block;
+    height: 28px;
+    line-height: 28px;
+    margin: 0px 15px;
+    padding: 0 15px;
+    color: #fff;
+    white-space: nowrap;
+    text-align: center;
+    font-size: 14px;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    opacity:.95;
+}
+.answer-btn:hover{
+    opacity:.85;
+}
+.answer-btn:active{
+    opacity:.95;
+}
+.detail-item{
+    margin-bottom:30px
+}
+
+/*.list-content{*/
+    /*width: 100%;*/
+    /*height: 100%;*/
+    /*clear: both;*/
+/*}*/
+/*.list-colum{*/
+    /*height: 30px;*/
+    /*line-height: 30px;*/
+    /*padding: 5px 35px;*/
+/*}*/
+/*.list-colum input,select {*/
+    /*padding: 2px 5px;*/
+    /*border: 1px solid #ddd;*/
+/*}*/
+/*.right-line{*/
+    /*display: block;*/
+    /*margin-left: 110px;*/
+    /*padding: 0 3px;*/
+/*}*/
+/*.list-lable{*/
+    /*float: left;*/
+    /*display: block;*/
+    /*width: 80px;*/
+    /*padding: 0px 15px;*/
+    /*text-align: right;*/
+/*}*/
