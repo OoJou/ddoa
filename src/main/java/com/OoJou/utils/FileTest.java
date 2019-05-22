@@ -21,4 +21,4 @@ public class FileTest {
         File f = new File("H:/ddoa/img/arr_left1.png");
         FileCopyUtils.copy(f, new File(path+"/1.jpg"));
     }
-}
+	}
